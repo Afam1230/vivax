@@ -75,7 +75,7 @@ const HomePage = () => {
 
     setLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/track/${trackingCode}`);
+      const response = await fetch(`http://jagannath-logistics.onrender.com/track/${trackingCode}`);
       const data = await response.json();
 
       if (!response.ok) {
