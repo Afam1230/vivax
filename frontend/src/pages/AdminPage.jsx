@@ -35,7 +35,12 @@ const AdminDashboard = () => {
             setLoading(true);
             const response = await axios.get("http://localhost:5000/admin/packages");
             console.log("API Response:", response.data);  // Debugging line
-            setPackages(response.data);
+            if (Array.isArray(response.data)) {
+                setPackages(response.data);
+            } else {
+                console.error("Expected an array but got:", response.data);
+                setPackages([]); // Prevent crash
+            }
         } catch (error) {
             toast({
                 title: "Error fetching packages",
