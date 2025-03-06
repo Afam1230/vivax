@@ -16,6 +16,7 @@ const LogisticsApp = () => {
     const [trackingCode, setTrackingCode] = useState(null);
     const [loading, setLoading] = useState(false);
     const toast = useToast();
+    const API_URL = process.env.REACT_APP_API_URL;
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -47,7 +48,7 @@ const LogisticsApp = () => {
         });
 
         try {
-            const response = await axios.post("https://jagannath-logistics.onrender.com/submit-package", formDataToSend, {
+            const response = await axios.post(`${API_URL}/submit-package`, formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             setTrackingCode(response.data.trackingCode);
