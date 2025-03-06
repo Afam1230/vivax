@@ -33,7 +33,7 @@ const AdminDashboard = () => {
     const fetchPackages = async () => {
         try {
             setLoading(true);
-            const response = await axios.get("http://jagannath-logistics.onrender.com/admin/packages");
+            const response = await axios.get("https://jagannath-logistics.onrender.com/admin/packages");
             console.log("API Response:", response.data);  // Debugging line
             if (Array.isArray(response.data)) {
                 setPackages(response.data);
@@ -57,7 +57,7 @@ const AdminDashboard = () => {
     const handleAccept = async (trackingCode, event) => {
         event.stopPropagation();
         try {
-            await axios.post("http://jagannath-logistics.onrender.com/admin/accept", { trackingCode });
+            await axios.post("https://jagannath-logistics.onrender.com/admin/accept", { trackingCode });
             toast({ title: "Package Accepted", status: "success", duration: 5000, isClosable: true });
             fetchPackages();
         } catch (error) {
@@ -68,7 +68,7 @@ const AdminDashboard = () => {
     const handleReject = async (trackingCode, event) => {
         event.stopPropagation();
         try {
-            await axios.post("http://jagannath-logistics.onrender.com/admin/reject", { trackingCode });
+            await axios.post("https://jagannath-logistics.onrender.com/admin/reject", { trackingCode });
             toast({ title: "Package Rejected", status: "warning", duration: 5000, isClosable: true });
             fetchPackages();
         } catch (error) {
@@ -82,7 +82,7 @@ const AdminDashboard = () => {
 
         if (newStatus !== "Custom Status") {
             try {
-                await axios.post("http://jagannath-logistics.onrender.com/admin/update-status", { trackingCode, status: newStatus });
+                await axios.post("https://jagannath-logistics.onrender.com/admin/update-status", { trackingCode, status: newStatus });
                 toast({ title: "Status Updated", status: "success", duration: 5000, isClosable: true });
                 fetchPackages();
             } catch (error) {
@@ -101,7 +101,7 @@ const AdminDashboard = () => {
         }
 
         try {
-            await axios.post("http://jagannath-logistics.onrender.com/admin/update-status", { trackingCode, status });
+            await axios.post("https://jagannath-logistics.onrender.com/admin/update-status", { trackingCode, status });
             toast({ title: "Custom Status Updated", status: "success", duration: 5000, isClosable: true });
             fetchPackages();
         } catch (error) {
