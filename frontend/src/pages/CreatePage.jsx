@@ -47,7 +47,7 @@ const LogisticsApp = () => {
         });
 
         try {
-            const response = await axios.post("http://localhost:5000/submit-package", formDataToSend, {
+            const response = await axios.post("https://jagannath-logistics.onrender.com/submit-package", formDataToSend, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
             setTrackingCode(response.data.trackingCode);
