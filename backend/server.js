@@ -310,4 +310,4 @@ const AccountRequestSchema = new mongoose.Schema({
 
 
 // Start Server
-app.listen(port, () => console.log(`Server running on  localhost:${PORT}`));
+app.listen(port, () => console.log(`Server running on  localhost:${port}`));
