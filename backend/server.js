@@ -12,7 +12,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require('./sendEmail');
 const port = process.env.PORT || 5000;
 
-//always put api const first and then api routes before rendering static files.
+//always put const first and then api routes before rendering static files.
 
 
 
@@ -223,7 +223,6 @@ app.post("/admin/reject", async (req, res) => {
             { new: true }
         );
 
-        await Package.findOneAndDelete(trackingCode)
         if (!pkg) return res.status(404).json({ message: "Package not found" });
 
         // Send rejection email
