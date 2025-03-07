@@ -114,10 +114,10 @@ const HomePage = () => {
       <Box position="relative" h={{ base: "55vh", md: "70vh" }} bg="black">
         <Image src={hero} alt="Hero Background" objectFit="cover" w="full" h="full" opacity={0.7} />
         <VStack position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)" spacing={4} color="white">
-          <Heading textAlign="center" fontSize={{ base: "2xl", md: "4xl" }}>
+          <Heading textAlign="center" fontSize={{ base: "2xl", md: "xxx-large" }}>
             See how truly integrated logistics delivers
           </Heading>
-          <Text textAlign="center" maxW="lg" fontSize={'lg'} fontStyle={'bold'}>
+          <Text textAlign="center" maxW="lg" minW={'300px'} fontSize={{base:'base', lg:'xx-large', md:'xx-large'}} fontStyle={'bold'}>
           We are a dedicated logistics provider committed to delivering exceptional shipping and warehousing solutions, ensuring your goods reach their destination safely and efficiently.</Text>
           <Link to={'/create'}>
           <Button colorScheme="blue">Book Now!!</Button>

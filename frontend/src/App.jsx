@@ -35,7 +35,7 @@ function App() {
 				<Route path='/contact' element={<ContactPage />} />
 		
 				</Routes>
-      		<Footer />ss
+      		<Footer /> codded by jay
 			
 		</Box>
 	);

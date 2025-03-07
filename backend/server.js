@@ -12,6 +12,9 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const sendEmail = require('./sendEmail');
 const port = process.env.PORT || 5000;
 
+//always put api const first and then api routes before rendering static files.
+
+
 
 
 // Load environment variables
@@ -69,15 +72,7 @@ const adminAuth = (req, res, next) => {
     }
 };
 
-//static files render
-app.use(express.static(__dirname))
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "../frontend/dist")));
-	app.get("*", (req, res) => {
-		res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-	});
-}
 
 const uri = "mongodb+srv://jagannathonwuegbuzie:BUBBLECARSPSC2105517@cluster0.zp0yb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
@@ -270,6 +265,7 @@ app.post('/update-location', async (req, res) => {
 });
 
 
+
 // Schema & Model
 const AccountRequestSchema = new mongoose.Schema({
     name: String,
@@ -308,6 +304,15 @@ const AccountRequestSchema = new mongoose.Schema({
     }
   });
   
+
+  //static files render
+app.use(express.static(__dirname))
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static(path.join(__dirname, "../frontend/dist")));
+	app.get("*", (req, res) => {
+		res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+	}); // using app.get('*') would render all links as pages and using "/" can only render the homepage
+}
 
 
 // Start Server
