@@ -1,83 +1,89 @@
-import React from 'react';
-import { Box, Flex, Grid, Heading, Text, Image, Icon, Button, VStack, } from '@chakra-ui/react';
-import { FaTruck, FaWarehouse, FaShippingFast, FaBoxOpen } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import hero from '../assets/banner.jpg'
+import { Box, Button, Flex, Heading, Image, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import hero from "../images/hero.jpg"
+import AdsComponent from "../components/AdsComponent";
+
+const MotionBox = motion(Box);
 
 const ServicePage = () => {
-  
   return (
-    <Box p={8}>
-      <Heading as="h1" size="2xl" textAlign="center" mb={10} color={'teal'}>
-        Our Logistics Services
-      </Heading>
-            <Box position="relative" h={{ base: "40vh", md: "70vh" }} bg="black">
-              <Image src={hero} alt="Hero Background" objectFit="cover" w="full" h="full" opacity={0.7} />
-              <VStack position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)" spacing={4} color="white">
-                <Heading textAlign="center" fontSize={{ base: "2xl", md: "4xl" }}>
-                  See how truly integrated logistics delivers
-                </Heading>
-                <Text textAlign="center" maxW="lg">
-                  With truly integrated logistics, there’s always a new way to keep your goods moving and your business growing.
-                </Text>
-                <Button colorScheme="blue">Get started</Button>
-              </VStack>
-            </Box>
+    <Box marginTop={70}>
+      <Image
+        src={hero}
+        alt="Astrologer"
+        borderRadius="lg"
+        mt={{ base: 5, md: 0 }}
+        width={"full"}
+      />
+      <Box position={'relative'} bg="#D97706" color="white" minH="100vh" p={5} marginTop={{ base: '9' }}>
+        {/* Hero Section */}
+        <Flex direction={{ base: "column", md: "row" }} align="center" justify="space-between" py={10}>
+          <VStack align="start" spacing={5} maxW={{ base: "100%", md: "50%" }}>
+            <Heading fontSize={{ base: "3xl", md: "7xl" }} fontFamily={'DM Serif Text'}>Experience the Power of Astrology</Heading>
+            <Text fontSize={{ base: "md", md: "xx-large" }} fontFamily={'DM Serif Text'} fontWeight={400}>
+              Unlock the secrets of your past, present, and future with our expert astrologer. Get detailed insights into your life’s journey.
+            </Text>
+            <Button bg="#78350F" color="white" size={{base:'lg', md:'lg'}} _hover={{ bg: "#5a230a" }}>Book a Consultation</Button>
+          </VStack>
+        </Flex>
 
-      <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', lg: 'repeat(4, 1fr)' }} gap={8}>
-        <ServiceCard
-          icon={FaTruck}
-          title="Transportation"
-          description="Efficient and reliable transportation services tailored to your needs."
-        />
-        <ServiceCard
-          icon={FaWarehouse}
-          title="Warehousing"
-          description="Secure and spacious warehousing solutions for all types of goods."
-        />
-        <ServiceCard
-          icon={FaShippingFast}
-          title="Fast Delivery"
-          description="Quick and timely delivery services to keep your business moving."
-        />
-        <ServiceCard
-          icon={FaBoxOpen}
-          title="Packaging"
-          description="Professional packaging services to ensure the safety of your goods."
-        />
-      </Grid>
-
-      {/* Request an Account Button */}
-      <Flex justify="center" mt={10}>
-        <Link to="/request-account">
-          <Button colorScheme="teal" size="lg">
-            Request an Account
-          </Button>
-        </Link>
-      </Flex>
+        {/* Services Section */}
+        <Heading textAlign="center" my={10} fontSize={{ base: "2xl", md: "7xl" }} fontFamily={'DM Serif Text'}>Our Services</Heading>
+        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10}>
+          {services.map((service, index) => (
+            <MotionBox
+              key={index}
+              bg="white"
+              color="#78350F"
+              p={5}
+              borderRadius="lg"
+              boxShadow="lg"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Image src={service.image} alt={service.title} borderRadius="md" mb={4} />
+              <Heading fontSize={{base:'md', md:'xx-large',}} mb={2}>{service.title}</Heading>
+              <Text fontSize={{base:'md', md:'xx-large',}}>{service.description}</Text>
+            </MotionBox>
+          ))}
+        </SimpleGrid>
+      </Box>
+      <AdsComponent/>
     </Box>
+
   );
 };
 
-const ServiceCard = ({ icon, title, description, imageUrl }) => {
-  return (
-    <Box
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
-      boxShadow="lg"
-      textAlign="center"
-      p={6}
-      transition="all 0.3s"
-      _hover={{ transform: 'scale(1.05)', boxShadow: 'xl' }}
-    >
-      <Icon as={icon} w={12} h={12} color="teal.500" mb={4} />
-      <Heading as="h2" size="lg" mb={4}>
-        {title}
-      </Heading>
-      <Text mb={4}>{description}</Text>
-    </Box>
-  );
-};
+const services = [
+  {
+    title: "Personal Compatibility Reading",
+    description: "Gain insights into your relationships and understand your cosmic connections.",
+    image: "/compatibility.jpg",
+  },
+  {
+    title: "2025 Personal Forecast",
+    description: "Discover what the stars have in store for you in the upcoming year.",
+    image: "/forecast.jpg",
+  },
+  {
+    title: "Past Life Reading",
+    description: "Explore your past lives and their influence on your current journey.",
+    image: "/pastlife.jpg",
+  },
+  {
+    title: "Chinese Astrology Reading",
+    description: "Unlock the wisdom of Chinese astrology and understand your destiny.",
+    image: "/chinese.jpg",
+  },
+  {
+    title: "3-Month Forecast",
+    description: "Get a detailed three-month astrological prediction tailored to you.",
+    image: "/3months.jpg",
+  },
+  {
+    title: "Puja and Homa",
+    description: "Experience divine blessings through sacred rituals and ceremonies.",
+    image: "/puja.jpg",
+  }
+];
 
 export default ServicePage;

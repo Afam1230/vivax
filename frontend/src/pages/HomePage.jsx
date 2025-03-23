@@ -1,5 +1,5 @@
-import { useState } from "react";
-import React from "react"
+import { useState, useEffect } from "react";
+import React from "react";
 import {
   Box,
   Button,
@@ -9,7 +9,8 @@ import {
   Input,
   Stack,
   Text,
-  VStack, SimpleGrid,
+  VStack,
+  SimpleGrid,
   HStack,
   Tabs,
   TabList,
@@ -18,297 +19,360 @@ import {
   TabPanel,
   Progress,
   useToast,
-  Divider
+  Divider,
+  Flex,
 } from "@chakra-ui/react";
-import { FaTruck, FaWarehouse, FaDigitalTachograph, FaMapMarkerAlt, FaUsers, FaHandshake, FaShippingFast, FaClipboardList } from "react-icons/fa";
-import hero from '../assets/banner.jpg';
+import { FaSun, FaMoon, FaMercury, FaVenus, FaStar, FaInfinity, FaHandSparkles } from "react-icons/fa";
+import { ArrowForwardIcon, DeleteIcon, EditIcon, InfoIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
-import shipping from '../assets/shipping.png'
-import tracking from '../assets/tracking.png'
-import teamwork from '../assets/teamwork.jpeg'
-import warehousing from '../assets/warehousing.jpg'
-import ContactUsCard from "../components/ContactUsCard";
-
-
-
-  const cards = [
-    {
-      image: teamwork, 
-      title: "Our Dedicated Logistics Team",
-      description: "Meet our highly skilled and dedicated logistics team, working tirelessly to ensure seamless supply chain operations.",
-    },
-    {
-      image: shipping,
-      title: "Global Shipping in Action",
-      description: "Our fleet moves goods across the world with efficiency and precision keeping your goods safe.",
-    },
-    {
-      image: warehousing, 
-      title: "Advanced Warehousing",
-      description: "State-of-the-art storage facilities designed for safety and accessibility.",
-    },
-    {
-      image: tracking, 
-      title: "Real-Time Shipment Tracking",
-      description: "Stay updated on your shipment's location with our advanced tracking system.",
-    },
-  ];
+import ProductCard from "../components/UserProductCard";
+import { useProductStore } from "../store/product"; // Import Zustand store
+import img9 from "../images/img9.png"
+import img8 from "../images/img8.png"
+import lotus1 from "../images/lotus1.png"
+import hero1 from "../images/hero1.jpg"
 
 
 const HomePage = () => {
-  const [trackingCode, setTrackingCode] = useState("");
-  const [packageData, setPackageData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const toast = useToast();
+  const { products, fetchProducts } = useProductStore(); // Get products & fetch function
 
-  const fetchTrackingInfo = async () => {
-    if (!trackingCode.trim()) {
-      toast({
-        title: "Error",
-        description: "Please enter a tracking code.",
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      return;
-    }
+  useEffect(() => {
+    fetchProducts(); // Fetch products when the page loads
+  }, []);
 
-    setLoading(true);
-    try {
-      const response = await fetch(`https://jagannath-logistics.onrender.com/track/${trackingCode}`);
-      const data = await response.json();
+  const InfoCard = [
+    {
+      title: "Personal compatibility reading",
+      info: "Gain deep insights into your relationships with a personalized compatibility reading, revealing strengths, challenges, and cosmic alignment.",
+      image: "https://astromary.com/assets/medias/pictures/reading-card-1.jpg",
+    },
+    {
+      title: "Personal 2025 reading",
+      info: "Discover what 2025 holds for you with a personalized reading, covering key opportunities, challenges, and cosmic influences.",
+      image: "https://astromary.com/assets/medias/pictures/reading-card-2.jpg",
+    },
+    {
+      title: "Your character reading",
+      info: "Uncover your true nature, strengths, and hidden traits with a personalized character reading.",
+      image: "https://astromary.com/assets/medias/pictures/reading-card-3.jpg",
+    },
+    {
+      title: "Past life reading",
+      info: "Explore your past lives to uncover karmic patterns, lessons, and their influence on your present journey.",
+      image: "https://astromary.com/assets/medias/pictures/reading-card-4.jpg",
+    },
+    {
+      title: "Personal chinese reading",
+      info: "Unlock insights from your Chinese astrology chart, revealing personality traits, life path, and future opportunities.",
+      image: "https://astromary.com/assets/medias/pictures/reading-card-5.jpg",
+    },
+    {
+      title: "3 Months Forecst",
+      info: "Get a detailed three-month forecast revealing upcoming opportunities, challenges, and key cosmic influences.",
+      image: "https://astromary.com/assets/medias/pictures/reading-card-6.jpg",
+    },
+    {
+      title: "Puja and Homa",
+      info: "Experience divine blessings through sacred Puja and Homa rituals, designed to attract positive energy and remove obstacles.",
+      image: "https://www.tirthpurohit.org/wp-content/uploads/2017/11/img3.jpg",
+    },
+    {
+      title: "",
+      info: ".",
+      image: "",
+    },
 
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to track package.");
-      }
+  ];
 
-      setPackageData(data);
-    } catch (error) {
-      toast({
-        title: "Tracking Error",
-        description: error.message,
-        status: "error",
-        duration: 3000,
-        isClosable: true,
-      });
-      setPackageData(null);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Mapping status to progress percentage
-  const statusProgress = {
-    "Order Placed": 10,
-    "Package in transit to sorting hub": 30,
-    "Package in sorting hub": 30,
-    "Processing": 30,
-    "Shipped": 50,
-    "Out for Delivery": 80,
-    "Delivered": 100,
-  };
+  const article = [
+    {
+      title: "Understanding Your Birth Chart",
+      info: "Discover the secrets hidden in your celestial blueprint...",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQytmsf7wcdRRYHPtp_bFgdFcE1aXk01OSAhA&s",
+    },
+    {
+      title: "Meditation Techniques",
+      info: "Ancient practices for modern peace and clarity...",
+      image: "https://zenlounge.in/wp-content/uploads/2020/12/different-meditations-1024x1024.jpg",
+    },
+    {
+      title: "Energy Healing Guide",
+      info: "Harness the power of natural healing energies...",
+      image: "https://as1.ftcdn.net/jpg/05/94/10/94/1000_F_594109456_rMplh2SiTZVc5Rbv7nYNOpdaUd6b2i7N.jpg",
+    },
+    {
+      title: "The Cosmic Blueprint:",
+      info: "Understand past karmas, life lessons, and future possibilities, while following a dharmic path to spiritual and material fulfillment.",
+      image: "https://t4.ftcdn.net/jpg/05/38/15/65/360_F_538156588_zpaA3zlEXTbN0aNHfbnoby2KB24iRnA2.jpg",
+    },
+    {
+      title: "",
+      info: ".",
+      image: "",
+    },
+  ]
 
   return (
-    <Box>
-      {/* Hero Section */}
-      <Box position="relative" h={{ base: "55vh", md: "70vh" }} bg="black">
-        <Image src={hero} alt="Hero Background" objectFit="cover" w="full" h="full" opacity={0.7} />
-        <VStack position="absolute" top="50%" left="50%" transform="translate(-50%, -50%)" spacing={4} color="white">
-          <Heading textAlign="center" fontSize={{ base: "2xl", md: "xxx-large" }}>
-            See how truly integrated logistics delivers
-          </Heading>
-          <Text textAlign="center" maxW="lg" minW={'300px'} fontSize={{base:'base', lg:'xx-large', md:'xx-large'}} fontStyle={'bold'}>
-          We are a dedicated logistics provider committed to delivering exceptional shipping and warehousing solutions, ensuring your goods reach their destination safely and efficiently.</Text>
-          <Link to={'/create'}>
-          <Button colorScheme="blue">Book Now!!</Button>
-          </Link>
+    <Box bgColor={"#F8F9FA"}>
+      <Box mt={19}>
+        <Box
+          as="section"
+          position="relative"
+          // bgGradient="linear(to-r, #FFFBEB, white)"
+          bg={'#FFFBEB'}
+          py={{ base: 10, md: 20, lg: 24 }}
+          px={{ base: 6, md: 10, lg: 16 }}
+          display="flex"
+          justifyContent="center"
+        >
+          <Stack
+            direction={{ base: "column-reverse", lg: "row" }}
+            alignItems="center"
+            spacing={{ base: 8, lg: 16 }}
+            maxW="1200px"
+            w="full"
+          >
+            {/* Text Section */}
+            <Box flex={1} textAlign={{ base: "center", lg: "left" }}>
+              <Heading
+                fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
+                color="orange.900"
+                fontFamily="DM Serif Text"
+              >
+                Discover Your Cosmic Path
+              </Heading>
+              <Text
+                fontSize={{ base: "sm", md: "lg" }}
+                color="orange.700"
+                mt={4}
+              >
+                Expert Vedic Astrology & Life Coaching to Guide Your Journey
+              </Text>
+              <Stack
+                direction={{ base: "column", md: "row" }}
+                spacing={4}
+                mt={6}
+                justify={{ base: "center", lg: "flex-start" }}
+              >
+                <Button bg="orange.600" color="white" _hover={{ bg: "orange.700" }}>
+                  Book Consultation
+                </Button>
+                <Button
+                  variant="outline"
+                  borderColor="orange.600"
+                  color="orange.600"
+                  _hover={{ bg: "orange.600", color: "white" }}
+                >
+                  Learn More
+                </Button>
+              </Stack>
+            </Box>
+
+            {/* Image Section */}
+            <Box flex={1} display="flex" justifyContent="center">
+              <Box
+                w={{ base: "80%", md: "60%", lg: "500px" }}
+                aspectRatio={1} // Ensures circular aspect ratio
+                borderRadius="full"
+                overflow="hidden"
+                shadow="xl"
+              >
+                <Image
+                  src={hero1} // Change to actual image path
+                  alt="Astrologer"
+                  objectFit="cover"
+                  w="full"
+                  h="full"
+                  objectPosition={'100% 0vh'}
+                />
+              </Box>
+            </Box>
+          </Stack>
+        </Box>
+
+
+
+        <Box bg="#FFF9F0" color="#8B5E3C" p={{ base: 4, lg: 10 }}>
+      {/* First Section */}
+      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
+        <VStack align="start" spacing={4}>
+          <Heading fontSize={{ base: "2xl", lg: "4xl" }}>The Cosmic Path: A Journey Through Astrology</Heading>
+          <Text fontSize={{ base: "md", lg: "lg" }}>
+            Astrology is an ancient practice that connects celestial movements with human experiences. By understanding planetary influences, we gain insights into our personalities, relationships, and life paths.
+          </Text>
+        </VStack>
+        <VStack align="start" spacing={4}>
+          <Heading fontSize={{ base: "md", lg: "lg" }} fontWeight="medium">OUR VISION</Heading>
+          <Text fontSize={{ base: "md", lg: "lg" }}>
+            Our mission is to guide individuals on a transformative journey of self-discovery through astrology, helping them align with the cosmic flow and live with purpose.
+          </Text>
+        </VStack>
+      </SimpleGrid>
+      
+      {/* Second Section */}
+      <Box mt={20}>
+        <VStack align="start" spacing={6}>
+          <Heading fontSize={{ base: "2xl", lg: "4xl" }}>Life Coaching: Empowering Your True Potential</Heading>
+          <Text fontSize={{ base: "md", lg: "lg" }}>
+            Personal growth is a journey, and life coaching provides the tools and guidance needed to unlock your fullest potential. By setting clear goals and aligning actions with values, you can achieve meaningful transformation.
+          </Text>
         </VStack>
       </Box>
-
-      {/* Tracking Section */}
-      <Container maxW="container.lg" py={8}>
-        <Tabs variant="soft-rounded" size={'lg'} colorScheme="blue">
-          <TabList>
-            <Tab>Tracking</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <HStack spacing={4} p={4} borderWidth={1} borderRadius="md" boxShadow="md">
-                <FaMapMarkerAlt />
-                <Input
-                  placeholder="B/L, container number or parcel"
-                  value={trackingCode}
-                  onChange={(e) => setTrackingCode(e.target.value)}
-                  borderColor="blue.400"
-                />
-                <Button colorScheme="blue" onClick={fetchTrackingInfo} isLoading={loading}>
-                  Track
-                </Button>
-              </HStack>
-
-              {packageData && (
-                <Box mt={5} textAlign="center" p={4} borderWidth={1} borderRadius="md" boxShadow="md">
-                  <Text fontSize="lg" fontWeight="bold">Status: {packageData.status}</Text>
-                  <Progress value={statusProgress[packageData.status] || 0} size="lg" colorScheme="blue" borderRadius="lg" />
-                </Box>
-              )}
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Container>
-
-      {/* Network of the Future */}
-      <Container maxW={{base:"container.lg", lg:"2040px"}} py={{ base: 8, md: 12, lg: 16 }} shadow={'lg'} borderWidth={'10px'}>
-        <Heading fontSize={{ base: "2xl", md: "3xl", lg: "8xl" }} paddingBottom={{base:'10px', md:'15px', lg:'30px'}}>
-          The Network of the Future
-        </Heading>
-        <Text fontSize={{ base: "md", md: "lg", lg: "3xl" }} py={4}>
-        Learn more about the Network of the Future—an innovative, next-generation logistics network designed for efficiency, speed, and sustainability. Powered by leaner loops with fewer port calls per service, it optimizes shipping routes to reduce transit times and operational costs. Our extensive shuttle network ensures seamless connectivity between key logistics hubs, while industry-leading smart hubs leverage AI and automation to streamline cargo handling, minimize delays, and enhance tracking accuracy. With real-time visibility, predictive analytics, and a commitment to eco-friendly operations, we are redefining global logistics for the modern era.
-        </Text>
-        <Link to={'/request-account'}>
-        <Button colorScheme="blue" size={{ base: "md", md: "lg", lg: "lg" }}>Request Account</Button>
-        </Link>
-      </Container>
-
-      {/* Logistics Solutions */}
-      <Container 
-      maxW={{ base: "container.lg", lg: "100%" }} 
-      py={{ base: 8, md: 12, lg: 16 }} 
-      textAlign="center"
-    >
-      <Heading fontSize={{ base: "3xl", md: "3xl", lg: "4xl" }} pb={{ base: "10px", md: "20px" }}>
-        Logistics Solutions
-      </Heading>
-
-      <Stack 
-        direction={{ base: "column", md: "row" }} 
-        spacing={{ base: 10, md: 16, lg: 14 }} 
-        py={4} 
-        justify="center"
-        align="center"
-        flexWrap="wrap"
-      >
-        {/* Transportation Services */}
-        <VStack 
-          p={{ base: 6, md: 8, lg: 16 }} 
-          borderWidth={2} 
-          borderRadius="lg" 
-          w={{ base: "80%", md: "45%", lg: "30%" }}
-        >
-          <FaTruck size={100} />
-          <Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>Transportation Services</Heading>
-          <Text textAlign="center" fontSize={{ base: "md", md: "lg", lg: "xl" }}>
-            Efficient, reliable, and secure transportation for businesses of all sizes. Get your packages delivered on time.
-          </Text>
-        </VStack>
-
-        {/* Supply Chain and Logistics */}
-        <VStack 
-          p={{ base: 6, md: 8, lg: 16 }} 
-          borderWidth={2} 
-          borderRadius="lg" 
-          w={{ base: "80%", md: "45%", lg: "30%" }}
-        >
-          <FaWarehouse size={100} />
-          <Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>Supply Chain & Logistics</Heading>
-          <Text textAlign="center" fontSize={{ base: "md", md: "lg", lg: "xl" }}>
-            We optimize and manage your supply chain, ensuring seamless movement of goods from start to finish.
-          </Text>
-        </VStack>
-
-        {/* Digital Solutions */}
-        <VStack 
-          p={{ base: 6, md: 8, lg: 16 }} 
-          borderWidth={2} 
-          borderRadius="lg" 
-          w={{ base: "80%", md: "45%", lg: "30%" }}
-        >
-          <FaDigitalTachograph size={100} />
-          <Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>Digital Solutions</Heading>
-          <Text textAlign="center" fontSize={{ base: "md", md: "lg", lg: "xl" }}>
-            Our advanced online platform simplifies logistics, giving you full visibility and control over your shipments.
-          </Text>
-        </VStack>
-
-        {/* Express Shipping */}
-        <VStack 
-          p={{ base: 6, md: 8, lg: 16 }} 
-          borderWidth={2} 
-          borderRadius="lg" 
-          w={{ base: "80%", md: "45%", lg: "30%" }}
-        >
-          <FaShippingFast size={100} />
-          <Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>Express Shipping</Heading>
-          <Text textAlign="center" fontSize={{ base: "md", md: "lg", lg: "xl" }}>
-            Need it fast? Our express delivery service guarantees rapid and secure delivery for urgent shipments.
-          </Text>
-        </VStack>
-
-        {/* Order & Inventory Management */}
-        <VStack 
-          p={{ base: 6, md: 8, lg: 16 }} 
-          borderWidth={2} 
-          borderRadius="lg" 
-          w={{ base: "80%", md: "45%", lg: "30%" }}
-        >
-          <FaClipboardList size={100} />
-          <Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>Order & Inventory</Heading>
-          <Text textAlign="center" fontSize={{ base: "md", md: "lg", lg: "xl" }}>
-            Track, manage, and organize your inventory with our state-of-the-art logistics and tracking system.
-          </Text>
-        </VStack>
-      </Stack>
-    </Container>    
-
-
-    <Container maxW="100%" py={12} bg="gray.50">
-      <Heading size="xl" textAlign="center" mb={6} color="blue.600">
-        Our Logistics in Action
-      </Heading>
-      <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={6} px={6}>
-        {cards.map((card, index) => (
-          <Box
-            key={index}
-            bg="white"
-            boxShadow="xl"
-            borderRadius="lg"
-            overflow="hidden"
-            _hover={{ transform: "scale(1.05)", transition: "0.3s ease-in-out" }}
-          >
-            <Image src={card.image} alt={card.title} objectFit="cover" h="250px" w="100%" />
-            <VStack p={6} spacing={4} align="center">
-              <Heading size="md">{card.title}</Heading>
-              <Text textAlign="center" fontSize="lg" color="gray.600">{card.description}</Text>
-            </VStack>
-          </Box>
-        ))}
-      </SimpleGrid>
-    </Container> 
-
-
-    <Container maxW="container.lg" py={8} borderWidth={'5px'} borderRadius={'lg'} paddingTop={20}>
-        <Heading fontSize="3xl" textAlign="center">Why Choose Us?</Heading>
-        <Stack direction={{ base: "column", md: "row" }} spacing={8} mt={6} justify="center">
-          <VStack>
-            <FaUsers size={50} />
-            <Text fontSize="xl">Customer-Centric Approach</Text>
-          </VStack>
-          <VStack>
-            <FaHandshake size={50} />
-            <Text fontSize="xl">Reliable & Trusted Service</Text>
-          </VStack>
-          <VStack>
-            <FaTruck size={50} />
-            <Text fontSize="xl">Fast & Secure Delivery</Text>
-          </VStack>
-        </Stack>
-      </Container>
-
-
-      
-      <Divider my={8} />
-      <ContactUsCard />
     </Box>
+
+
+
+        {/* Daily Planetary Influences */}
+        <Container maxW="100%" py={{base:'10', md:'20'}} textAlign="center">
+          <Heading fontSize="3xl">Daily Planetary Influences</Heading>
+          <Text mt={2} color="gray.600">Discover how the stars align for you today</Text>
+          <Flex wrap="wrap" justify="center" mt={6} gap={{base:4, xl:5}}>
+            {[
+              { icon: FaSun, title: "Sun", desc: "Currently in Aries, bringing energy and initiative" },
+              { icon: FaMoon, title: "Moon", desc: "Waxing in Taurus, enhancing stability" },
+              { icon: FaMercury, title: "Mercury", desc: "Direct in Gemini, favoring communication" },
+              { icon: FaVenus, title: "Venus", desc: "In Libra, harmonizing relationships" }
+            ].map(({ icon: Icon, title, desc }) => (
+              <Flex key={title} p={{base:'5', md:'50px'}} bg="yellow.50" borderRadius="md" align="center" w={{ base: "90%", md: "48%", lg: "40%", xl:'20%' }}>
+                <Icon size={40} color="orange" />
+                <Box ml={{xl:3, base:'20%'}} >
+                  <Text align={'center'} fontSize={{base:15, md:25}} fontWeight="bold">{title}</Text>
+                  <Text fontSize= {{base:'sm', md:17}} color="gray.600">{desc}</Text>
+                </Box>
+              </Flex>
+            ))}
+          </Flex>
+        </Container>
+
+        {/* My Expertise */}
+        <Box bg="yellow.50" py={10}>
+          <Container maxW={{xl:"100%", base:'6xl' }} textAlign="center">
+            <Heading fontSize="3xl">My Expertise</Heading>
+            <Text mt={2} color="gray.600">Comprehensive spiritual guidance for your journey</Text>
+            <Flex wrap="wrap" justify="center" mt={6} gap={4}>
+              {[
+                { icon: FaStar, title: "Vedic Astrology", desc: "In-depth birth chart analysis and life path guidance" },
+                { icon: FaHandSparkles, title: "Life Coaching", desc: "Personal development and spiritual growth guidance" },
+                { icon: FaInfinity, title: "Numerology", desc: "Understanding life's patterns through numbers" }
+              ].map(({ icon: Icon, title, desc }) => (
+                <Flex key={title} p={{base:6, lg:7, xl:10}} bg="white" borderRadius="md" boxShadow="md" align="center" w={{ base: "100%", md: "48%", lg: "30%", xl:'25%' }}>
+                  <Icon size={24} color="orange" />
+                  <Box ml={{xl:3, base:'20%'}}>
+                    <Text fontWeight="bold" fontSize={{base:15, md:25}}>{title}</Text>
+                    <Text  color="gray.600" fontSize={{base:'sm', md:15}}>{desc}</Text>
+                    <Text color="orange.500" mt={2} fontSize={{base:'sm', md:20}} cursor="pointer">Learn more →</Text>
+                  </Box>
+                </Flex>
+              ))}
+            </Flex>
+          </Container>
+        </Box>
+
+
+
+
+        {/* Services Section */}
+        <Box bgColor={"white"} shadow={"lg"} color={"orange.700"} py={5} paddingTop={{ base: '0', lg: '100' }}>
+          <Text
+            textAlign={"center"}
+            fontSize={{ base: 24, md: 30 }}
+            fontWeight={400}
+            fontFamily={"Playfair Display"}
+          >
+            Sacred Services
+          </Text>
+        </Box>
+
+        {/* Services Grid */}
+        <Box
+          bgColor={"#FFFBEB"}
+          bgGradient="linear(to-r,rgb(253, 244, 209), white)"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          py={10}
+          textAlign="center"
+          color={"#2C3E50"}
+        >
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6} px={{ base: 4, md: 8, lg: 12 }} w="100%" maxW="1200px">
+            {InfoCard.map((info, index) => (
+              <Box key={index} display="flex" justifyContent="center" py={5}>
+                <VStack
+                  width={{ base: "90%", md: "40vh" }}
+                  align="center"
+                  borderWidth={1}
+                  borderRadius={20}
+                  shadow={"2xl"}
+                  bgColor={"white"}
+                  p={4}
+                  _hover={{ transform: "scale(1.05)", transition: "0.3s ease-in-out" }}
+                >
+                  <Image src={info.image} alt="image" borderRadius={20} w="full" />
+
+                  <Text fontSize={{ base: 18, md: 20 }} fontWeight={"bold"} fontFamily={"Playfair Display"} color={"orange.700"}>
+                    {info.title}
+                  </Text>
+
+                  <Text fontSize={{ base: 14, md: 16 }} px={2} fontFamily="Poppins">
+                    {info.info}
+                  </Text>
+                </VStack>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+
+        {/* Articles Section */}
+        <Container maxW="100%" py={12} bg="white" borderRadius={20} shadow="lg">
+          {/* Section Heading */}
+          <Heading
+            fontWeight={600}
+            fontFamily="Playfair Display"
+            size={{ base: "xl", md: "2xl", lg: "3xl" }}
+            textAlign="center"
+            mb={8}
+            color="#2C3E50"
+          >
+            Wisdom Insights
+          </Heading>
+
+          {/* Articles Grid */}
+          <SimpleGrid columns={{ base: 2, md: 2, lg: 3 }} spacing={10} px={2} justifyItems="center">
+            {article.map((article, index) => (
+              <Link to={article.route} key={index} style={{ width: "100%" }}>
+                <VStack
+                  p={{ base: 0, md: 6, lg: 8 }}
+                  borderWidth={2}
+                  rounded={"full"}
+                  bg="white"
+                  width="full"
+                  textAlign="center"
+                  cursor="pointer"
+                  _hover={{ transform: "scale(1.05)", transition: "0.3s ease-in-out", shadow: "xl" }}
+                >
+                  <Image src={article.image} alt={article.title} borderRadius="md" w={{base:"full", xl:300}} maxH="250px" objectFit="cover" rounded={'full'} />
+
+                  <Text fontSize={{ base: "lg", md: "xl", lg: "2xl" }} fontWeight="bold" fontFamily="Playfair Display" textColor="orange.700" mt={3}>
+                    {article.title}
+                  </Text>
+
+                  <Text fontSize={{ base: "sm", md: "md", lg: "lg" }} fontFamily="Poppins" px={3} noOfLines={3}>
+                    {article.info}
+                  </Text>
+
+                  <Text fontWeight="bold" color="orange.700" mt={2} _hover={{ textDecoration: "underline" }}>
+                    Read more <ArrowForwardIcon />
+                  </Text>
+                </VStack>
+              </Link>
+            ))}
+          </SimpleGrid>
+        </Container>
+
+      </Box>
+    </Box>
+
+
   );
 };
 
