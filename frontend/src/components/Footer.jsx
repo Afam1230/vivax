@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Container, HStack, VStack, Text, Divider, Flex, Center, Stack, Heading, Button, IconButton,  useToast } from "@chakra-ui/react";
 import { Link, Links } from 'react-router-dom';
 import { FaYoutube, FaTelegramPlane, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 import { useState } from "react";
 
 const Footer = () => {
@@ -36,17 +37,17 @@ const Footer = () => {
 
 
     return (
-        <Box bg="orange.700" py={8} mt={100}  >
+        <Box bg="orange.700" py={8} mt={100}   >
             <Stack direction={{ base: 'column', md: 'row' }} justifyContent={'space-between'} paddingX={5} textAlign={'center'} spacing={{ base: 10, md: 0, lg: 0 }} >
                 <VStack color="white">
-                    <Heading as={"h3"}>ASTRO GUIDE</Heading>
+                    <Heading as={"h3"} fontFamily="DM Serif Text">ASTRO GUIDE</Heading>
                     <Text>GUIDING SOULS THROUGH</Text>
                     <Text> ACIENT WISDOM AND MODERN</Text>
                     <Text>UNDERSTANDING</Text>
                 </VStack>
 
                 <VStack color="white">
-                    <Heading as={"h3"}>QUICK LINKS</Heading>
+                    <Heading as={"h3"} fontFamily="DM Serif Text">QUICK LINKS</Heading>
                     <Link to={'/services'}> Services </Link>
                     <Link to={'/about'}> About </Link>
                     <Link to={'blog'}> Blog </Link>
@@ -54,45 +55,45 @@ const Footer = () => {
                 </VStack>
 
                 <VStack color="white" spacing={4}>
-                    <Heading>Contact</Heading>
+                    <Heading fontFamily="DM Serif Text">Contact</Heading>
 
                     <HStack>
                         <FaEnvelope />
-                        <Text>CONTACT@ASTROGUIDE.COM</Text>
+                        <Text>Devarishidas@gmail.COM</Text>
                     </HStack>
 
                     <HStack>
                         <FaPhone />
-                        <Text>+ (xxx) xxx-xxxx</Text>
+                        <Text>+(233) 54 194-0276</Text>
                     </HStack>
 
                     <HStack>
                         <FaMapMarkerAlt />
-                        <Text>LOS ANGELES, CA</Text>
+                        <Text>ACCRA, GHANA</Text>
                     </HStack>
 
                     {/* Social Links */}
                     <HStack spacing={4} mt={3}>
-                        <Link href="https://youtube.com/your-channel" isExternal>
+                        <Link href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" isExternal>
                             <IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" />
                         </Link>
 
-                        <Link href="https://t.me/your-telegram" isExternal>
-                            <IconButton icon={<FaTelegramPlane />} aria-label="Telegram" colorScheme="blue" />
+                        <Link href="https://x.com/AsamoahDas108" isExternal>
+                            <IconButton icon={<FaSquareXTwitter />} aria-label="x" colorScheme="gray" />
                         </Link>
 
-                        <Link href="https://facebook.com/your-profile" isExternal>
+                        <Link href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" isExternal>
                             <IconButton icon={<FaFacebook />} aria-label="Facebook" colorScheme="blue" />
                         </Link>
 
-                        <Link href="https://wa.me/your-number" isExternal>
+                        <Link href="https://wa.me/2348175725656" isExternal>
                             <IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" />
                         </Link>
                     </HStack>
                 </VStack>
 
                 <VStack>
-                    <Heading color="white">NEWSLETTER</Heading>
+                    <Heading fontFamily="DM Serif Text" color="white">NEWSLETTER</Heading>
                     <Text color="white">SUBSCRIBE FOR SPIRITUAL</Text>
                     <Text color="white">INSIGHTS AND UPDATES</Text>
                     <form onSubmit={handleSubmit}>
@@ -103,7 +104,7 @@ const Footer = () => {
                 </VStack>
             </Stack>
             <Divider paddingY={4} />
-            <Text p={6} textAlign={'center'} fontSize={{ base: "sm", md: "md" }}>© {new Date().getFullYear()} ASTRO GUIDE. All rights reserved.</Text>
+            <Text color={'white'} p={6} textAlign={'center'} fontSize={{ base: "sm", md: "md" }}>© {new Date().getFullYear()} ASTRO GUIDE. All rights reserved.</Text>
         </Box>
     );
 };

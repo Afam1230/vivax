@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { VStack, HStack, Heading, Text, Input, Textarea, Button, IconButton, Link, useToast } from "@chakra-ui/react";
-import { FaYoutube, FaTelegramPlane, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaYoutube, FaTelegramPlane, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaTwitterSquare } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const MotionVStack = motion(VStack);
@@ -56,17 +56,17 @@ const ContactPage = () => {
 
       {/* Contact Details */}
       <VStack color="gray.700" spacing={2}>
-        <HStack><FaEnvelope /><Text>CONTACT@ASTROGUIDE.COM</Text></HStack>
-        <HStack><FaPhone /><Text>+ (xxx) xxx-xxxx</Text></HStack>
-        <HStack><FaMapMarkerAlt /><Text>LOS ANGELES, CA</Text></HStack>
+        <HStack><FaEnvelope /><Text>Devarishidas@gmail.COM</Text></HStack>
+        <HStack><FaPhone /><Text>+(233) 54 194-0276</Text></HStack>
+        <HStack><FaMapMarkerAlt /><Text>ACCRA, GHANA</Text></HStack>
       </VStack>
 
       {/* Social Links */}
       <HStack spacing={4}>
-        <Link href="https://youtube.com/your-channel" isExternal><IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" /></Link>
-        <Link href="https://t.me/your-telegram" isExternal><IconButton icon={<FaTelegramPlane />} aria-label="Telegram" colorScheme="blue" /></Link>
-        <Link href="https://facebook.com/your-profile" isExternal><IconButton icon={<FaFacebook />} aria-label="Facebook" colorScheme="blue" /></Link>
-        <Link href="https://wa.me/your-number" isExternal><IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" /></Link>
+        <Link href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" isExternal><IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" /></Link>
+        <Link href="https://x.com/AsamoahDas108" isExternal><IconButton icon={<FaTwitterSquare />} aria-label="Telegram" colorScheme="blue" /></Link>
+        <Link href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" isExternal><IconButton icon={<FaFacebook />} aria-label="Facebook" colorScheme="blue" /></Link>
+        <Link href="https://wa.me/2348175725656" isExternal><IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" /></Link>
       </HStack>
     </MotionVStack>
   );

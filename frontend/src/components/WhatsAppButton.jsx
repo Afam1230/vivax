@@ -16,7 +16,7 @@ const WhatsAppButton = () => {
     >
       <IconButton
         as="a"
-        href = 'https://wa.me/12133968669' // Replace with your WhatsApp number
+        href = 'https://wa.me/2348175725656' // Replace with your WhatsApp number
         target="_blank"
         aria-label="WhatsApp"
         icon={<FaWhatsapp size="30px" />}
