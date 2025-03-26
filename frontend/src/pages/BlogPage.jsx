@@ -8,20 +8,20 @@ const BlogPage = () => {
   return (
     <Box w="100%" bg="white" mt={{base:50}}>
       {/* hero section */}
-      <Box position={'relative'} maxW={'100%'} display={'flex'} justifyContent={'center'}>
+      <MotionBox initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }} position={'relative'} maxW={'100%'} display={'flex'} justifyContent={'center'}>
         <Image src="https://scontent.flos5-2.fna.fbcdn.net/v/t39.30808-6/485057968_1046071844207080_313747992668637985_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=ypw11Z64oS8Q7kNvgFBbfWa&_nc_oc=AdnyS8euktMzAtJa603w4cp2_IJWBp2d7rAmcBFWk77I5UpiS_Lg-3GgtchGL9ZFjtE&_nc_zt=23&_nc_ht=scontent.flos5-2.fna&_nc_gid=vehS5HrlwhGMV5RCu59bwQ&oh=00_AYHmso9P78vEUkf3wmI3jxk4fM806d0ficy0LHDAG5UwPw&oe=67E92627" objectFit={'cover'} width={{base:'full', lg:'full', xl:'50%'}} />
-      </Box>
+      </MotionBox>
 
 
       {/* Header Section */}
-      <Box bgGradient="linear(to-b, orange.50, white)" py={{ base: 10, md: 16 }} textAlign="center">
+      <MotionBox initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }} bgGradient="linear(to-b, orange.50, white)" py={{ base: 10, md: 16 }} textAlign="center">
         <Heading fontSize={{ base: "3xl", md: "4xl" }} color="brown.700">
           Astrological Insights & Wisdom
         </Heading>
         <Text fontSize={{ base: "md", md: "lg" }} mt={3} color="brown.500">
           Explore the mysteries of the cosmos through our collection of articles about astrology, zodiac signs, and celestial events.
         </Text>
-      </Box>
+      </MotionBox>
 
       {/* Featured Post Section */}
       <Flex
@@ -36,6 +36,7 @@ const BlogPage = () => {
           flex={{ base: "1", md: "0.4" }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.98 }}
+          initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }}
         >
           <Image
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQytmsf7wcdRRYHPtp_bFgdFcE1aXk01OSAhA&s" // Replace with actual image source
@@ -47,7 +48,7 @@ const BlogPage = () => {
         </MotionBox>
 
         {/* Blog Content */}
-        <Box flex={{ base: "1", md: "0.4" }} bg="orange.50" p={6} borderRadius="md">
+        <MotionBox initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }} flex={{ base: "1", md: "0.4" }} bg="orange.50" p={6} borderRadius="md">
           <Text fontSize="sm" fontWeight="bold" color="brown.600">
             Featured Post
           </Text>
@@ -66,7 +67,7 @@ const BlogPage = () => {
           <Text mt={4} fontWeight="bold" color="brown.700" cursor="pointer">
             Subscribe to Channel
           </Text>
-        </Box>
+        </MotionBox>
       </Flex>
       <BlogExtra/>
     </Box>

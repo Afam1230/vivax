@@ -56,7 +56,7 @@ const services = [
 
 const ServicePage = () => {
   return (
-    <Box w="full" h={{ base: "auto", md: "100vh" }} bg="white" color="black">
+    <Box w="full" h={{ base: "auto", md: "auto" }}  color="black">
     <HStack
       maxW="1200px"
       mx="auto"
@@ -69,24 +69,27 @@ const ServicePage = () => {
     >
       {/* Text Content */}
       <VStack align="start" spacing={6} flex="1">
-        <Heading fontSize={{ base: "2xl", md: "4xl" }} color="orange.700">
+        <Heading fontFamily={"DM Serif Text"} fontSize={{ base: "2xl", md: "4xl" }} color="orange.700">
           Unlock Your Cosmic Destiny
         </Heading>
-        <Text fontSize={{ base: "md", md: "lg" }} color="gray.300" maxW="500px">
+        <Text fontSize={{ base: "md", md: "lg" }} color="gray.800" maxW="500px">
           Experience deep insights into your future, relationships, and spiritual growth through expert astrology services.
         </Text>
+        <Link to={'/book'}>
         <Button
           bg="orange.200"
           color="black"
           size="lg"
           _hover={{ bg: "yellow.400" }}
+          fontFamily={"DM Serif Text"}
         >
           Get Your Reading
         </Button>
+        </Link>
       </VStack>
 
       {/* Hero Image */}
-      <Box flex="1">
+      <Box flex="1" bgGradient={'radial(white, orange.200)'} rounded={'90'}>
         <Image
           src="https://scontent.flos1-3.fna.fbcdn.net/v/t39.30808-6/481899812_1036814558466142_93037116377118753_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=XyOKx9xd7AEQ7kNvgGYaDs2&_nc_oc=AdlmrcGJsq0wQMpzscpACcwHkknbf-2csJU6yGbcZOJMBoMb0IugUCNc52bgvc6qqBw&_nc_zt=23&_nc_ht=scontent.flos1-3.fna&_nc_gid=AghnqFX4mvmqiWh2Z94W8A&oh=00_AYE6cg2x4hLK765XI8pF7PBcvGXtLQA2d8vHNuIATVn9dg&oe=67E9320A"
           alt="Astrology Hero"
@@ -98,11 +101,10 @@ const ServicePage = () => {
       </Box>
     </HStack>
 
-    <VStack spacing={10} p={10} textAlign="center">
+    <VStack spacing={10} p={10} bgGradient={'linear(to-r, white, orange.200)'} rounded={'30'} textAlign="center">
       {/* Header */}
-      <Heading fontSize="3xl">Our Services</Heading>
+      <Heading fontSize="3xl" fontFamily={"DM Serif Text"} bgGradient={'linear(to-b, white, orange.200)'} rounded={'full'} w={'30vh'}>Our Services</Heading>
       <Text color="gray.600" maxW="600px">
-        Consectetur adipiscing elit nullam nunc justo sagittis suscipit ultrices.
       </Text>
 
       {/* Services Grid */}
@@ -123,9 +125,9 @@ const ServicePage = () => {
             transition={{ duration: 0.3 }}
             boxShadow="md"
           >
-            <service.icon size={50} color="gold" />
-            <Text fontWeight="bold" mt={3}>{service.title}</Text>
-            <Text fontSize="sm" color="gray.500">{service.description}</Text>
+            <service.icon size={50} color="orange" />
+            <Text fontWeight="bold" mt={3} fontFamily={"DM Serif Text"}>{service.title}</Text>
+            <Text fontSize="sm" color="gray.800">{service.description}</Text>
           </MotionBox>
         ))}
       </Grid>

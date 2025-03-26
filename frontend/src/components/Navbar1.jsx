@@ -33,13 +33,13 @@ const Navbar = () => {
                 </HStack>
 
                 {/* Desktop Navigation */}
-                <HStack spacing={5} display={{ base: "none", md: "flex" }} >
-                    <Button variant="ghost"><Link to="/"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={25} fontWeight={10}>Home</Text></Link></Button>
-                    <Button variant="ghost"><Link to="/blog"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={25} fontWeight={10}>Blog</Text></Link></Button>
-                    <Button variant="ghost"><Link to="/services"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={25} fontWeight={10}>Services</Text></Link></Button>
-                    <Button variant="ghost"><Link to="/shop"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={25} fontWeight={10}>Shop</Text></Link></Button>
-                    <Button variant="ghost"><Link to="/about"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={25} fontWeight={10}>About</Text></Link></Button>
-                    <Button colorScheme={'orange'}><Link to="/book"><Text fontFamily={"DM Serif Text"} fontSize={25} fontWeight={10}>Book Now!</Text></Link></Button>
+                <HStack spacing={{lg:5, md:1}} display={{ base: "none", md: "flex" }} >
+                    <Button variant="ghost"><Link to="/"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Home</Text></Link></Button>
+                    <Button variant="ghost"><Link to="/blog"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Blog</Text></Link></Button>
+                    <Button variant="ghost"><Link to="/services"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Services</Text></Link></Button>
+                    <Button variant="ghost"><Link to="/shop"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Shop</Text></Link></Button>
+                    <Button variant="ghost"><Link to="/about"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>About</Text></Link></Button>
+                    <Button colorScheme={'orange'}><Link to="/book"><Text fontFamily={"DM Serif Text"} fontSize={20} fontWeight={10}>Book Now!</Text></Link></Button>
                 </HStack>
 
 
@@ -57,15 +57,15 @@ const Navbar = () => {
             </Flex>
 
             {/* Mobile Drawer Navigation */}
-            <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
+            <Drawer  placement="top" onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
-                <DrawerContent borderRadius="md">
+                <DrawerContent bgGradient={"linear(to-tr, orange.100, white)"}borderRadius="md" >
                     {/* Drawer Header with Close Button */}
                     <DrawerHeader display="flex" alignItems="center" justifyContent="space-between">
                         <VStack align="start" spacing={0}>
                             <HStack>
                                 <Image src={img8} alt="image" rounded={'full'} boxSize={'40%'} />
-                                <Heading size="md">Devaraj</Heading>
+                                <Heading size="md" fontFamily={'"DM Serif Text"'}>Devarishi Das Asamoah</Heading>
                             </HStack>
                         </VStack>
 
@@ -85,7 +85,7 @@ const Navbar = () => {
                             <Box fontSize="sm" mb={3}>
                                 Are you looking for a plan that best suits your E-commerce business? Well, we've got something great for you.
                             </Box>
-                            <Link to={'/shop'}>
+                            <Link to={'/shop'} onClick={onClose}>
                             <Button colorScheme="whiteAlpha" variant="outline" w="100%">
                                 Go to Store
                             </Button>
@@ -94,41 +94,40 @@ const Navbar = () => {
                         </Box>
 
                         {/* Navigation Links */}
-                        <VStack spacing={3} mt={4} align="center">
-                            <Link to={'/'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                        <VStack spacing={0} mt={4} fontSize={20} color={'orange.900'} fontWeight={'bold'}  align="center">
+                            <Link to={'/'} onClick={onClose}>                           
                                 <HStack>
                                     <Box>Home</Box>
                                 </HStack>
-                            </HStack>
                             </Link>
 
 
-                            <Link to={'/blog'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                            <Link to={'/blog'} onClick={onClose}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>Blog</Box>
                                 </HStack>
                             </HStack>
                             </Link>
 
-                            <Link to={'services'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                            <Link to={'services'} onClick={onClose}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>Services</Box>
                                 </HStack>
                             </HStack></Link>
 
 
-                            <Link to={'/about'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                            <Link to={'/about'} onClick={onClose}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>About</Box>
                                 </HStack>
                             </HStack></Link>
 
 
-                            <Link to={'/book'}>                            <HStack
+                            <Link to={'/book'} onClick={onClose}>                            <HStack
                                 justifyContent="center"
                                 p={3}
                                 borderRadius="md"
-                                bg="teal"
+                                bg="green"
                                 color="white"
                                 fontWeight="bold"
                                 _hover={{ bg: "blue.600" }}

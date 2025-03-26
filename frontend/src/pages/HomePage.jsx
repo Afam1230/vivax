@@ -33,6 +33,8 @@ import lotus1 from "../images/lotus1.png"
 import hero1 from "../images/hero1.jpg"
 import { useCartStore } from "../store/cart"; 
 import articles from "../store/articles";
+import { motion } from "framer-motion";
+const MotionBox = motion(Box);
 
 
 const HomePage = () => {
@@ -88,7 +90,7 @@ const HomePage = () => {
 
   ];
 
-
+  
 
   return (
     <Box bgColor={"#F8F9FA"}>
@@ -109,8 +111,12 @@ const HomePage = () => {
             maxW="1200px"
             w="full"
           >
+
+         
+       
             {/* Text Section */}
-            <Box flex={1} textAlign={{ base: "center", lg: "left" }}>
+            <MotionBox flex={1} textAlign={{ base: "center", lg: "left" }} initial={{ opacity: 0, y: -80 }} animate={{ opacity: 1, y: 0 }}  transition={{ duration: 0.8 }}
+            >
               <Heading
                 fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}
                 color="orange.900"
@@ -150,10 +156,10 @@ const HomePage = () => {
                 </Link>
 
               </Stack>
-            </Box>
+            </MotionBox>
 
             {/* Image Section */}
-            <Box flex={1} display="flex" justifyContent="center">
+            <MotionBox flex={1} display="flex" justifyContent="center" initial={{ opacity: 0, y: 80 }} animate={{ opacity: 1, y: 0 }}  transition={{ duration: 0.8 }} >
               <Box
                 w={{ base: "80%", md: "60%", lg: "500px" }}
                 aspectRatio={1} // Ensures circular aspect ratio
@@ -170,15 +176,15 @@ const HomePage = () => {
                   objectPosition={'100% 0vh'}
                 />
               </Box>
-            </Box>
+            </MotionBox>
           </Stack>
         </Box>
 
 
 
-        <Box bgGradient="linear(to-l,rgb(250, 240, 199), white)" color="#8B5E3C" p={{ base: 4, lg: 10 }}>
+        <MotionBox bgGradient="linear(to-l,rgb(250, 240, 199), white)" color="#8B5E3C" p={{ base: 4, lg: 10 }} initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }}>
           {/* First Section */}
-          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
+          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} >
             <VStack align="start" spacing={4}>
               <Heading fontSize={{ base: "2xl", lg: "4xl" }}>The Cosmic Path: A Journey Through Astrology</Heading>
               <Text fontSize={{ base: "md", lg: "lg" }}>
@@ -194,15 +200,15 @@ const HomePage = () => {
           </SimpleGrid>
 
           {/* Second Section */}
-          <Box mt={20}>
+          <MotionBox mt={20} initial={{ opacity: 0, x: 80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }}>
             <VStack align="start" spacing={6}>
               <Heading fontSize={{ base: "2xl", lg: "4xl" }}>Life Coaching: Empowering Your True Potential</Heading>
               <Text fontSize={{ base: "md", lg: "lg" }}>
                 Personal growth is a journey, and life coaching provides the tools and guidance needed to unlock your fullest potential. By setting clear goals and aligning actions with values, you can achieve meaningful transformation.
               </Text>
             </VStack>
-          </Box>
-        </Box>
+          </MotionBox>
+        </MotionBox>
 
 
 
@@ -219,10 +225,10 @@ const HomePage = () => {
             ].map(({ icon: Icon, title, desc }) => (
               <Flex key={title} p={{ base: '5', md: '50px' }} bg="yellow.50" borderRadius="md" align="center" w={{ base: "90%", md: "48%", lg: "40%", xl: '20%' }}>
                 <Icon size={40} color="orange" />
-                <Box ml={{ xl: 3, base: '20%' }} >
+                <MotionBox ml={{ xl: 3, base: '20%' }} initial={{ opacity: 0, x: -80 }} animate={{ opacity: 1, x: 0 }}  transition={{ duration: 0.8 }} >
                   <Text align={'center'} fontSize={{ base: 15, md: 25 }} fontWeight="bold">{title}</Text>
                   <Text fontSize={{ base: 'sm', md: 17 }} color="gray.600">{desc}</Text>
-                </Box>
+                </MotionBox>
               </Flex>
             ))}
           </Flex>
