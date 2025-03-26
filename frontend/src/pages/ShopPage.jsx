@@ -36,7 +36,7 @@ const ShopPage = () => {
 
     return (
         <Container maxW="100%" py={8} mt={{lg:200, base:100}}>
-            <Heading size="xl" textAlign="center" mb={6}>
+            <Heading size={{md:"xl", base:"lg"}}  textAlign="center" mb={6}>
                 Shop Our Collection
             </Heading>
 
@@ -96,7 +96,7 @@ const ShopPage = () => {
                 icon={<FaShoppingCart size={30} />}
                 aria-label="Open Cart"
                 position="fixed"
-                bottom={{ md: "1500px", base: '85vh', xl:'80vh' }}
+                top={{ md: "150px", base: '100px', xl:'150px' }}
                 right="20px"
                 size="lg"
                 colorScheme="orange"
