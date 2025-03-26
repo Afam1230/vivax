@@ -1,58 +1,76 @@
-import React from 'react'
-import { Box, Button, Flex, Heading, Text, Image, Link, Stack } from "@chakra-ui/react";
-import hero from "../images/hero.jpg"
+import { Box, VStack, Heading, Text, Image, Container, HStack, Button } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+
+const MotionBox = motion(Box);
 
 const AboutPage = () => {
   return (
-    <Box bg="#FDCB58" minH="100vh" display="flex" alignItems="center" justifyContent="center">
-    <Box 
-      w="80%" 
-      bg="white" 
-      borderRadius="lg" 
-      boxShadow="lg"
-      p={10} 
-      display="flex" 
-      alignItems="center" 
-      justifyContent={{base:'normal', lg:'space-between'}}
-      position="relative"
-    >
-      <Stack direction={{base:'column-reverse', lg:'row'}} display={'flex'} alignItems={'center'} justifyContent={'space-between'}>
-      {/* Left Section - Text Content */}
-      <Box maxW={{lg:"50%", base:'100vh'}}>
-        <Text fontSize="sm" fontWeight="bold" color="goldenrod">
-          UI/UX DESIGNER
-        </Text>
-        <Heading fontSize="4xl" mt={2}>
-          Hello, my name is <br /> Madelyn Torff
-        </Heading>
-        <Text mt={4} color="gray.600">
-          Short text with details about you, what you do, or your professional career. You can add more information on the about page.
-        </Text>
-        <Flex mt={6}>
-          <Button bg="goldenrod" color="white" mr={3} _hover={{ bg: "yellow.600" }}>
-            Shop
-          </Button>
-          <Button variant="outline" borderColor="black">
-            Book Now!!
-          </Button>
-        </Flex>
-      </Box>
-
-      {/* Right Section - Image */}
-      <Box position="relative">
+    <Container maxW="6xl" py={10} mt={{base:10,lg:20,xl:30}}>
+      {/* Profile Section */}
+      <MotionBox 
+        textAlign="center" 
+        initial={{ opacity: 0, y: -80 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.8 }}
+      >
         <Image 
-          src={hero} // Replace with your actual image path
-          alt="Profile"
-          objectPosition={{lg:'100% 20%', base:'100% 20%', md:'100% 60%'}}
-          borderRadius="full"
-          boxSize={{base:'300px',lg:'600px'}}
-          objectFit="cover"
+          src="https://scontent.flos1-3.fna.fbcdn.net/v/t39.30808-6/481899812_1036814558466142_93037116377118753_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=XyOKx9xd7AEQ7kNvgGYaDs2&_nc_oc=AdlmrcGJsq0wQMpzscpACcwHkknbf-2csJU6yGbcZOJMBoMb0IugUCNc52bgvc6qqBw&_nc_zt=23&_nc_ht=scontent.flos1-3.fna&_nc_gid=AghnqFX4mvmqiWh2Z94W8A&oh=00_AYE6cg2x4hLK765XI8pF7PBcvGXtLQA2d8vHNuIATVn9dg&oe=67E9320A" 
+          alt="Devarishi Das Asamoah" 
+          borderRadius="full" 
+          boxSize={{ base: "150px", md: "200px" }} 
+          mx="auto" 
+          mb={5} 
         />
-      </Box>
-      </Stack>
-    </Box>
-  </Box>
-  )
-}
+        <Heading fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold" color="orange.700">
+          Devarishi Das Asamoah
+        </Heading>
+        <Text fontSize="lg" color="gray.600" mt={2}>Astrologer | Vedic Priest | Life Coach</Text>
+      </MotionBox>
 
-export default AboutPage
+      {/* The Journey */}
+      <MotionBox mt={10} p={5} bg="white" boxShadow="md" borderRadius="lg" textAlign="center"         initial={{ opacity: 0, x: -80 }} 
+        animate={{ opacity: 1, x: 0 }} 
+        transition={{ duration: 0.8 }}>
+        <Heading fontSize="2xl" color="brown.700">The Journey</Heading>
+        <Text fontSize="md" mt={3} color="gray.700">
+          From an early age, I was drawn to the celestial mysteries of the universe. My deep studies in 
+          <b> Jyotish Shastra (Vedic Astrology) </b> and <b> Vedic scriptures </b> led me to understand the 
+          profound connection between planetary influences and human destiny. Over the years, I have 
+          guided individuals through astrological readings, sacred rituals, and spiritual coaching to help 
+          them navigate life’s challenges.
+        </Text>
+      </MotionBox>
+
+      {/* Expertise Section */}
+      <MotionBox mt={10} p={5} bg="gray.50" boxShadow="md" borderRadius="lg"          initial={{ opacity: 0, y: 80 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 2 }}>
+        <Heading fontSize="2xl" color="brown.700" textAlign="center">My Expertise</Heading>
+        <VStack align="start" spacing={4} mt={5}>
+          <Text fontSize="md" color="gray.700">🔹 <b>Vedic Astrology & Birth Chart Readings</b> – Decode your cosmic blueprint.</Text>
+          <Text fontSize="md" color="gray.700">🔹 <b>Spiritual Counseling & Life Coaching</b> – Transform your mindset and embrace self-discovery.</Text>
+          <Text fontSize="md" color="gray.700">🔹 <b>Vedic Rituals & Remedies</b> – Harmonize your energies through sacred pujas and mantra sadhana.</Text>
+          <Text fontSize="md" color="gray.700">🔹 <b>Relationship & Career Guidance</b> – Personalized astrological insights for love, career, and finances.</Text>
+        </VStack>
+      </MotionBox>
+
+      {/* Contact Section */}
+      <MotionBox mt={10} textAlign="center">
+        <Heading fontSize="2xl" color="orange.700">Let's Connect</Heading>
+        <Text fontSize="md" mt={3} color="gray.700">
+          Ready to unlock the deeper mysteries of your life? Book a consultation and begin your journey.
+        </Text>
+        <HStack justify="center" mt={5}>
+          <Link to="/book">
+            <Button colorScheme="orange" borderRadius="full" _hover={{ bg: "brown.700" }}>
+              Book a Consultation
+            </Button>
+          </Link>
+        </HStack>
+      </MotionBox>
+    </Container>
+  );
+};
+
+export default AboutPage;

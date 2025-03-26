@@ -31,10 +31,14 @@ import img9 from "../images/img9.png"
 import img8 from "../images/img8.png"
 import lotus1 from "../images/lotus1.png"
 import hero1 from "../images/hero1.jpg"
+import { useCartStore } from "../store/cart"; 
+import articles from "../store/articles";
 
 
 const HomePage = () => {
   const { products, fetchProducts } = useProductStore(); // Get products & fetch function
+  const { cart, addToCart, addFromCart, removeFromCart, updateQuantity, totalPrice } = useCartStore();
+  const [isCartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     fetchProducts(); // Fetch products when the page loads
@@ -84,33 +88,7 @@ const HomePage = () => {
 
   ];
 
-  const article = [
-    {
-      title: "Understanding Your Birth Chart",
-      info: "Discover the secrets hidden in your celestial blueprint...",
-      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQytmsf7wcdRRYHPtp_bFgdFcE1aXk01OSAhA&s",
-    },
-    {
-      title: "Meditation Techniques",
-      info: "Ancient practices for modern peace and clarity...",
-      image: "https://zenlounge.in/wp-content/uploads/2020/12/different-meditations-1024x1024.jpg",
-    },
-    {
-      title: "Energy Healing Guide",
-      info: "Harness the power of natural healing energies...",
-      image: "https://as1.ftcdn.net/jpg/05/94/10/94/1000_F_594109456_rMplh2SiTZVc5Rbv7nYNOpdaUd6b2i7N.jpg",
-    },
-    {
-      title: "The Cosmic Blueprint:",
-      info: "Understand past karmas, life lessons, and future possibilities, while following a dharmic path to spiritual and material fulfillment.",
-      image: "https://t4.ftcdn.net/jpg/05/38/15/65/360_F_538156588_zpaA3zlEXTbN0aNHfbnoby2KB24iRnA2.jpg",
-    },
-    {
-      title: "",
-      info: ".",
-      image: "",
-    },
-  ]
+
 
   return (
     <Box bgColor={"#F8F9FA"}>
@@ -118,8 +96,7 @@ const HomePage = () => {
         <Box
           as="section"
           position="relative"
-          // bgGradient="linear(to-r, #FFFBEB, white)"
-          bg={'#FFFBEB'}
+          bgGradient="linear(to-r,rgb(250, 240, 199), white)"
           py={{ base: 10, md: 20, lg: 24 }}
           px={{ base: 6, md: 10, lg: 16 }}
           display="flex"
@@ -154,17 +131,24 @@ const HomePage = () => {
                 mt={6}
                 justify={{ base: "center", lg: "flex-start" }}
               >
-                <Button bg="orange.600" color="white" _hover={{ bg: "orange.700" }}>
+                <Link to={'/book'}>
+                <Button bg="orange.600" color="white" _hover={{ bg: "orange.700" }} w={'full'}>
                   Book Consultation
                 </Button>
+                </Link>
+
+                <Link to={'/about'}>
                 <Button
                   variant="outline"
                   borderColor="orange.600"
                   color="orange.600"
                   _hover={{ bg: "orange.600", color: "white" }}
+                  w={'full'}
                 >
                   Learn More
                 </Button>
+                </Link>
+
               </Stack>
             </Box>
 
@@ -192,52 +176,52 @@ const HomePage = () => {
 
 
 
-        <Box bg="#FFF9F0" color="#8B5E3C" p={{ base: 4, lg: 10 }}>
-      {/* First Section */}
-      <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
-        <VStack align="start" spacing={4}>
-          <Heading fontSize={{ base: "2xl", lg: "4xl" }}>The Cosmic Path: A Journey Through Astrology</Heading>
-          <Text fontSize={{ base: "md", lg: "lg" }}>
-            Astrology is an ancient practice that connects celestial movements with human experiences. By understanding planetary influences, we gain insights into our personalities, relationships, and life paths.
-          </Text>
-        </VStack>
-        <VStack align="start" spacing={4}>
-          <Heading fontSize={{ base: "md", lg: "lg" }} fontWeight="medium">OUR VISION</Heading>
-          <Text fontSize={{ base: "md", lg: "lg" }}>
-            Our mission is to guide individuals on a transformative journey of self-discovery through astrology, helping them align with the cosmic flow and live with purpose.
-          </Text>
-        </VStack>
-      </SimpleGrid>
-      
-      {/* Second Section */}
-      <Box mt={20}>
-        <VStack align="start" spacing={6}>
-          <Heading fontSize={{ base: "2xl", lg: "4xl" }}>Life Coaching: Empowering Your True Potential</Heading>
-          <Text fontSize={{ base: "md", lg: "lg" }}>
-            Personal growth is a journey, and life coaching provides the tools and guidance needed to unlock your fullest potential. By setting clear goals and aligning actions with values, you can achieve meaningful transformation.
-          </Text>
-        </VStack>
-      </Box>
-    </Box>
+        <Box bgGradient="linear(to-l,rgb(250, 240, 199), white)" color="#8B5E3C" p={{ base: 4, lg: 10 }}>
+          {/* First Section */}
+          <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10}>
+            <VStack align="start" spacing={4}>
+              <Heading fontSize={{ base: "2xl", lg: "4xl" }}>The Cosmic Path: A Journey Through Astrology</Heading>
+              <Text fontSize={{ base: "md", lg: "lg" }}>
+                Astrology is an ancient practice that connects celestial movements with human experiences. By understanding planetary influences, we gain insights into our personalities, relationships, and life paths.
+              </Text>
+            </VStack>
+            <VStack align="start" spacing={4}>
+              <Heading fontSize={{ base: "md", lg: "lg" }} fontWeight="medium">OUR VISION</Heading>
+              <Text fontSize={{ base: "md", lg: "lg" }}>
+                Our mission is to guide individuals on a transformative journey of self-discovery through astrology, helping them align with the cosmic flow and live with purpose.
+              </Text>
+            </VStack>
+          </SimpleGrid>
+
+          {/* Second Section */}
+          <Box mt={20}>
+            <VStack align="start" spacing={6}>
+              <Heading fontSize={{ base: "2xl", lg: "4xl" }}>Life Coaching: Empowering Your True Potential</Heading>
+              <Text fontSize={{ base: "md", lg: "lg" }}>
+                Personal growth is a journey, and life coaching provides the tools and guidance needed to unlock your fullest potential. By setting clear goals and aligning actions with values, you can achieve meaningful transformation.
+              </Text>
+            </VStack>
+          </Box>
+        </Box>
 
 
 
         {/* Daily Planetary Influences */}
-        <Container maxW="100%" py={{base:'10', md:'20'}} textAlign="center">
+        <Container maxW="100%" py={{ base: '10', md: '20' }} textAlign="center">
           <Heading fontSize="3xl">Daily Planetary Influences</Heading>
           <Text mt={2} color="gray.600">Discover how the stars align for you today</Text>
-          <Flex wrap="wrap" justify="center" mt={6} gap={{base:4, xl:5}}>
+          <Flex wrap="wrap" justify="center" mt={6} gap={{ base: 4, xl: 5 }}>
             {[
               { icon: FaSun, title: "Sun", desc: "Currently in Aries, bringing energy and initiative" },
               { icon: FaMoon, title: "Moon", desc: "Waxing in Taurus, enhancing stability" },
               { icon: FaMercury, title: "Mercury", desc: "Direct in Gemini, favoring communication" },
               { icon: FaVenus, title: "Venus", desc: "In Libra, harmonizing relationships" }
             ].map(({ icon: Icon, title, desc }) => (
-              <Flex key={title} p={{base:'5', md:'50px'}} bg="yellow.50" borderRadius="md" align="center" w={{ base: "90%", md: "48%", lg: "40%", xl:'20%' }}>
+              <Flex key={title} p={{ base: '5', md: '50px' }} bg="yellow.50" borderRadius="md" align="center" w={{ base: "90%", md: "48%", lg: "40%", xl: '20%' }}>
                 <Icon size={40} color="orange" />
-                <Box ml={{xl:3, base:'20%'}} >
-                  <Text align={'center'} fontSize={{base:15, md:25}} fontWeight="bold">{title}</Text>
-                  <Text fontSize= {{base:'sm', md:17}} color="gray.600">{desc}</Text>
+                <Box ml={{ xl: 3, base: '20%' }} >
+                  <Text align={'center'} fontSize={{ base: 15, md: 25 }} fontWeight="bold">{title}</Text>
+                  <Text fontSize={{ base: 'sm', md: 17 }} color="gray.600">{desc}</Text>
                 </Box>
               </Flex>
             ))}
@@ -246,7 +230,7 @@ const HomePage = () => {
 
         {/* My Expertise */}
         <Box bg="yellow.50" py={10}>
-          <Container maxW={{xl:"100%", base:'6xl' }} textAlign="center">
+          <Container maxW={{ xl: "100%", base: '6xl' }} textAlign="center">
             <Heading fontSize="3xl">My Expertise</Heading>
             <Text mt={2} color="gray.600">Comprehensive spiritual guidance for your journey</Text>
             <Flex wrap="wrap" justify="center" mt={6} gap={4}>
@@ -255,13 +239,17 @@ const HomePage = () => {
                 { icon: FaHandSparkles, title: "Life Coaching", desc: "Personal development and spiritual growth guidance" },
                 { icon: FaInfinity, title: "Numerology", desc: "Understanding life's patterns through numbers" }
               ].map(({ icon: Icon, title, desc }) => (
-                <Flex key={title} p={{base:6, lg:7, xl:10}} bg="white" borderRadius="md" boxShadow="md" align="center" w={{ base: "100%", md: "48%", lg: "30%", xl:'25%' }}>
-                  <Icon size={24} color="orange" />
-                  <Box ml={{xl:3, base:'20%'}}>
-                    <Text fontWeight="bold" fontSize={{base:15, md:25}}>{title}</Text>
-                    <Text  color="gray.600" fontSize={{base:'sm', md:15}}>{desc}</Text>
-                    <Text color="orange.500" mt={2} fontSize={{base:'sm', md:20}} cursor="pointer">Learn more →</Text>
+                <Flex key={title} p={{ base: 6, lg: 7, xl: 10 }} bg="white" borderRadius="md" boxShadow="md" align="center" w={{ base: "100%", md: "48%", lg: "30%", xl: '25%' }}>
+                  <Icon size={40} color="orange" />
+                  <Link to={'/book'}>
+                  <Box ml={{ xl: 3, base: '20%' }}                   _hover={{ transform: "scale(1.05)", transition: "0.3s ease-in-out" }}
+                  >
+                    <Text fontWeight="bold" fontSize={{ base: 15, md: 25 }}>{title}</Text>
+                    <Text color="gray.600" fontSize={{ base: 'sm', md: 15 }}>{desc}</Text>
+                    <Text color="orange.500" mt={2} fontSize={{ base: 'sm', md: 20 }} cursor="pointer">Learn more →</Text>
                   </Box>
+                  </Link>
+
                 </Flex>
               ))}
             </Flex>
@@ -272,7 +260,7 @@ const HomePage = () => {
 
 
         {/* Services Section */}
-        <Box bgColor={"white"} shadow={"lg"} color={"orange.700"} py={5} paddingTop={{ base: '0', lg: '100' }}>
+        <Box bgColor={"white"} shadow={"lg"} color={"orange.700"} py={5} paddingTop={{ base: '20', lg: '100', xl:'40' }}>
           <Text
             textAlign={"center"}
             fontSize={{ base: 24, md: 30 }}
@@ -338,8 +326,8 @@ const HomePage = () => {
 
           {/* Articles Grid */}
           <SimpleGrid columns={{ base: 2, md: 2, lg: 3 }} spacing={10} px={2} justifyItems="center">
-            {article.map((article, index) => (
-              <Link to={article.route} key={index} style={{ width: "100%" }}>
+            {articles.map((articles, index) => (
+              <Link to={`/article/${articles.id}`} key={articles.id} style={{ width: "100%" }}>  
                 <VStack
                   p={{ base: 0, md: 6, lg: 8 }}
                   borderWidth={2}
@@ -350,14 +338,14 @@ const HomePage = () => {
                   cursor="pointer"
                   _hover={{ transform: "scale(1.05)", transition: "0.3s ease-in-out", shadow: "xl" }}
                 >
-                  <Image src={article.image} alt={article.title} borderRadius="md" w={{base:"full", xl:300}} maxH="250px" objectFit="cover" rounded={'full'} />
+                  <Image src={articles.image} alt={articles.title} borderRadius="md" w={{ base: "full", xl: 300 }} maxH="250px" objectFit="cover" rounded={'full'} />
 
                   <Text fontSize={{ base: "lg", md: "xl", lg: "2xl" }} fontWeight="bold" fontFamily="Playfair Display" textColor="orange.700" mt={3}>
-                    {article.title}
+                    {articles.title}
                   </Text>
 
                   <Text fontSize={{ base: "sm", md: "md", lg: "lg" }} fontFamily="Poppins" px={3} noOfLines={3}>
-                    {article.info}
+                    {articles.info}
                   </Text>
 
                   <Text fontWeight="bold" color="orange.700" mt={2} _hover={{ textDecoration: "underline" }}>
@@ -368,6 +356,50 @@ const HomePage = () => {
             ))}
           </SimpleGrid>
         </Container>
+
+        {/* Our Products Section */}
+        <Box textAlign={"center"} paddingY={10} paddingTop={{base:20, lg:30, xl:30}}>
+          <Text fontSize={25} fontStyle={"bold"}>
+            Our Sacred Items
+          </Text>
+        </Box>
+
+        {/* Shop Section */}
+        {/* Product Grid */}
+        <SimpleGrid columns={{ base: 2, md: 3, lg: 4 }} spacing={6}>
+          {Array.isArray(products) ? (
+            products.map((product) => (
+              <Box key={product._id} borderWidth="1px" borderRadius="lg" overflow="hidden" p={4}>
+                <Link to={'/shop'}>
+                  <Image src={product.image} alt={product.name} h="200px" w="full" objectFit="cover" />
+                  <VStack align="start" spacing={2} mt={3}>
+                    <Heading size="md">{product.name}</Heading>
+                    <Text fontSize="sm">{product.description.substring(0, 50)}...</Text>
+                    <Text align={'center'} fontWeight="bold">${product.price}</Text>
+                  </VStack>
+                </Link>
+
+                <Box mt={4} textAlign="center">
+                    <Link to={'/shop'}>
+                    <Button
+                      colorScheme="orange"
+                      size="sm"
+                    >
+                      go to shop
+                    </Button>
+                    </Link>
+                </Box>
+
+
+              </Box>
+
+            ))
+          ) : (
+            <Text>Loading products...</Text>
+          )}
+        </SimpleGrid>
+
+
 
       </Box>
     </Box>

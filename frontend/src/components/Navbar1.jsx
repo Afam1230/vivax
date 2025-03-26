@@ -9,6 +9,7 @@ import { FiMenu, FiX } from "react-icons/fi"; // React Icons
 import { MdAccountCircle } from "react-icons/md";
 import logo from "../images/logo.png";
 import img8 from "../images/img8.png"
+import Cart from "../pages/Cart";
 const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -40,6 +41,7 @@ const Navbar = () => {
                     <Button variant="ghost"><Link to="/about"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={25} fontWeight={10}>About</Text></Link></Button>
                     <Button colorScheme={'orange'}><Link to="/book"><Text fontFamily={"DM Serif Text"} fontSize={25} fontWeight={10}>Book Now!</Text></Link></Button>
                 </HStack>
+
 
                 {/* Mobile Menu Button */}
                 <IconButton
@@ -83,39 +85,46 @@ const Navbar = () => {
                             <Box fontSize="sm" mb={3}>
                                 Are you looking for a plan that best suits your E-commerce business? Well, we've got something great for you.
                             </Box>
+                            <Link to={'/shop'}>
                             <Button colorScheme="whiteAlpha" variant="outline" w="100%">
                                 Go to Store
                             </Button>
+                            </Link>
+
                         </Box>
 
                         {/* Navigation Links */}
-                        <VStack spacing={4} mt={4} align="center">
-                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                        <VStack spacing={3} mt={4} align="center">
+                            <Link to={'/'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>Home</Box>
                                 </HStack>
                             </HStack>
+                            </Link>
 
-                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+
+                            <Link to={'/blog'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>Blog</Box>
                                 </HStack>
                             </HStack>
+                            </Link>
 
-                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                            <Link to={'services'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>Services</Box>
                                 </HStack>
-                            </HStack>
+                            </HStack></Link>
 
-                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+
+                            <Link to={'/about'}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>About</Box>
                                 </HStack>
-                            </HStack>
+                            </HStack></Link>
 
-                            {/* Book Now - Standout Button */}
-                            <HStack
+
+                            <Link to={'/book'}>                            <HStack
                                 justifyContent="center"
                                 p={3}
                                 borderRadius="md"
@@ -127,7 +136,9 @@ const Navbar = () => {
                                 <HStack>
                                     <Box>Book Now</Box>
                                 </HStack>
-                            </HStack>
+                            </HStack></Link>
+                            {/* Book Now - Standout Button */}
+
                         </VStack>
 
                     </DrawerBody>

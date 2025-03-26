@@ -35,11 +35,6 @@ const ShopPage = () => {
             {/* Sorting and Product Count */}
             <Flex justify="space-between" align="center" p={6}>
                 <Text fontSize="lg" color="gray.600">Showing all {products.length} results</Text>
-                <Select w="200px" placeholder="Default sorting">
-                    <option value="price-low">Price: Low to High</option>
-                    <option value="price-high">Price: High to Low</option>
-                    <option value="newest">Newest Arrivals</option>
-                </Select>
             </Flex>
 
             {/* Product Grid */}
@@ -50,7 +45,9 @@ const ShopPage = () => {
             </SimpleGrid>
 
             <Container p={5}>
-
+                <Link to={'/create'}>
+                <Button colorScheme="orange" size={'lg'} >Add Product</Button>
+                </Link>
             </Container>
         </Container>
     );
