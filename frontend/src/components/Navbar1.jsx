@@ -9,6 +9,8 @@ import { FiMenu, FiX } from "react-icons/fi"; // React Icons
 import { MdAccountCircle } from "react-icons/md";
 import logo from "../images/logo.png";
 import img8 from "../images/img8.png"
+import { FaYoutube, FaTelegramPlane, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaSquareXTwitter } from "react-icons/fa6";
 import Cart from "../pages/Cart";
 const Navbar = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,7 +35,7 @@ const Navbar = () => {
                 </HStack>
 
                 {/* Desktop Navigation */}
-                <HStack spacing={{lg:5, md:1}} display={{ base: "none", md: "flex" }} >
+                <HStack spacing={{ lg: 5, md: 1 }} display={{ base: "none", md: "flex" }} >
                     <Button variant="ghost"><Link to="/"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Home</Text></Link></Button>
                     <Button variant="ghost"><Link to="/blog"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Blog</Text></Link></Button>
                     <Button variant="ghost"><Link to="/services"><Text fontFamily={"DM Serif Text"} color={'#2C3E50'} fontSize={20} fontWeight={10}>Services</Text></Link></Button>
@@ -57,15 +59,32 @@ const Navbar = () => {
             </Flex>
 
             {/* Mobile Drawer Navigation */}
-            <Drawer  placement="top" onClose={onClose} isOpen={isOpen}>
+            <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
-                <DrawerContent bgGradient={"linear(to-tr, orange.100, white)"}borderRadius="md" >
+                <DrawerContent bgGradient={"linear(to-tr, orange.100, white)"} borderRadius="md" w={'full'} >
                     {/* Drawer Header with Close Button */}
                     <DrawerHeader display="flex" alignItems="center" justifyContent="space-between">
-                        <VStack align="start" spacing={0}>
+                        <VStack align="start" spacing={0} w={'full'}>
                             <HStack>
                                 <Image src={img8} alt="image" rounded={'full'} boxSize={'40%'} />
                                 <Heading size="md" fontFamily={'"DM Serif Text"'}>Devarishi Das Asamoah</Heading>
+                            </HStack>
+                            <HStack spacing={4} mt={3} display={'flex'}>
+                                <Link href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" isExternal>
+                                    <IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" />
+                                </Link>
+
+                                <Link href="https://x.com/AsamoahDas108" isExternal>
+                                    <IconButton icon={<FaSquareXTwitter />} aria-label="x" colorScheme="gray" />
+                                </Link>
+
+                                <Link href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" isExternal>
+                                    <IconButton icon={<FaFacebook />} aria-label="Facebook" colorScheme="blue" />
+                                </Link>
+
+                                <Link href="https://wa.me/2348175725656" isExternal>
+                                    <IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" />
+                                </Link>
                             </HStack>
                         </VStack>
 
@@ -86,16 +105,16 @@ const Navbar = () => {
                                 Are you looking for a plan that best suits your E-commerce business? Well, we've got something great for you.
                             </Box>
                             <Link to={'/shop'} onClick={onClose}>
-                            <Button colorScheme="whiteAlpha" variant="outline" w="100%">
-                                Go to Store
-                            </Button>
+                                <Button colorScheme="whiteAlpha" variant="outline" w="100%">
+                                    Go to Store
+                                </Button>
                             </Link>
 
                         </Box>
 
                         {/* Navigation Links */}
-                        <VStack spacing={0} mt={4} fontSize={20} color={'orange.900'} fontWeight={'bold'}  align="center">
-                            <Link to={'/'} onClick={onClose}>                           
+                        <VStack spacing={0} mt={4} fontSize={20} color={'orange.900'} fontWeight={'bold'} align="center">
+                            <Link to={'/'} onClick={onClose}>
                                 <HStack>
                                     <Box>Home</Box>
                                 </HStack>
