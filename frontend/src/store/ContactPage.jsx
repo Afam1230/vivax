@@ -24,6 +24,7 @@ const ContactPage = () => {
 
     // EmailJS integration (replace YOUR_SERVICE_ID, YOUR_TEMPLATE_ID, YOUR_USER_ID)
     try {
+      toast({ title: "Message sent successfully!", status: "success", duration: 5000, isClosable: true });
       await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -34,7 +35,6 @@ const ContactPage = () => {
           template_params: formData,
         }),
       });
-      toast({ title: "Message sent successfully!", status: "success", duration: 3000, isClosable: true });
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {
       toast({ title: "Failed to send message.", status: "error", duration: 3000, isClosable: true });
