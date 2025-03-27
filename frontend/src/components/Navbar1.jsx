@@ -102,11 +102,10 @@ const Navbar = () => {
                         <Box bg="#78350F" color="white" p={4} borderRadius="md" textAlign="left">
                             <Heading size="sm" mb={2}>Hello there,</Heading>
                             <Box fontSize="sm" mb={3}>
-                                Are you looking for a plan that best suits your E-commerce business? Well, we've got something great for you.
-                            </Box>
-                            <Link to={'/shop'} onClick={onClose}>
+                            Seeking guidance in life, love, or career? Discover the perfect astrology plan tailored just for you! Unlock cosmic insights today.                            </Box>
+                            <Link to={'/contact'} onClick={onClose}>
                                 <Button colorScheme="whiteAlpha" variant="outline" w="100%">
-                                    Go to Store
+                                    Contact Us
                                 </Button>
                             </Link>
 
@@ -118,6 +117,14 @@ const Navbar = () => {
                                 <HStack>
                                     <Box>Home</Box>
                                 </HStack>
+                            </Link>
+
+
+                            <Link to={'/shop'} onClick={onClose}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
+                                <HStack>
+                                    <Box>Shop</Box>
+                                </HStack>
+                            </HStack>
                             </Link>
 
 
@@ -138,21 +145,6 @@ const Navbar = () => {
                             <Link to={'/about'} onClick={onClose}>                            <HStack justifyContent="space-between" p={3} borderRadius="md" _hover={{ bg: "gray.100" }}>
                                 <HStack>
                                     <Box>About</Box>
-                                </HStack>
-                            </HStack></Link>
-
-
-                            <Link to={'/book'} onClick={onClose}>                            <HStack
-                                justifyContent="center"
-                                p={3}
-                                borderRadius="md"
-                                bg="green"
-                                color="white"
-                                fontWeight="bold"
-                                _hover={{ bg: "blue.600" }}
-                            >
-                                <HStack>
-                                    <Box>Book Now</Box>
                                 </HStack>
                             </HStack></Link>
                             {/* Book Now - Standout Button */}

@@ -104,7 +104,7 @@ const Footer = () => {
                 </VStack>
             </Stack>
             <Divider paddingY={4} />
-            <Text color={'white'} p={6} textAlign={'center'} fontSize={{ base: "sm", md: "md" }}>© {new Date().getFullYear()} ASTRO GUIDE. All rights reserved.</Text>
+            <Text color={'white'} p={6} textAlign={'center'} fontSize={{ base: "sm", md: "md" }}>© {new Date().getFullYear()} ASTRO DEVARAJ. All rights reserved.</Text>
         </Box>
     );
 };
