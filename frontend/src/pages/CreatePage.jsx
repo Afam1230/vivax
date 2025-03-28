@@ -35,10 +35,10 @@ const CreateProduct = () => {
 		formData.append("image", product.image);
 
 		try {
-			const res = await axios.post("http://localhost:5000/api/products", formData, {
-				headers: { "Content-Type": "multipart/form-data" },
-			});
-
+			const res = await fetch("/api/products", {
+				method: "POST",
+				body: formData, // Use FormData instead of JSON
+			  });
 			toast({
 				title: "Success",
 				description: "Product created successfully!",
