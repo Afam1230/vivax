@@ -2,6 +2,7 @@ import { Box, Grid, Heading, Text, VStack, Button,  HStack, Image  } from "@chak
 import { motion } from "framer-motion";
 import { HeartHandshake, Calendar, History, Globe, Clock, Flame, Briefcase, Activity, Lightbulb } from "lucide-react";
 import { Link } from "react-router-dom";
+import servic from "../images/servic.png"
 
 const MotionBox = motion(Box);
 
@@ -56,19 +57,19 @@ const services = [
 
 const ServicePage = () => {
   return (
-    <Box w="full" h={{ base: "auto", md: "auto" }}  color="black">
+      <Box w="full" h={{ base: "auto", md: "auto" }} mt={{md:20, base:4}}  color="black">
     <HStack
       maxW="1200px"
       mx="auto"
-      px={6}
       py={{ base: 10, md: 20 }}
       spacing={10}
       align="center"
       justify="space-between"
       flexDirection={{ base: "column-reverse", md: "row" }}
+      
     >
       {/* Text Content */}
-      <VStack align="start" spacing={6} flex="1">
+      <VStack align="start"       px={6} spacing={6} flex="1">
         <Heading fontFamily={"DM Serif Text"} fontSize={{ base: "2xl", md: "4xl" }} color="orange.700">
           Unlock Your Cosmic Destiny
         </Heading>
@@ -89,14 +90,15 @@ const ServicePage = () => {
       </VStack>
 
       {/* Hero Image */}
-      <Box flex="1" bgGradient={'radial(white, orange.200)'} rounded={'90'}>
+      <Box flex="1" maxW={'100vh'}  >
         <Image
-          src="https://scontent.flos1-3.fna.fbcdn.net/v/t39.30808-6/481899812_1036814558466142_93037116377118753_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=XyOKx9xd7AEQ7kNvgGYaDs2&_nc_oc=AdlmrcGJsq0wQMpzscpACcwHkknbf-2csJU6yGbcZOJMBoMb0IugUCNc52bgvc6qqBw&_nc_zt=23&_nc_ht=scontent.flos1-3.fna&_nc_gid=AghnqFX4mvmqiWh2Z94W8A&oh=00_AYE6cg2x4hLK765XI8pF7PBcvGXtLQA2d8vHNuIATVn9dg&oe=67E9320A"
+          src={servic}
           alt="Astrology Hero"
-          rounded={'full'}
+          rounded={{md:'full'}}
           w="full"
-          h={{ base: "300px", md: "full" }}
+          h={{ base: "full", md: "full" }}
           objectFit="cover"
+          
         />
       </Box>
     </HStack>

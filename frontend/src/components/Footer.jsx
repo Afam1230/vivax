@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, HStack, VStack, Text, Divider, Flex, Center, Stack, Heading, Button, IconButton,  useToast } from "@chakra-ui/react";
+import { Box, Container, HStack, VStack, Text, Divider, Flex, Center, Stack, Heading, Button, IconButton, useToast } from "@chakra-ui/react";
 import { Link, Links } from 'react-router-dom';
 import { FaYoutube, FaTelegramPlane, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
@@ -9,30 +9,30 @@ const Footer = () => {
     const toast = useToast();
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
-  
-    const handleSubmit = (e) => {
-      e.preventDefault(); // Prevent page reload
-  
-      if (!email.trim()) {
-        setError("Email is required.");
-        return;
-      }
-  
-      // ✅ Add email validation if needed
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        setError("Please enter a valid email address.");
-        return;
-      }
-  
-      setError(""); // Clear any previous errors
-      console.log("Form Submitted:", { email });
-      toast({ title: "email submitted successfully!", status: "success", duration: 3000, isClosable: true });
 
-      // 📨 Proceed with form submission logic (EmailJS, API, etc.)
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent page reload
+
+        if (!email.trim()) {
+            setError("Email is required.");
+            return;
+        }
+
+        // ✅ Add email validation if needed
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setError("Please enter a valid email address.");
+            return;
+        }
+
+        setError(""); // Clear any previous errors
+        console.log("Form Submitted:", { email });
+        toast({ title: "email submitted successfully!", status: "success", duration: 3000, isClosable: true });
+
+        // 📨 Proceed with form submission logic (EmailJS, API, etc.)
     };
 
-    
+
 
 
 
@@ -74,21 +74,21 @@ const Footer = () => {
 
                     {/* Social Links */}
                     <HStack spacing={4} mt={3}>
-                        <Link href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" isExternal>
+                        <a href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" target="_blank" rel="noopener noreferrer">
                             <IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" />
-                        </Link>
+                        </a>
 
-                        <Link href="https://x.com/AsamoahDas108" isExternal>
-                            <IconButton icon={<FaSquareXTwitter />} aria-label="x" colorScheme="gray" />
-                        </Link>
+                        <a href="https://x.com/AsamoahDas108" target="_blank" rel="noopener noreferrer">
+                            <IconButton icon={<FaSquareXTwitter />} aria-label="X (Twitter)" colorScheme="gray" />
+                        </a>
 
-                        <Link href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" isExternal>
+                        <a href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">
                             <IconButton icon={<FaFacebook />} aria-label="Facebook" colorScheme="blue" />
-                        </Link>
+                        </a>
 
-                        <Link href="https://wa.me/2348175725656" isExternal>
+                        <a href="https://wa.me/2348175725656" target="_blank" rel="noopener noreferrer">
                             <IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" />
-                        </Link>
+                        </a>
                     </HStack>
                 </VStack>
 
@@ -97,9 +97,9 @@ const Footer = () => {
                     <Text color="white">SUBSCRIBE FOR SPIRITUAL</Text>
                     <Text color="white">INSIGHTS AND UPDATES</Text>
                     <form onSubmit={handleSubmit}>
-                    <input placeholder="Your Email" name="email" color="white" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    <Text py={1}></Text>
-                    <Button colorScheme="orange" type="submit">submit</Button>
+                        <input placeholder="Your Email" name="email" color="white" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <Text py={1}></Text>
+                        <Button colorScheme="orange" type="submit">submit</Button>
                     </form>
                 </VStack>
             </Stack>

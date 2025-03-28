@@ -70,21 +70,21 @@ const Navbar = () => {
                                 <Heading size="md" fontFamily={'"DM Serif Text"'}>Devarishi Das Asamoah</Heading>
                             </HStack>
                             <HStack spacing={4} mt={3} display={'flex'}>
-                                <Link href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" isExternal>
+                                <a href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" target="_blank" rel="noopener noreferrer">
                                     <IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" />
-                                </Link>
+                                </a>
 
-                                <Link href="https://x.com/AsamoahDas108" isExternal>
-                                    <IconButton icon={<FaSquareXTwitter />} aria-label="x" colorScheme="gray" />
-                                </Link>
+                                <a href="https://x.com/AsamoahDas108" target="_blank" rel="noopener noreferrer">
+                                    <IconButton icon={<FaSquareXTwitter />} aria-label="X (Twitter)" colorScheme="gray" />
+                                </a>
 
-                                <Link href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" isExternal>
+                                <a href="https://web.facebook.com/DevaRishiDasAsamoah/?_rdc=1&_rdr#" target="_blank" rel="noopener noreferrer">
                                     <IconButton icon={<FaFacebook />} aria-label="Facebook" colorScheme="blue" />
-                                </Link>
+                                </a>
 
-                                <Link href="https://wa.me/2348175725656" isExternal>
+                                <a href="https://wa.me/2348175725656" target="_blank" rel="noopener noreferrer">
                                     <IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" />
-                                </Link>
+                                </a>
                             </HStack>
                         </VStack>
 
@@ -102,7 +102,7 @@ const Navbar = () => {
                         <Box bg="#78350F" color="white" p={4} borderRadius="md" textAlign="left">
                             <Heading size="sm" mb={2}>Hello there,</Heading>
                             <Box fontSize="sm" mb={3}>
-                            Seeking guidance in life, love, or career? Discover the perfect astrology plan tailored just for you! Unlock cosmic insights today.                            </Box>
+                                Seeking guidance in life, love, or career? Discover the perfect astrology plan tailored just for you! Unlock cosmic insights today.                            </Box>
                             <Link to={'/contact'} onClick={onClose}>
                                 <Button colorScheme="whiteAlpha" variant="outline" w="100%">
                                     Contact Us
