@@ -17,6 +17,14 @@ export const useCartStore = create((set) => ({
       return { cart, totalPrice: state.totalPrice + product.price };
     }),
 
+
+  setCart: (cart) => set(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    const totalPrice = Object.values(cart).reduce((sum, item) => sum + item.price * item.quantity, 0);
+    return { cart, totalPrice };
+  }),
+
+
   removeFromCart: (productId) =>
     set((state) => {
       const cart = { ...state.cart };

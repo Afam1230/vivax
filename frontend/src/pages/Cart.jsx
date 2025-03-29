@@ -1,5 +1,3 @@
-
-import React from 'react'
 import { useEffect, useState } from "react";
 import {
     Box,
@@ -22,26 +20,42 @@ import {
 } from "@chakra-ui/react";
 import { AddIcon, MinusIcon, CloseIcon } from "@chakra-ui/icons";
 import { FaShoppingCart } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 import { useProductStore } from "../store/product";
 import { useCartStore } from "../store/cart"; // Assume you have a Zustand store for cart management
+import { useNavigate } from "react-router-dom";
+
 
 const Cart = () => {
     const { products, fetchProducts } = useProductStore();
     const { cart, addToCart, addFromCart, removeFromCart, updateQuantity, totalPrice } = useCartStore();
     const [isCartOpen, setCartOpen] = useState(false);
+    const navigate = useNavigate();
+    const isAuthenticated = localStorage.getItem("token"); // Check if user is logged in
+
+    const handleCheckout = () => {
+        if (!isAuthenticated) {
+            localStorage.setItem("checkout_cart", JSON.stringify(cart)); // Save cart before login
+            navigate("/login");  // Redirect to login
+        } else {
+            navigate("/checkout");  // Proceed to checkout
+        }
+    };
 
     useEffect(() => {
         fetchProducts();
     }, []);
+
+
     return (
-        <Box>
+        <Container  maxW="100%" py={8} mt={{lg:200, base:100}}>
             {/* Floating Cart Icon */}
             <IconButton
                 icon={<FaShoppingCart size={30} />}
                 aria-label="Open Cart"
                 position="fixed"
-                bottom={{ md: "1500px", base: '85vh' }}
+                top={{ md: "150px", base: '100px', xl: '150px' }}
                 right="20px"
                 size="lg"
                 colorScheme="orange"
@@ -57,7 +71,7 @@ const Cart = () => {
             {/* Cart Drawer */}
             <Drawer isOpen={isCartOpen} placement="top" onClose={() => setCartOpen(false)}>
                 <DrawerOverlay />
-                <DrawerContent>
+                <DrawerContent h={'70vh'}>
                     <DrawerHeader>
                         Cart Summary
                         <IconButton
@@ -68,7 +82,7 @@ const Cart = () => {
                             onClick={() => setCartOpen(false)}
                         />
                     </DrawerHeader>
-                    <DrawerBody>
+                    <DrawerBody >
                         {Object.keys(cart).length === 0 ? (
                             <Text>Your cart is empty.</Text>
                         ) : (
@@ -76,8 +90,8 @@ const Cart = () => {
                                 <HStack key={item._id} justify="space-between" my={2}>
                                     <Image src={item.image} alt={item.name} boxSize="50px" />
                                     <VStack align="start">
-                                        <Text fontSize="sm">{item.name}</Text>
-                                        <Text fontSize="sm">${item.price} x {item.quantity}</Text>
+                                        <Text fontSize="xl" fontWeight={'bold'}>{item.name}</Text>
+                                        <Text fontSize="xl">${item.price} x {item.quantity}</Text>
                                     </VStack>
                                     <HStack>
                                         <IconButton
@@ -99,14 +113,14 @@ const Cart = () => {
                     </DrawerBody>
                     <DrawerFooter>
                         <Text fontWeight="bold">Total: ${totalPrice}</Text>
-                        <Button colorScheme="green" ml={4}>
+                        <Button colorScheme="green" ml={4} onClick={handleCheckout}>
                             Checkout
                         </Button>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>
+        </Container>
 
-        </Box>
     )
 }
 

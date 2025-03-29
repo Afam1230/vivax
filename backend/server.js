@@ -5,6 +5,9 @@ import cors from 'cors'
 import nodemailer from "nodemailer"
 import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
+import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -14,7 +17,9 @@ const __dirname = path.resolve();
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use(express.static(__dirname))
 app.use(cors())
+app.use(cookieParser());
 app.use("/api/products", productRoutes);
+app.use("/api/auth", authRoutes);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "/frontend/dist")));

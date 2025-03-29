@@ -16,6 +16,9 @@ import ScrollToTop from "./components/ScrollToTop";
 import Cart from "./pages/Cart";
 import ThankYouPage from "./pages/Thankyou";
 import ContactPage from "./store/ContactPage";
+import Login from "./pages/Login";
+import Checkout from "./pages/Checkout";
+import Register from "./pages/Register";
 
 
 function App() {
@@ -36,6 +39,10 @@ function App() {
 				<Route path="/article/:id" element={<ArticlePage />} />
 				<Route path="/thank-you" element={<ThankYouPage />} />
 				<Route path="/contact" element={<ContactPage />} />
+				<Route path="/checkout" element={<Checkout />} />
+                <Route path="/login" element={<Login />} />
+				<Route path="/register" element={<Register />} />
+
 			</Routes>
 			<Footer />
 		</Box>
