@@ -5,7 +5,6 @@ import cors from 'cors'
 import nodemailer from "nodemailer"
 import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
-import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 
@@ -16,17 +15,32 @@ const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 app.use(express.json()); // allows us to accept JSON data in the req.body
 app.use(express.static(__dirname))
-app.use(cors())
+app.use(
+  cors({
+    origin: "http://localhost:5173", // frontend URL
+    credentials: true,               // allow cookies/headers
+  })
+);
+
 app.use(cookieParser());
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
+// server.js (Express backend example)
+app.get('/api/news', async (req, res) => {
+	const response = await fetch('https://api.coinstats.app/public/v1/news?skip=0&limit=12');
+	const data = await response.json();
+	res.json(data);
+  });
+  
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "/frontend/dist")));
-	app.get("*", (req, res) => {
-		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
-	});
-}
+// if (process.env.NODE_ENV === "production") {
+// 	app.use(express.static(path.join(__dirname, "/frontend/dist")));
+// 	app.get("*", (req, res) => {
+// 		res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+// 	});
+// }
+
+
 
 app.post("/api/book", async (req, res) => {
 	const { name, email, phone, message, dob, timeOfBirth } = req.body;

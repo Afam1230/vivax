@@ -2,7 +2,6 @@ import { Box, useColorModeValue } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
 import LogisticsApp from "./pages/CreatePage";
 import HomePage from "./pages/HomePage"
-import Navbar from "./components/Navbar1"
 import Footer from "./components/Footer"
 import AdminDashboard from "./pages/AdminPage"
 import ServicePage from "./pages/ServicePage"
@@ -19,13 +18,18 @@ import ContactPage from "./store/ContactPage";
 import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
 import Register from "./pages/Register";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Navbar from './components/Navbar';
+
 
 
 function App() {
 	return (
+		
 		<Box minH={"100vh"} bg={'white'} >
 			<ScrollToTop />
-			<Navbar />
+			<Navbar/>
 			<WhatsAppButton />
 			<Routes>
 				<Route path='/' element={<HomePage />} />
@@ -40,11 +44,21 @@ function App() {
 				<Route path="/thank-you" element={<ThankYouPage />} />
 				<Route path="/contact" element={<ContactPage />} />
 				<Route path="/checkout" element={<Checkout />} />
-                <Route path="/login" element={<Login />} />
+				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
+				{/* 🔐 Protected Route */}
+				<Route
+					path="/dashboard"
+					element={
+						<ProtectedRoute>
+							<Dashboard />
+						</ProtectedRoute>
+					}
+				/>
+
 
 			</Routes>
-			<Footer />
+			{/* <Footer /> */}
 		</Box>
 	);
 }

@@ -1,0 +1,107 @@
+// components/BalanceCard.js
+import { Box, Text, ButtonGroup, VStack, HStack, Button, Icon, Stack } from "@chakra-ui/react";
+import { FaWallet } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa";
+import { FaDollarSign } from "react-icons/fa";
+
+
+export function BalanceCard({ balance }) {
+  return (
+    <Box backdropFilter="blur(0px)"  bg="#1B263B" p={5} borderRadius="xl" color="white">
+      <Text fontSize="sm" color="gray.400">Total Balance</Text>
+      <Stack spacing={2} justifyContent={'center'} direction={'row-reverse'}>
+      <Text fontSize="2xl" fontWeight="bold">${balance.toFixed(2)}</Text>
+      <Icon as={FaWallet} mt={2} boxSize={6} />
+      </Stack>
+    </Box>
+  );
+}
+
+// components/DailyProfitCard.js
+export  function DailyProfitCard({ profit }) {
+  return (
+    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
+      <Text fontSize="sm" color="gray.400">24h Profit</Text>
+      <Text fontSize="2xl" fontWeight="bold">${profit.toFixed(2)}</Text>
+      <Text fontSize="sm" color="green.300">+5.2%</Text>
+      <Icon as={FaChartLine} mt={2} boxSize={6} />
+    </Box>
+  );
+}
+
+// components/ActivePlansCard.js
+export  function ActivePlansCard({ count }) {
+  return (
+    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
+      <Text fontSize="sm" color="gray.400">Active Plans</Text>
+      <Stack spacing={2} direction={'row-reverse'} justifyContent={'center'}>
+      <Text fontSize="2xl" fontWeight="bold">{count}</Text>
+      <Icon as={FaBriefcase} mt={2} boxSize={6} />
+      </Stack>
+    </Box>
+  );
+}
+
+// components/TotalReturnsCard.js
+export  function TotalReturnsCard({ returns }) {
+  return (
+    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
+      <Text fontSize="sm" color="gray.400">Total Returns</Text>
+      <Text fontSize="2xl" fontWeight="bold">${returns.toFixed(2)}</Text>
+      <Text fontSize="sm" color="green.300">+12.4%</Text>
+      <Icon as={FaDollarSign} mt={2} boxSize={6} />
+    </Box>
+  );
+}
+
+// components/PortfolioPerformance.js
+export  function PortfolioPerformance() {
+  return (
+    <Box bg="#1B263B" p={5} borderRadius="xl" color="white" flex={1}>
+      <Text fontSize="md" mb={3}>Portfolio Performance</Text>
+      <ButtonGroup size="sm" isAttached mb={4}>
+        <Button variant="solid">1D</Button>
+        <Button variant="ghost">1W</Button>
+        <Button variant="ghost">1M</Button>
+        <Button variant="ghost">1Y</Button>
+      </ButtonGroup>
+      <Box bgGradient="linear(to-r, blue.900, purple.900)" h="150px" borderRadius="lg" />
+    </Box>
+  );
+}
+
+// components/ActiveInvestments.js
+const Investment = ({ title, amount, change }) => (
+  <HStack justify="space-between" w="full">
+    <Box>
+      <Text fontWeight="bold">{title}</Text>
+    </Box>
+    <Box textAlign="right">
+      <Text>${amount.toFixed(2)}</Text>
+      <Text color={change > 0 ? "green.300" : "red.400"}>{change > 0 ? `+${change}%` : `${change}%`}</Text>
+    </Box>
+  </HStack>
+);
+
+export  function ActiveInvestments({ data }) {
+  return (
+    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
+      <Text fontSize="md" mb={4}>Active Investments</Text>
+      <VStack spacing={3} align="stretch" fontSize={[20,30]}>
+        {data.map((item, idx) => (
+          <Investment key={idx} {...item} />
+        ))}
+      </VStack>
+    </Box>
+  );
+}
+
+// components/NewInvestmentButton.js
+export  function NewInvestmentButton({ onClick }) {
+  return (
+    <Button onClick={onClick} bg="purple.500" color="white" _hover={{ bg: "purple.600" }}>
+      + New Investment
+    </Button>
+  );
+}
