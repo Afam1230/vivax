@@ -39,7 +39,7 @@ const TopLosers = () => {
       setTopLosers(losers);
       setIsLoading(false);
     } catch (error) {
-      setError('Failed to fetch top losers');
+      setError('Loading......');
       setIsLoading(false);
     }
   };
@@ -50,7 +50,7 @@ const TopLosers = () => {
       {isLoading ? (
         <Text fontSize="lg" color="gray.400">Loading...</Text>
       ) : error ? (
-        <Text fontSize="lg" color="red.400">{error}</Text>
+        <Text fontSize="lg" color="red.400" fontWeight={'bold'}>{error}</Text>
       ) : (
         <Box>
           {topLosers.map((coin) => (

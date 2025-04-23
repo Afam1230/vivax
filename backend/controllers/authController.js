@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'
-dotenv.config({path: "../.env"});
+dotenv.config();
 console.log("JWT_SECRET is:", process.env.JWT_SECRET ? "✔️ loaded" : "❌ missing");
 
 
@@ -21,19 +21,20 @@ export const register = async (req, res) => {
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
 
-    // Return the user (without password)
-    const user = {
-      _id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-    };
+    // Include the full user object except password
+    const userToSend = await User.findById(newUser._id).select("-password");
 
-    res.status(201).json({ message: "User registered successfully!", user });
+    res.status(201).json({
+      message: "User registered successfully!",
+      user: userToSend,
+    });
+    console.log('user=>', user)
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ error: "Registration failed!" });
   }
 };
+
 
 
 export const login = async (req, res) => {
@@ -45,38 +46,47 @@ export const login = async (req, res) => {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
-    // Make sure JWT_SECRET is defined!
     if (!process.env.JWT_SECRET) {
       throw new Error("JWT_SECRET is not set in your environment");
     }
 
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "7d",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
     });
+
+    // ✅ Fetch full user info (excluding password)
+    const fullUser = await User.findById(user._id).select("-password");
+
     res.json({
       message: "Login successful!",
-      user: { name: user.name, email: user.email },
+      token, // include token in response
+      user: fullUser, // send complete user data
     });
   } catch (error) {
     console.error("🔥 Login error:", error);
-    // return the real error message for debugging—remove in production
     return res.status(500).json({ error: error.message });
   }
 };
+
 
 export const logout = (req, res) => {
   res.clearCookie("token");
   res.json({ message: "Logged out successfully!" });
 };
 
-export const getUser = (req, res) => {
-  res.json(req.user);
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    res.json(user);
+    console.log('user from getuser=> ', user)
+  } catch (error) {
+    console.error("Error fetching user:", error);
+    res.status(500).json({ error: "Failed to fetch user" });
+  }
 };

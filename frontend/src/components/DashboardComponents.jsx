@@ -4,6 +4,30 @@ import { FaWallet } from "react-icons/fa";
 import { FaChartLine } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
 import { FaDollarSign } from "react-icons/fa";
+import { FaBitcoin, FaEthereum } from "react-icons/fa";
+
+const BalanceItem = ({ label, amount, icon }) => (
+  <HStack justify="space-between" w="full">
+    <HStack>
+      <Icon as={icon} boxSize={5} color="yellow.400" />
+      <Text>{label}</Text>
+    </HStack>
+    <Text fontWeight="bold">{amount}</Text>
+  </HStack>
+);
+
+export function WalletBalanceCard({ balance }) {
+  return (
+    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
+      <Text fontSize="md" mb={4}>Wallet Balances</Text>
+      <VStack spacing={3} align="stretch">
+        <BalanceItem label="BTC" amount={balance?.btc ?? 0} icon={FaBitcoin} />
+        <BalanceItem label="ETH" amount={balance?.eth ?? 0} icon={FaEthereum} />
+        <BalanceItem label="USDT" amount={balance?.usdt ?? 0} icon={FaDollarSign} />
+      </VStack>
+    </Box>
+  );
+}
 
 
 export function BalanceCard({ balance }) {
@@ -94,14 +118,5 @@ export  function ActiveInvestments({ data }) {
         ))}
       </VStack>
     </Box>
-  );
-}
-
-// components/NewInvestmentButton.js
-export  function NewInvestmentButton({ onClick }) {
-  return (
-    <Button onClick={onClick} bg="purple.500" color="white" _hover={{ bg: "purple.600" }}>
-      + New Investment
-    </Button>
   );
 }

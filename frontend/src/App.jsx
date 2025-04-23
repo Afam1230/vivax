@@ -21,6 +21,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from './components/Navbar';
+import PricingPage from "./pages/PricingPage";
 
 
 
@@ -46,6 +47,8 @@ function App() {
 				<Route path="/checkout" element={<Checkout />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
+				<Route path="/pricing" element={<PricingPage />} />
+
 				{/* 🔐 Protected Route */}
 				<Route
 					path="/dashboard"

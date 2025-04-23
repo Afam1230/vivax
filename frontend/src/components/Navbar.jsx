@@ -13,15 +13,16 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    Text,
+    Text,    
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { useAuthStore } from "../store/useAuthStore";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
-
+    const navigate = useNavigate()
     const Links = ["Link1", "Link2", "Link3", "Link4"];
     const { isAuthenticated, logout } = useAuthStore();
     const NavLinks = ({ vertical = false }) => (

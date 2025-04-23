@@ -12,55 +12,59 @@ export const useAuthStore = create(
       user: null,
       isAuthenticated: false,
 
-  login: async (email, password) => {
-    try {
-      const res = await axios.post(`${API}/login`, { email, password });
-      // Store the token in localStorage
-      localStorage.setItem("token", res.data.token);
-      // Set user data and authentication state
-      set({ user: res.data.user, isAuthenticated: true });
-    } catch (error) {
-      console.error("Login failed:", error.response?.data?.message || error.message);
-      throw error;
-    }
-  },
+      login: async (email, password) => {
+        try {
+          const res = await axios.post(`${API}/login`, { email, password });
 
-  register: async (name, email, password) => {
-    try {
-      const res = await axios.post(`${API}/register`, { name, email, password });
-      set({ user: res.data.user, isAuthenticated: true });
-    } catch (error) {
-      console.error("Registration failed:", error?.response?.data?.message || error.message);
-      throw error;
-    }
-  },
+          // ✅ Store token
+          localStorage.setItem("token", res.data.token);
 
-  logout: () => {
-    localStorage.removeItem("token");
-    set({ user: null, isAuthenticated: false });
-  },
+          // ✅ Store full user with balance
+          set({ user: res.data.user, isAuthenticated: true });
+        } catch (error) {
+          console.error("Login failed:", error.response?.data?.message || error.message);
+          throw error;
+        }
+      },
 
-  fetchUser: async () => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      set({ user: null, isAuthenticated: false });
-      return;
-    }
-  
-    try {
-      const res = await axios.get(`${API}/me`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      set({ user: res.data, isAuthenticated: true });
-    } catch (error) {
-      console.error("Fetch user failed:", error);
-      localStorage.removeItem("token");
-      set({ user: null, isAuthenticated: false });
-    }
-  },
-  
-  
-})));
+
+      register: async (name, email, password) => {
+        try {
+          const res = await axios.post(`${API}/register`, { name, email, password });
+          set({ user: res.data.user, isAuthenticated: true });
+        } catch (error) {
+          console.error("Registration failed:", error?.response?.data?.message || error.message);
+          throw error;
+        }
+      },
+
+      logout: () => {
+        localStorage.removeItem("token");
+        set({ user: null, isAuthenticated: false });
+      },
+
+      fetchUser: async () => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          set({ user: null, isAuthenticated: false });
+          return;
+        }
+
+        try {
+          const res = await axios.get(`${API}/user`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          set({ user: res.data, isAuthenticated: true });
+          console.log('userFromFetch:', res.data)
+        } catch (error) {
+          console.error("Fetch user failed:", error);
+          localStorage.removeItem("token");
+          set({ user: null, isAuthenticated: false });
+        }
+      },
+
+
+    })));
 
 // Custom hook for authentication logic
 export const useAuth = () => {
