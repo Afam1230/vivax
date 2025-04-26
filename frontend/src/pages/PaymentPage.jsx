@@ -86,7 +86,7 @@ const PaymentPage = () => {
         details: `Purchase of ${plan.label} plan`,
         Deposit: false, // because this is from balance
         planData: {
-          id: plan._id || uuidv4(),
+          id: plan.id || uuidv4(),
           label: plan.label,
           price: plan.price,
           rate: plan.rate,

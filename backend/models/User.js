@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { miningPlansSchema } from './MiningPlan.js'; // ⬅️ import it!
+import { miningPlansSchema, planSchema, UPlanSchema } from './MiningPlan.js'; // ⬅️ import it!
 const transactionSchema = new mongoose.Schema({
   _id: String, // UUID for transaction ID
   type: String, // "deposit", "withdrawal", "plan-purchase", "daily-return"
@@ -9,7 +9,8 @@ const transactionSchema = new mongoose.Schema({
   details: String,
   proofImage: { type: String, default: null }, // URL for proof of transfer
   status: { type: String, enum: ["pending", "successful", "unsuccessful"], default: "pending" },
-  fromDeposit: { type: Boolean, default: false }, // important for your deposit logic
+  Deposit: { type: Boolean, default: true },
+  planData: { type: Object },
 });
 
 const userSchema = new mongoose.Schema({
@@ -22,8 +23,12 @@ const userSchema = new mongoose.Schema({
     eth: { type: Number, default: 0 },
     // add more as needed
   },
-  transactions: [transactionSchema],
-  plans: [miningPlansSchema],
+  transactions: { type: [transactionSchema], default: [] },
+  plans: {
+    BTC: { type: [UPlanSchema], default: [] },
+    ETH: { type: [UPlanSchema], default: [] },
+    USD: { type: [UPlanSchema], default: [] }
+  },
   earnings: []
 });
 
