@@ -23,7 +23,7 @@ export function WalletBalanceCard({ balance }) {
       <VStack spacing={3} align="stretch">
         <BalanceItem label="BTC" amount={balance?.btc ?? 0} icon={FaBitcoin} />
         <BalanceItem label="ETH" amount={balance?.eth ?? 0} icon={FaEthereum} />
-        <BalanceItem label="USDT" amount={balance?.usdt ?? 0} icon={FaDollarSign} />
+        <BalanceItem label="USDT" amount={balance?.usd ?? 0} icon={FaDollarSign} />
       </VStack>
     </Box>
   );
@@ -42,8 +42,7 @@ export function BalanceCard({ balance }) {
   );
 }
 
-// components/DailyProfitCard.js
-export  function DailyProfitCard({ profit }) {
+export function DailyProfitCard({ profit = 0 }) {
   return (
     <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
       <Text fontSize="sm" color="gray.400">24h Profit</Text>

@@ -15,17 +15,21 @@ export const useAuthStore = create(
       login: async (email, password) => {
         try {
           const res = await axios.post(`${API}/login`, { email, password });
-
+      
           // ✅ Store token
           localStorage.setItem("token", res.data.token);
-
-          // ✅ Store full user with balance
+      
+          // ✅ Store userId
+          localStorage.setItem("userId", res.data.user._id);
+      
+          // ✅ Store full user in Zustand
           set({ user: res.data.user, isAuthenticated: true });
         } catch (error) {
           console.error("Login failed:", error.response?.data?.message || error.message);
           throw error;
         }
       },
+      
 
 
       register: async (name, email, password) => {

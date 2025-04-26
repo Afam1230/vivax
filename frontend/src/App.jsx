@@ -16,12 +16,13 @@ import Cart from "./pages/Cart";
 import ThankYouPage from "./pages/Thankyou";
 import ContactPage from "./store/ContactPage";
 import Login from "./pages/Login";
-import Checkout from "./pages/Checkout";
+import PaymentPage from "./pages/PaymentPage";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from './components/Navbar';
 import PricingPage from "./pages/PricingPage";
+import AdminPlansPage from "./pages/AdminPlansPage";
 
 
 
@@ -35,7 +36,7 @@ function App() {
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/create' element={<LogisticsApp />} />
-				<Route path='/admin' element={<AdminDashboard />} />
+				<Route path='/admin' element={<AdminPlansPage />} />
 				<Route path='/services' element={<ServicePage />} />
 				<Route path="/about" element={<AboutPage />} />
 				<Route path="/blog" element={<BlogPage />} />
@@ -44,7 +45,7 @@ function App() {
 				<Route path="/article/:id" element={<ArticlePage />} />
 				<Route path="/thank-you" element={<ThankYouPage />} />
 				<Route path="/contact" element={<ContactPage />} />
-				<Route path="/checkout" element={<Checkout />} />
+				<Route path="/payment/:planId" element={<PaymentPage />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/pricing" element={<PricingPage />} />

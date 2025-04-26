@@ -1,21 +1,15 @@
 import mongoose from 'mongoose';
-
+import { miningPlansSchema } from './MiningPlan.js'; // ⬅️ import it!
 const transactionSchema = new mongoose.Schema({
+  _id: String, // UUID for transaction ID
   type: String, // "deposit", "withdrawal", "plan-purchase", "daily-return"
-  coin: String,
+  coin: String, // "btc", "eth", "usdt"
   amount: Number,
   date: { type: Date, default: Date.now },
   details: String,
-});
-
-const planSchema = new mongoose.Schema({
-  title: String,
-  coin: String,
-  price: Number,
-  returnPerDay: Number,
-  totalDays: Number,
-  startDate: { type: Date, default: Date.now },
-  endDate: Date,
+  proofImage: { type: String, default: null }, // URL for proof of transfer
+  status: { type: String, enum: ["pending", "successful", "unsuccessful"], default: "pending" },
+  fromDeposit: { type: Boolean, default: false }, // important for your deposit logic
 });
 
 const userSchema = new mongoose.Schema({
@@ -23,13 +17,14 @@ const userSchema = new mongoose.Schema({
   email: String,
   password: String,
   balance: {
-    usdt: { type: Number, default: 0 },
+    usd: { type: Number, default: 0 },
     btc: { type: Number, default: 0 },
     eth: { type: Number, default: 0 },
     // add more as needed
   },
   transactions: [transactionSchema],
-  plans: [planSchema],
+  plans: [miningPlansSchema],
+  earnings: []
 });
 
 export default mongoose.model('User', userSchema);

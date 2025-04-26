@@ -20,16 +20,24 @@ import {
   WalletBalanceCard
 } from "../components/DashboardComponents";
 import { getCryptoRates } from "../utils/getCryptoRates";
+import useEarningsStore from '../store/earningsStore';
 
 const Dashboard = () => {
   const { user, fetchUser } = useAuthStore();
   const rates =  getCryptoRates();
   const navigate = useNavigate();
+  const { profit, loading, fetchProfit } = useEarningsStore();
 
 
   useEffect(() => {
     fetchUser(); // fetch fresh user data when dashboard loads
   }, [fetchUser]);
+
+  useEffect(() => {
+    if (user?._id) {
+      fetchProfit(user._id);
+    }
+  }, [user, fetchProfit]);
 
   const layout = useBreakpointValue({ base: "column", md: "row" });
   const coins = ['bitcoin', 'ethereum', 'dogecoin', 'litecoin'];
@@ -37,9 +45,8 @@ const Dashboard = () => {
   const totalUSD =
   balance.btc * 4+
   balance.eth * 3+
-  balance.usdt * 2;
+  balance.usd * 2;
 
-  const profit = 43.21;
   const plans = 3;
   const returns = 412.55;
   const investments = [

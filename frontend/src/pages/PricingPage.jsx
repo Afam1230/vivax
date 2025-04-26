@@ -2,41 +2,45 @@ import { Box, SimpleGrid, Text, Button, VStack, HStack, Select, useBreakpointVal
 import { useState } from "react";
 import { FaBitcoin, FaEthereum, FaDollarSign } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { usePlanStore } from "../store/usePlanStore";
+import { BsCurrencyBitcoin } from "react-icons/bs";
+import { BiDollar } from "react-icons/bi";
 
-const plans = {
-    BTC: [
-      { id: "btc1", label: "12-Month Plan", price: 35.2, rate: "1 TH/s", reward: 22.39 },
-      { id: "btc2", label: "6-Month Plan", price: 18.0, rate: "0.5 TH/s", reward: 10.25 },
-      { id: "btc3", label: "3-Month Plan", price: 9.5, rate: "0.25 TH/s", reward: 5.12 },
-    ],
-    ETH: [
-      { id: "eth1", label: "12-Month Plan", price: 25.5, rate: "2 MH/s", reward: 15.3 },
-      { id: "eth2", label: "6-Month Plan", price: 13.2, rate: "1 MH/s", reward: 7.85 },
-      { id: "eth3", label: "3-Month Plan", price: 6.8, rate: "0.5 MH/s", reward: 3.9 },
-    ],
-    USD: [
-      { id: "usd1", label: "12-Month Plan", price: 30.0, rate: "$10/day", reward: 18.0 },
-      { id: "usd2", label: "6-Month Plan", price: 15.5, rate: "$5/day", reward: 9.2 },
-      { id: "usd3", label: "3-Month Plan", price: 7.5, rate: "$2.5/day", reward: 4.6 },
-    ],
-  };
 
   const icons = {
     BTC: FaBitcoin,
     ETH: FaEthereum,
     USD: FaDollarSign,
   };
+  const currencyIcons = {
+    BTC: <BsCurrencyBitcoin size={25} />,
+    ETH: <FaEthereum  />,
+    USD: <BiDollar size={25} />,
+  };
+
 
 const PlanCard = ({  plan, selected, icon }) => {
+
   const navigate = useNavigate();
-  const symbol = selected === "USD" ? "$" : selected === "BTC" ? "₿" : "ETH";
+  const symbol = selected === "USD" ? "USD" : selected === "BTC" ? "BTC" : "ETH";
   return (
-    <Box bg="#2C3E50" color="white" w={'full'} p={5} borderRadius="lg" boxShadow="lg">
-      <Text fontWeight="bold" mb={1}>{plan.duration} 🔥</Text>
+    <Box bg="#2C3E50" color="white" w={'full'} minW={{md:'300px',base:'0px'}} p={5} borderRadius="lg" boxShadow="lg">
+      <Text fontWeight="bold" mb={1}  fontSize={30}>🔥{plan.label} </Text>
       <Text fontSize="xs" bg="orange.400" w="fit-content" px={2} py={0.5} borderRadius="full">Best Value</Text>
-      <Text fontSize="4xl" fontWeight="bold" mt={2}>{symbol}{plan.price}</Text>
-      <Text fontSize="md">{plan.rate}</Text>     
-      <Text mt={2} fontSize="sm">Estimated mining result: {plan.reward} {symbol}</Text>
+          <HStack spacing={1}>
+            <Text fontSize="2xl" fontWeight="bold">
+              {symbol === "USD" ? "" : ""}
+              {plan.price}
+              {symbol === "BTC" && " "}
+              {symbol === "ETH" && " "}
+            </Text>
+            {currencyIcons[symbol]}
+          </HStack>      <Text fontSize="md" fontWeight={'semibold'}>{plan.rate}</Text>   
+          <HStack>
+      <Text mt={2} fontSize="sm">Estimated  mining reward:</Text>
+      <Text fontWeight={"bold"} mt={2} color={'white'}> {plan.reward} {symbol}</Text>
+      </HStack>  
       <Button
         mt={4}
         bg="green.400"
@@ -52,9 +56,18 @@ const PlanCard = ({  plan, selected, icon }) => {
 };
 
 export default function PricingPage() {
+  const { plans, fetchPlans, loading } = usePlanStore();
+  useEffect(() => {
+    fetchPlans(); // Fetch from backend when page loads
+  }, [fetchPlans]);
+
   const [selected, setSelected] = useState("BTC");
   const icon = icons[selected];
   const isMobile = useBreakpointValue({ base: true, md: false });
+
+  if (loading) return <p style={{ color: "white" }}>Loading plans...</p>;
+  if (!plans[selected]) return <p style={{ color: "white" }}>No plans available for {selected}</p>;
+
 
   return (
     <Box p={5} bg="#1A202C" minH="100vh">

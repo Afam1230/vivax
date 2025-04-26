@@ -24,6 +24,8 @@ export default function Login() {
   const toast = useToast();
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuthStore();
+  const [rememberMe, setRememberMe] = useState(false);
+
 
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -44,6 +46,7 @@ export default function Login() {
       });
     }
   };
+  
 
   // You can read "rememberMe" from localStorage on mount and handle the auto-login accordingly
   useEffect(() => {
@@ -138,7 +141,14 @@ export default function Login() {
             </FormControl>
 
             <Flex justify="space-between" w="full" fontSize="sm" color="gray.400">
-              <Checkbox size="sm" colorScheme="cyan">Remember Me</Checkbox>
+            <Checkbox
+  size="sm"
+  colorScheme="cyan"
+  isChecked={rememberMe}
+  onChange={(e) => setRememberMe(e.target.checked)}
+>
+  Remember Me
+</Checkbox>
               <Link href="#">Forgot Password?</Link>
             </Flex>
 

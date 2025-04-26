@@ -2,8 +2,9 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'
-dotenv.config();
-console.log("JWT_SECRET is:", process.env.JWT_SECRET ? "✔️ loaded" : "❌ missing");
+import path from "path"
+dotenv.config({path: '../.env'})
+console.log("JWT_SECRT is:", process.env.JWT_SECRET ? "✔️ loaded" : "❌ missing");
 
 
 export const register = async (req, res) => {
@@ -24,16 +25,19 @@ export const register = async (req, res) => {
     // Include the full user object except password
     const userToSend = await User.findById(newUser._id).select("-password");
 
-    res.status(201).json({
+    console.log('userToSend =>', userToSend);   // ✅ Log the correct variable BEFORE returning
+
+    return res.status(201).json({
       message: "User registered successfully!",
       user: userToSend,
     });
-    console.log('user=>', user)
+
   } catch (error) {
     console.error("Registration error:", error);
     res.status(500).json({ error: "Registration failed!" });
   }
 };
+
 
 
 

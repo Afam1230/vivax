@@ -7,6 +7,13 @@ import { connectDB } from "./config/db.js";
 import productRoutes from "./routes/product.route.js";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
+import miningPlanRoutes from "./routes/planRoutes.js";
+import { startDailyJobs } from './cron/dailyJobs.js'; // <-- Import here
+import transactionRoutes from "./routes/transactionRoutes.js";
+
+
+
+
 
 dotenv.config();
 
@@ -25,12 +32,19 @@ app.use(
 app.use(cookieParser());
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/plans", miningPlanRoutes);
+app.use("/api/transactions", transactionRoutes);
 // server.js (Express backend example)
 app.get('/api/news', async (req, res) => {
 	const response = await fetch('https://api.coinstats.app/public/v1/news?skip=0&limit=12');
 	const data = await response.json();
 	res.json(data);
   });
+
+
+  // Start daily cron jobs
+startDailyJobs();
+
   
 
 // if (process.env.NODE_ENV === "production") {
