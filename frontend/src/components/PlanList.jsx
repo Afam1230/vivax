@@ -79,7 +79,7 @@ const PlanList = ({
 
           {isAdmin && (
             <Box mt={4}>
-              <PlanForm onCreate={(newPlan) => createPlan(coin, newPlan)} />
+              <PlanForm coin={coin} onCreate={(newPlan) => createPlan(coin, newPlan)} />
             </Box>
           )}
         </>

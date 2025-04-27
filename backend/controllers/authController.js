@@ -25,7 +25,6 @@ export const register = async (req, res) => {
     // Include the full user object except password
     const userToSend = await User.findById(newUser._id).select("-password");
 
-    console.log('userToSend =>', userToSend);   // ✅ Log the correct variable BEFORE returning
 
     return res.status(201).json({
       message: "User registered successfully!",
@@ -88,7 +87,6 @@ export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
     res.json(user);
-    console.log('user from getuser=> ', user)
   } catch (error) {
     console.error("Error fetching user:", error);
     res.status(500).json({ error: "Failed to fetch user" });

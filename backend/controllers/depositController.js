@@ -49,7 +49,7 @@ export const createDeposit = async (req, res) => {
       status: "pending",  // Default status is 'pending'
       details: `Deposit for ${amount} ${coin}`,  // Description of the deposit
       Deposit: true,  // Mark this as a deposit
-      planData: planTitle ? {id, label, price, rate, reward, rewardPerDay, totalPeriod, date: new Date()} : null,  // Include plan data if the deposit is for a plan
+      planData: planTitle ? {id, label, price, rate, reward, rewardPerDay, totalPeriod, date: new Date(), purchaseDate: new Date()} : null,  // Include plan data if the deposit is for a plan
     };
 
     // Save the transaction under the user's transactions array

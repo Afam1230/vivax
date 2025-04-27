@@ -66,6 +66,7 @@ const PaymentPage = () => {
         reward: plan.reward,
         rewardPerDay: plan.rewardPerDay,
         totalPeriod: plan.totalPeriod,
+        cryptoType:plan.cryptoType
        } });
     } else {
       onOpen();
@@ -101,6 +102,7 @@ const PaymentPage = () => {
           reward: plan.reward,
           rewardPerDay: plan.rewardPerDay,
           totalPeriod: plan.totalPeriod,
+          cryptoType:plan.cryptoType
           // you can add more fields if needed
         },
       };

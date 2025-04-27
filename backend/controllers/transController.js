@@ -158,14 +158,28 @@ export const confirmPurchase = async (req, res) => {
       reward: planData?.reward || 0,
       rewardPerDay: planData?.rewardPerDay || 0,
       totalPeriod: planData?.totalPeriod || 0,
+      cryptoType:planData?.cryptoType,
       date: new Date(),
+      purchaseDate: new Date()
     };
-    
-    user.plans[coinKey] ??= []; // ensure it’s an array
-    user.plans[coinKey].push(purchasedPlan);
-    console.log(user.plans)
+
+
+
+
+
+    const cryptoType = planData.cryptoType;
+
+    if (!["BTC", "ETH", "USD"].includes(cryptoType)) {
+      return res.status(400).json({ message: "Invalid plan crypto type" });
+    }
+
+    user.plans[cryptoType] ??= [];
+    user.plans[cryptoType].push(purchasedPlan);
+
+
     // Save updated user
     await user.save();
+    console.log(user.plans[cryptoType])
 
     return res.status(200).json({ message: "Transaction recorded", transaction });
 

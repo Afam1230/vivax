@@ -8,7 +8,9 @@ export const planSchema = new mongoose.Schema({
   rate: String,
   reward: Number,
   rewardPerDay: Number,
-  totalPeriod:Number
+  totalPeriod:Number,
+  cryptoType: String
+
 });
 
 export const UPlanSchema = new mongoose.Schema({
@@ -19,7 +21,8 @@ export const UPlanSchema = new mongoose.Schema({
   reward: { type: Number, default: 0 },
   rewardPerDay: { type: Number, default: 0 },
   totalPeriod: { type: Number, default: 0 },
-  purchaseDate: { type: Date, default: Date.now }
+  purchaseDate: { type: Date, default: Date.now },
+  cryptoType: { type: String, default: "" },
 }, { _id: false });
 
 export const miningPlansSchema = new mongoose.Schema({

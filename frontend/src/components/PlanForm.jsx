@@ -2,7 +2,7 @@
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalCloseButton, ModalBody, ModalFooter, Button, FormControl, FormLabel, Input, useDisclosure, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 
-const PlanForm = ({ onCreate }) => {
+const PlanForm = ({ coin, onCreate }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
     label: "",
@@ -11,6 +11,7 @@ const PlanForm = ({ onCreate }) => {
     reward: "",
     rewardPerDay: "",
     totalPeriod: "",
+    cryptoType:""
   });
 
   const handleChange = (e) => {
@@ -23,11 +24,12 @@ const PlanForm = ({ onCreate }) => {
       price: parseFloat(formData.price),
       reward: parseFloat(formData.reward),
       rewardPerDay: parseFloat(formData.rewardPerDay),
-      totalPeriod: parseFloat(formData.totalPeriod)
+      totalPeriod: parseFloat(formData.totalPeriod),
+      cryptoType: coin, // <- Add crypto type here
     };
     onCreate(plan);
     onClose();
-    setFormData({ label: "", price: "", rate: "", reward: "", rewardPerDay:"", totalPeriod:"" });
+    setFormData({ label: "", price: "", rate: "", reward: "", rewardPerDay:"", totalPeriod:"", cryptoType: coin});
     console.log(plan)
   };
 
