@@ -10,7 +10,7 @@ import authRoutes from "./routes/authRoutes.js";
 import miningPlanRoutes from "./routes/planRoutes.js";
 import { startDailyJobs } from './cron/dailyJobs.js'; // <-- Import here
 import transactionRoutes from "./routes/transactionRoutes.js";
-
+import depositRoutes from "./routes/depositRoutes.js"
 
 
 
@@ -34,6 +34,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/plans", miningPlanRoutes);
 app.use("/api/transactions", transactionRoutes);
+app.use("/api/deposit", depositRoutes)
 // server.js (Express backend example)
 app.get('/api/news', async (req, res) => {
 	const response = await fetch('https://api.coinstats.app/public/v1/news?skip=0&limit=12');

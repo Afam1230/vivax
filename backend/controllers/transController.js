@@ -158,7 +158,7 @@ export const confirmPurchase = async (req, res) => {
       reward: planData?.reward || 0,
       rewardPerDay: planData?.rewardPerDay || 0,
       totalPeriod: planData?.totalPeriod || 0,
-      purchaseDate: new Date(),
+      date: new Date(),
     };
     
     user.plans[coinKey] ??= []; // ensure it’s an array

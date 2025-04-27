@@ -23,6 +23,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from './components/Navbar';
 import PricingPage from "./pages/PricingPage";
 import AdminPlansPage from "./pages/AdminPlansPage";
+import DepositPage from "./pages/DepositPage";
 
 
 
@@ -49,7 +50,6 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/pricing" element={<PricingPage />} />
-
 				{/* 🔐 Protected Route */}
 				<Route
 					path="/dashboard"
@@ -59,6 +59,10 @@ function App() {
 						</ProtectedRoute>
 					}
 				/>
+				<Route path="/payment/:planId" element={<PaymentPage />} />
+				<Route path="/deposit" element={<DepositPage />} />
+
+
 
 
 			</Routes>

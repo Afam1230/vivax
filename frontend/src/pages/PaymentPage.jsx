@@ -58,7 +58,15 @@ const PaymentPage = () => {
 
   const handleBuyNow = () => {
     if (paymentSystem === "deposit") {
-      navigate("/deposit", { state: { planTitle: plan.title, price: convertedPrice(), currency } });
+      navigate("/deposit", { state: { 
+        planTitle: plan.label, price: convertedPrice(), currency,
+        id: plan.id || uuidv4(),
+        label: plan.label,
+        rate: plan.rate,
+        reward: plan.reward,
+        rewardPerDay: plan.rewardPerDay,
+        totalPeriod: plan.totalPeriod,
+       } });
     } else {
       onOpen();
     }
