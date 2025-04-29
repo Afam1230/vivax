@@ -12,37 +12,92 @@ import {
     useToast,
     Spinner,
 } from "@chakra-ui/react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 
-const userId = localStorage.getItem("userId"); // Assuming you stored it during login
-
+const userId = localStorage.getItem("userId");
 
 const walletAddresses = {
-    BTC: "bc1qexamplebtcaddress",
-    ETH: "0xexampleethaddress",
-    USD: "usd-wallet-placeholder",
+    BTC: "BTC wallet ADDRESS",
+    ETH: "ETH wallet ADDRESS",
+    USD: "USD wallet ADDRESS",
 };
+
+// ✅ Constants
+const DEPOSIT_CHARGE = 10; // Change this to update charge
+const BTC_RATE = 60000;    // 1 BTC = $60,000
+const ETH_RATE = 3000;     // 1 ETH = $3,000
 
 const DepositPage = () => {
     const location = useLocation();
-    const {  planTitle, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod } = location.state || {}; //this is the updated one. i want to send these data to the backend
+    const {
+        planTitle, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod
+    } = location.state || {};
 
     const [selectedCoin, setSelectedCoin] = useState(currency || "");
+    const [PurchaseCoin, setPurchaseCoin] = useState(currency || "");
     const [amount, setAmount] = useState(price || "");
     const [proofImage, setProofImage] = useState(null);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-    
+    const [charge, setCharge] = useState(0);
+    const [payable, setPayable] = useState(0);
+    const [btcEquivalent, setBtcEquivalent] = useState(0);
+    const [ethEquivalent, setEthEquivalent] = useState(0);
+    const [usdEquivalent, setUsdEquivalent] = useState(0);
 
+
+    const navigate = useNavigate();
     const toast = useToast();
 
-    const isPlanPayment = !!planTitle; // true if user was buying a plan
+    const isPlanPayment = !!planTitle;
 
     const handleFileChange = (e) => {
         setProofImage(e.target.files[0]);
     };
+
+    useEffect(() => {
+        const amt = parseFloat(amount);
+        if (!amt || amt <= 0) {
+            setCharge(0);
+            setPayable(0);
+            setBtcEquivalent(0);
+            setEthEquivalent(0);
+            return;
+        }
+
+        let total = amt;
+        let charge = DEPOSIT_CHARGE;
+        let usd = 0;
+
+        if (PurchaseCoin === "BTC") {
+            const chargeInBTC = (DEPOSIT_CHARGE / BTC_RATE);
+            total = amt + chargeInBTC;
+            setCharge(chargeInBTC.toFixed(6));
+            setPayable(total.toFixed(6));
+            setBtcEquivalent(total.toFixed(6));
+            setEthEquivalent((total * BTC_RATE / ETH_RATE).toFixed(6));
+            usd = total * BTC_RATE;
+        } else if (PurchaseCoin === "ETH") {
+            const chargeInETH = (DEPOSIT_CHARGE / ETH_RATE);
+            total = amt + chargeInETH;
+            setCharge(chargeInETH.toFixed(6));
+            setPayable(total.toFixed(6));
+            setEthEquivalent(total.toFixed(6));
+            setBtcEquivalent((total * ETH_RATE / BTC_RATE).toFixed(6));
+            usd = total * ETH_RATE;
+        } else {
+            total = amt + DEPOSIT_CHARGE;
+            setCharge(DEPOSIT_CHARGE);
+            setPayable(total);
+            setBtcEquivalent((total / BTC_RATE).toFixed(6));
+            setEthEquivalent((total / ETH_RATE).toFixed(6));
+            usd = total;
+        }
+
+        setUsdEquivalent(usd.toFixed(2));
+    }, [amount, selectedCoin, PurchaseCoin]);
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -61,25 +116,24 @@ const DepositPage = () => {
             setLoading(true);
 
             const formData = new FormData();
-            formData.append("coin", selectedCoin)
-            formData.append("amount", amount)
-            formData.append("proofImage", proofImage)
+            formData.append("coin", selectedCoin);
+            formData.append("PurcaseCoin", PurchaseCoin);
+
+            formData.append("amount", amount);
+            formData.append("proofImage", proofImage);
             formData.append("userId", userId);
 
-
             if (isPlanPayment) {
-                formData.append("planTitle", planTitle)
-                formData.append("currency", currency)
-                formData.append("id", id)
-                formData.append("label",label)
-                formData.append("rate",rate)
-                formData.append("reward",reward)
-                formData.append("rewardPerDay",rewardPerDay)
-                formData.append("totalPeriod",totalPeriod)
-                // formData.append("",)
+                formData.append("planTitle", planTitle);
+                formData.append("currency", currency);
+                formData.append("id", id);
+                formData.append("label", label);
+                formData.append("rate", rate);
+                formData.append("reward", reward);
+                formData.append("rewardPerDay", rewardPerDay);
+                formData.append("totalPeriod", totalPeriod);
             }
 
-            // Send to your backend
             const res = await axios.post("/api/deposit", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -94,14 +148,13 @@ const DepositPage = () => {
                 isClosable: true,
             });
 
-            // Reset form if it's a normal deposit
             if (!isPlanPayment) {
                 setSelectedCoin("");
                 setAmount("");
                 setProofImage(null);
             }
-            navigate("/dashboard")
 
+            navigate("/dashboard");
         } catch (error) {
             console.error(error);
             toast({
@@ -123,9 +176,9 @@ const DepositPage = () => {
             </Heading>
 
             <VStack as="form" spacing={5} onSubmit={handleSubmit}>
-                {/* Coin Selector or Coin Display */}
+                {/* Payment gateway selector */}
                 <FormControl isRequired>
-                    <FormLabel>Coin</FormLabel>
+                    <FormLabel>Payment Gateway</FormLabel>
                     {isPlanPayment ? (
                         <Input value={selectedCoin} isDisabled />
                     ) : (
@@ -134,9 +187,9 @@ const DepositPage = () => {
                             value={selectedCoin}
                             onChange={(e) => setSelectedCoin(e.target.value)}
                         >
-                            <option value="BTC">Bitcoin (BTC)</option>
-                            <option value="ETH">Ethereum (ETH)</option>
-                            <option value="USD">USD (Stablecoin)</option>
+                            <option value="BTC">Pay With Bitcoin (BTC)</option>
+                            <option value="ETH">Pay With Ethereum (ETH)</option>
+                            <option value="USD">Pay With USD (Stablecoin)</option>
                         </Select>
                     )}
                 </FormControl>
@@ -150,6 +203,25 @@ const DepositPage = () => {
                         </Text>
                     </Box>
                 )}
+
+                {/* Coin Selector or Coin Display */}
+                <FormControl isRequired>
+                    <FormLabel>Coin</FormLabel>
+                    {isPlanPayment ? (
+                        <Input value={selectedCoin} isDisabled />
+                    ) : (
+                        <Select
+                            value={PurchaseCoin}
+                            onChange={(e) => setPurchaseCoin(e.target.value)}
+                            placeholder="Select Currency to Purchase"
+                        >
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="USD">USD (Stablecoin)</option>
+                        </Select>
+                    )}
+                </FormControl>
+
 
                 {/* Amount */}
                 <FormControl isRequired>
@@ -165,6 +237,26 @@ const DepositPage = () => {
                         />
                     )}
                 </FormControl>
+
+                {/* Calculations (only for non-plan deposits) */}
+                {!isPlanPayment && amount && selectedCoin && (
+                    <Box p={4} w="full" bg="gray.50" border="1px solid #ccc" rounded="md">
+                        <Text><strong>Charge:</strong> ${charge}</Text>
+                        <Text><strong>Payable:</strong> ${payable}</Text>
+
+                        {selectedCoin === "BTC" && (
+                            <Text><strong>In BTC:</strong> {btcEquivalent}</Text>
+                        )}
+
+                        {selectedCoin === "ETH" && (
+                            <Text><strong>In ETH:</strong> {ethEquivalent}</Text>
+                        )}
+
+                        {selectedCoin === "USD" && (
+                            <Text><strong>USD Equivalent:</strong> ${usdEquivalent}</Text>
+                        )}
+                    </Box>
+                )}
 
                 {/* Proof Upload */}
                 <FormControl isRequired>
