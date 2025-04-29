@@ -20,40 +20,39 @@ import {
   WalletBalanceCard
 } from "../components/DashboardComponents";
 import { getCryptoRates } from "../utils/getCryptoRates";
-import useEarningsStore from '../store/earningsStore';
+import {useDashboardStore}  from "../store/useDashboardStore";
 
 const Dashboard = () => {
   const { user, fetchUser } = useAuthStore();
-  const rates =  getCryptoRates();
+  const rates = getCryptoRates();
   const navigate = useNavigate();
-  const { profit, loading, fetchProfit } = useEarningsStore();
+  const {
+    error,
+    dailyProfit,
+    activePlansCount,
+    totalReturns,
+    activeInvestments,
+    fetchDashboard,
+  } = useDashboardStore();
+
+  useEffect(() => {
+    fetchDashboard();
+  }, [fetchDashboard]);
 
 
   useEffect(() => {
     fetchUser(); // fetch fresh user data when dashboard loads
   }, [fetchUser]);
 
-  useEffect(() => {
-    if (user?._id) {
-      fetchProfit(user._id);
-    }
-  }, [user, fetchProfit]);
+
 
   const layout = useBreakpointValue({ base: "column", md: "row" });
   const coins = ['bitcoin', 'ethereum', 'dogecoin', 'litecoin'];
   const balance = user?.balance
   const totalUSD =
-  balance.btc * 4+
-  balance.eth * 3+
-  balance.usd * 2;
-
-  const plans = 3;
-  const returns = 412.55;
-  const investments = [
-    { title: "Bitcoin", amount: 1200, change: 3.2 },
-    { title: "Ethereum", amount: 800, change: -1.4 },
-    { title: "Solana", amount: 250, change: 2.7 },
-  ];
+    balance.btc * 4 +
+    balance.eth * 3 +
+    balance.usd * 2;
 
   return (
     <Box p={{ base: 4, md: 10 }} position={'relative'} overflow="hidden" bg="#0D1B2A" minH="100vh" color="white">
@@ -83,9 +82,9 @@ const Dashboard = () => {
               Here’s your crypto portfolio overview
             </Text>
             <Box>
-    <Button onClick={() => navigate('/pricing')} bg="purple.500" color="white" _hover={{ bg: "purple.600" }}>
-      + New Investment
-    </Button>            </Box>
+              <Button onClick={() => navigate('/pricing')} bg="purple.500" color="white" _hover={{ bg: "purple.600" }}>
+                + New Investment
+              </Button>            </Box>
           </Stack>
 
         </Box>
@@ -94,13 +93,13 @@ const Dashboard = () => {
           <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={6} mb={8}>
             <BalanceCard balance={totalUSD} />
             <WalletBalanceCard balance={user?.balance} />
-            <DailyProfitCard profit={profit} />
-            <ActivePlansCard count={plans} />
-            <TotalReturnsCard returns={returns} />
+            <DailyProfitCard profit={dailyProfit} />
+            <ActivePlansCard count={activePlansCount} />
+            <TotalReturnsCard returns={totalReturns} />
           </SimpleGrid>
 
           {/* Active Investments */}
-          <ActiveInvestments data={investments} />
+          <ActiveInvestments data={activeInvestments} />
         </Box>
         <VStack align="center" spacing={6}>
           {/* Widgets Section */}

@@ -29,7 +29,12 @@ const userSchema = new mongoose.Schema({
     ETH: { type: [UPlanSchema], default: [] },
     USD: { type: [UPlanSchema], default: [] }
   },
-  earnings: []
+  earnings: {
+    BTC: { type: Number, default: 0 },
+    ETH: { type: Number, default: 0 },
+    USD: { type: Number, default: 0 },
+  },
+  lastRewardDate: { type: Date, default: null }
 });
 
 export default mongoose.model('User', userSchema);

@@ -30,3 +30,25 @@ export const getTodaysEarnings = async (req, res) => {
     res.status(500).json({ message: "Error fetching today's earnings" });
   }
 };
+
+
+export const getUserStats = async (req, res) => {
+  try {
+    const {userId} = req.params; // assuming you're using auth middleware (JWT)
+    console.log('userid', userId)
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    return res.json({
+      balance: user.balance,
+      earnings: user.earnings,
+      plans: user.plans,
+    });
+  } catch (error) {
+    console.error("❌ Error fetching user stats:", error);
+    return res.status(500).json({ message: "Server error." });
+  }
+};

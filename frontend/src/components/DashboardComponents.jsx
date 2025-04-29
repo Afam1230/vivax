@@ -36,47 +36,58 @@ export function BalanceCard({ balance }) {
       <Text fontSize="sm" color="gray.400">Total Balance</Text>
       <Stack spacing={2} justifyContent={'center'} direction={'row-reverse'}>
       <Text fontSize="2xl" fontWeight="bold">${balance.toFixed(2)}</Text>
-      <Icon as={FaWallet} mt={2} boxSize={6} />
+      
       </Stack>
     </Box>
   );
 }
 
+
 export function DailyProfitCard({ profit = 0 }) {
   return (
-    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
-      <Text fontSize="sm" color="gray.400">24h Profit</Text>
-      <Text fontSize="2xl" fontWeight="bold">${profit.toFixed(2)}</Text>
-      <Text fontSize="sm" color="green.300">+5.2%</Text>
-      <Icon as={FaChartLine} mt={2} boxSize={6} />
+    <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="full" shadow="md">
+      <VStack spacing={2} align="start">
+        <Text fontSize={["sm", "md"]} color="gray.400">24h Profit</Text>
+        <Text fontSize={["2xl", "3xl"]} fontWeight="bold">${profit.toFixed(2)}</Text>
+        <Text fontSize={["xs", "sm"]} color="green.300">+5.2%</Text>
+        <Icon as={FaChartLine} mt={2} boxSize={[5, 6]} />
+      </VStack>
     </Box>
   );
 }
 
 // components/ActivePlansCard.js
-export  function ActivePlansCard({ count }) {
+
+export function ActivePlansCard({ count }) {
   return (
-    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
-      <Text fontSize="sm" color="gray.400">Active Plans</Text>
-      <Stack spacing={2} direction={'row-reverse'} justifyContent={'center'}>
-      <Text fontSize="2xl" fontWeight="bold">{count}</Text>
-      <Icon as={FaBriefcase} mt={2} boxSize={6} />
+    <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="full" shadow="md">
+      <Stack spacing={2} direction="row" align="center" justify="space-between">
+        <Box>
+          <Text fontSize={["sm", "md"]} color="gray.400">Active Plans</Text>
+          <Text fontSize={["2xl", "3xl"]} fontWeight="bold">{count}</Text>
+        </Box>
+        <Icon as={FaBriefcase} boxSize={[6, 8]} />
       </Stack>
     </Box>
   );
 }
 
 // components/TotalReturnsCard.js
-export  function TotalReturnsCard({ returns }) {
+export function TotalReturnsCard({ returns = 0 }) {
   return (
-    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
-      <Text fontSize="sm" color="gray.400">Total Returns</Text>
-      <Text fontSize="2xl" fontWeight="bold">${returns.toFixed(2)}</Text>
-      <Text fontSize="sm" color="green.300">+12.4%</Text>
-      <Icon as={FaDollarSign} mt={2} boxSize={6} />
+    <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="full" shadow="md">
+      <VStack spacing={2} align="start">
+        <Text fontSize={["sm", "md"]} color="gray.400">Total Returns</Text>
+        <Text fontSize={["2xl", "3xl"]} fontWeight="bold">
+          ${returns.toFixed(2)}
+        </Text>
+        <Text fontSize={["xs", "sm"]} color="green.300">+12.4%</Text>
+        <Icon as={FaDollarSign} mt={2} boxSize={[5, 6]} />
+      </VStack>
     </Box>
   );
 }
+
 
 // components/PortfolioPerformance.js
 export  function PortfolioPerformance() {
@@ -95,23 +106,23 @@ export  function PortfolioPerformance() {
 }
 
 // components/ActiveInvestments.js
-const Investment = ({ title, amount, change }) => (
+const Investment = ({ title, amount, change, symbol }) => (
   <HStack justify="space-between" w="full">
-    <Box>
-      <Text fontWeight="bold">{title}</Text>
-    </Box>
+    <Text fontWeight="semibold" fontSize={["md", "lg"]}>{title}</Text>
     <Box textAlign="right">
-      <Text>${amount.toFixed(2)}</Text>
-      <Text color={change > 0 ? "green.300" : "red.400"}>{change > 0 ? `+${change}%` : `${change}%`}</Text>
+      <Text fontWeight="bold" fontSize={["md", "lg"]}><Icon as={symbol} boxSize={4} color="yellow.400" />{amount.toFixed(2)}</Text>
+      <Text fontSize="sm" color={change > 0 ? "green.300" : "red.400"}>
+        {change > 0 ? `+${change}%` : `${change}%`}
+      </Text>
     </Box>
   </HStack>
 );
 
-export  function ActiveInvestments({ data }) {
+export function ActiveInvestments({ data }) {
   return (
-    <Box bg="#1B263B" p={5} borderRadius="xl" color="white">
-      <Text fontSize="md" mb={4}>Active Investments</Text>
-      <VStack spacing={3} align="stretch" fontSize={[20,30]}>
+    <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="full" shadow="md">
+      <Text fontSize={["md", "lg"]} mb={4}>Active Investments</Text>
+      <VStack spacing={4} align="stretch">
         {data.map((item, idx) => (
           <Investment key={idx} {...item} />
         ))}

@@ -17,7 +17,6 @@ const PaymentPage = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const { user } = useAuthStore();
-  console.log(user?._id) //to make sure the user is being fetched
 
 
   useEffect(() => {

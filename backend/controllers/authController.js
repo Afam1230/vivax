@@ -3,8 +3,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'
 import path from "path"
+const __dirname = path.resolve();
+dotenv.config(__dirname)
 dotenv.config({path: '../.env'})
-console.log("JWT_SECRT is:", process.env.JWT_SECRET ? "✔️ loaded" : "❌ missing");
+
+console.log("JWT_SECRT is:", process.env.JWT_SECRET ? "✔️ loaded" : "❌ missing in authController");
 
 
 export const register = async (req, res) => {

@@ -8,9 +8,14 @@ import productRoutes from "./routes/product.route.js";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import miningPlanRoutes from "./routes/planRoutes.js";
-import { startDailyJobs } from './cron/dailyJobs.js'; // <-- Import here
 import transactionRoutes from "./routes/transactionRoutes.js";
 import depositRoutes from "./routes/depositRoutes.js"
+import userRoutes from "./routes/userRoutes.js"
+// server.js or index.js
+import "./cronJobs/rewardCron.js"; 
+import { startDailyRewardJob } from "./cronJobs/cronJob.js"; // adjust path
+
+
 
 
 
@@ -20,7 +25,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
-app.use(express.json()); // allows us to accept JSON data in the req.body
+app.use(express.json());
 app.use(express.static(__dirname))
 app.use(
   cors({
@@ -35,6 +40,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/plans", miningPlanRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/deposit", depositRoutes)
+app.use("/api/user", userRoutes )
+
 // server.js (Express backend example)
 app.get('/api/news', async (req, res) => {
 	const response = await fetch('https://api.coinstats.app/public/v1/news?skip=0&limit=12');
@@ -42,9 +49,6 @@ app.get('/api/news', async (req, res) => {
 	res.json(data);
   });
 
-
-  // Start daily cron jobs
-startDailyJobs();
 
   
 
