@@ -1,20 +1,10 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { Route, Routes } from "react-router-dom";
-import LogisticsApp from "./pages/CreatePage";
 import HomePage from "./pages/HomePage"
 import Footer from "./components/Footer"
-import AdminDashboard from "./pages/AdminPage"
-import ServicePage from "./pages/ServicePage"
 import WhatsAppButton from "./components/WhatsAppButton"
 import AboutPage from "./pages/AboutPage"
-import BookingPage from "./pages/BookingPage"
-import BlogPage from "./pages/BlogPage"
-import ShopPage from "./pages/ShopPage"
-import ArticlePage from "./pages/ArticlePage"
 import ScrollToTop from "./components/ScrollToTop";
-import Cart from "./pages/Cart";
-import ThankYouPage from "./pages/Thankyou";
-import ContactPage from "./store/ContactPage";
 import Login from "./pages/Login";
 import PaymentPage from "./pages/PaymentPage";
 import Register from "./pages/Register";
@@ -24,7 +14,12 @@ import Navbar from './components/Navbar';
 import PricingPage from "./pages/PricingPage";
 import AdminPlansPage from "./pages/AdminPlansPage";
 import DepositPage from "./pages/DepositPage";
-
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminUsers from "./pages/AdminUsers";
+import ManageUser from "./pages/ManageUser";
+import AllTransactions from "./pages/AllTransactions";
+import ManageOperations from "./pages/ManageOperations";
+import WithdrawPage from "./pages/WithdrawPage";
 
 
 function App() {
@@ -36,16 +31,13 @@ function App() {
 			<WhatsAppButton />
 			<Routes>
 				<Route path='/' element={<HomePage />} />
-				<Route path='/create' element={<LogisticsApp />} />
-				<Route path='/admin' element={<AdminPlansPage />} />
-				<Route path='/services' element={<ServicePage />} />
+				<Route path="/admin/manage-operations" element={<ManageOperations/>} />
+				<Route path="/admin/transactions" element={<AllTransactions />} />
+				<Route path='/admin/plans' element={<AdminPlansPage />} />
+				<Route path="/admin/users" element={<AdminUsers />} />
+				<Route path="/admin/manage-users/:userId" element={<ManageUser />} />
+				<Route path='/admin' element={<AdminDashboard />} />
 				<Route path="/about" element={<AboutPage />} />
-				<Route path="/blog" element={<BlogPage />} />
-				<Route path="/book" element={<BookingPage />} />
-				<Route path="/shop" element={<ShopPage />} />
-				<Route path="/article/:id" element={<ArticlePage />} />
-				<Route path="/thank-you" element={<ThankYouPage />} />
-				<Route path="/contact" element={<ContactPage />} />
 				<Route path="/payment/:planId" element={<PaymentPage />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
@@ -61,10 +53,7 @@ function App() {
 				/>
 				<Route path="/payment/:planId" element={<PaymentPage />} />
 				<Route path="/deposit" element={<DepositPage />} />
-
-
-
-
+				<Route path="/withdraw" element={<WithdrawPage />} />
 			</Routes>
 			{/* <Footer /> */}
 		</Box>

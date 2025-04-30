@@ -24,7 +24,7 @@ export const upload = multer({ storage });
 // Create Deposit Controller
 export const createDeposit = async (req, res) => {
   try {
-    const { userId, coin, amount, planTitle, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod  } = req.body;
+    const { userId, coin, amount, planTitle, PurchaseCoin, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod  } = req.body;
     const proofImage = req.file;
 
     if (!coin || !amount || !proofImage) {
@@ -43,6 +43,7 @@ export const createDeposit = async (req, res) => {
       _id: new mongoose.Types.ObjectId(),  // Generate a new UUID or ObjectId for the transaction
       type: "deposit",  // This is a deposit transaction
       coin,
+      PurchaseCoin,
       amount,
       date: new Date(),
       proofImage: uploadedProof,  // Store the URL of the uploaded proof image from Cloudinary

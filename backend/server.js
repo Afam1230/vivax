@@ -11,6 +11,7 @@ import miningPlanRoutes from "./routes/planRoutes.js";
 import transactionRoutes from "./routes/transactionRoutes.js";
 import depositRoutes from "./routes/depositRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js"
 // server.js or index.js
 import "./cronJobs/rewardCron.js"; 
 import { startDailyRewardJob } from "./cronJobs/cronJob.js"; // adjust path
@@ -41,6 +42,7 @@ app.use("/api/plans", miningPlanRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/deposit", depositRoutes)
 app.use("/api/user", userRoutes )
+app.use("/api/admin",adminRoutes  )
 
 // server.js (Express backend example)
 app.get('/api/news', async (req, res) => {

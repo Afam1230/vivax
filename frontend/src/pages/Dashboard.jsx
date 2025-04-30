@@ -21,9 +21,11 @@ import {
 } from "../components/DashboardComponents";
 import { getCryptoRates } from "../utils/getCryptoRates";
 import {useDashboardStore}  from "../store/useDashboardStore";
+import useOperationSettingsStore from "../store/useOperationSettingsStore";
 
 const Dashboard = () => {
   const { user, fetchUser } = useAuthStore();
+  const { settings, fetchSettings } = useOperationSettingsStore();
   const rates = getCryptoRates();
   const navigate = useNavigate();
   const {
@@ -39,6 +41,11 @@ const Dashboard = () => {
     fetchDashboard();
   }, [fetchDashboard]);
 
+  
+      useEffect(() => {
+          fetchSettings(); // or skip if already called elsewhere
+      }, []);
+
 
   useEffect(() => {
     fetchUser(); // fetch fresh user data when dashboard loads
@@ -50,9 +57,9 @@ const Dashboard = () => {
   const coins = ['bitcoin', 'ethereum', 'dogecoin', 'litecoin'];
   const balance = user?.balance
   const totalUSD =
-    balance.btc * 4 +
-    balance.eth * 3 +
-    balance.usd * 2;
+    balance.btc * settings.exchangeRates.BTC +
+    balance.eth * settings.exchangeRates.ETH +
+    balance.usd * 1;
 
   return (
     <Box p={{ base: 4, md: 10 }} position={'relative'} overflow="hidden" bg="#0D1B2A" minH="100vh" color="white">

@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
-import { miningPlansSchema, planSchema, UPlanSchema } from './MiningPlan.js'; // ⬅️ import it!
+import { UPlanSchema } from './MiningPlan.js'; // ⬅️ import it!
 const transactionSchema = new mongoose.Schema({
   _id: String, // UUID for transaction ID
   type: String, // "deposit", "withdrawal", "plan-purchase", "daily-return"
   coin: String, // "btc", "eth", "usdt"
+  PurchaseCoin: String, // "btc", "eth", "usdt"
   amount: Number,
   date: { type: Date, default: Date.now },
   details: String,
