@@ -13,6 +13,7 @@ const operationSettingsSchema = new mongoose.Schema({
     USD: { type: String, required: true },
   },
   transactionCharge: { type: Number, required: true },
+  phone: {type: String, required: true},
 });
 
 export default mongoose.model('OperationSettings', operationSettingsSchema);

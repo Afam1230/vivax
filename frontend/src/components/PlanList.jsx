@@ -1,52 +1,58 @@
-// src/components/PlanList.jsx
-import { SimpleGrid, Box, Button, HStack, useBreakpointValue } from "@chakra-ui/react";
+import {
+  SimpleGrid,
+  Box,
+  Button,
+  HStack,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import PlanCard from "./PlanCard";
-import { usePlanStore } from "../store/usePlanStore"; // Zustand store for plans
+import { usePlanStore } from "../store/usePlanStore";
 import PlanForm from "./PlanForm";
 
-const PlanList = ({
-  coin = "BTC",
-  onMine,
-  isAdmin = false,
-}) => {
+const PlanList = ({ coin = "BTC", onMine, isAdmin = false }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const [pageIndex, setPageIndex] = useState(0);
+  const [editingPlan, setEditingPlan] = useState(null); // 🔸 Track editing state
   const itemsPerPage = 5;
 
-  const { plans, loading, fetchPlans, createPlan, updatePlan, deletePlan } = usePlanStore();
+  const {
+    plans,
+    loading,
+    fetchPlans,
+    createPlan,
+    updatePlan,
+    deletePlan,
+  } = usePlanStore();
 
   useEffect(() => {
-    fetchPlans(); // Fetch plans on component mount
+    fetchPlans();
   }, [fetchPlans]);
 
-  const currentPlans = plans[coin] || []; // fallback to empty array
+  const currentPlans = plans[coin] || [];
   const paginatedPlans = isMobile
     ? currentPlans.slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
     : currentPlans;
 
-
   const handleNext = () => {
-    setPageIndex((prev) => (prev + 1) % plans[coin].length);
+    setPageIndex((prev) => (prev + 1) % Math.ceil(currentPlans.length / itemsPerPage));
   };
 
   const handlePrev = () => {
-    setPageIndex((prev) => (prev - 1 + plans[coin].length) % plans[coin].length);
+    setPageIndex((prev) => (prev - 1 + Math.ceil(currentPlans.length / itemsPerPage)) % Math.ceil(currentPlans.length / itemsPerPage));
   };
 
-  const handleCreate = () => {
-    <Box mt={4}>
-      <PlanForm onCreate={(newPlan) => createPlan(coin, newPlan)} />
-    </Box>
+  const handleEdit = (plan) => {
+    setEditingPlan(plan); // 🔸 Set selected plan for editing
   };
 
-  const handleEdit = (planId) => {
-    const updatedPlan = { price: 20.0, rate: "0.6 TH/s" };
-    updatePlan(coin, planId, updatedPlan);
+  const handleUpdate = (updatedPlanData) => {
+    updatePlan(coin, editingPlan._id, updatedPlanData);
+    setEditingPlan(null); // 🔸 Exit edit mode
   };
 
-  const handleDelete = (planId) => {
-    deletePlan(coin, planId);
+  const handleCancelEdit = () => {
+    setEditingPlan(null);
   };
 
   return (
@@ -62,8 +68,8 @@ const PlanList = ({
                 plan={plan}
                 coin={coin}
                 onMine={onMine}
-                onEdit={handleEdit}
-                onDelete={handleDelete}
+                onEdit={() => handleEdit(plan)} // 🔸 Send plan to be edited
+                onDelete={() => deletePlan(coin, plan._id)}
                 isAdmin={isAdmin}
               />
             ))}
@@ -76,10 +82,22 @@ const PlanList = ({
             </HStack>
           )}
 
-
           {isAdmin && (
-            <Box mt={4}>
-              <PlanForm coin={coin} onCreate={(newPlan) => createPlan(coin, newPlan)} />
+            <Box mt={6}>
+              {editingPlan ? (
+                <PlanForm
+                  coin={coin}
+                  initialData={editingPlan}
+                  onCreate={handleUpdate} // Reuse for update
+                  onCancel={handleCancelEdit}
+                  isEditing
+                />
+              ) : (
+                <PlanForm
+                  coin={coin}
+                  onCreate={(newPlan) => createPlan(coin, newPlan)}
+                />
+              )}
             </Box>
           )}
         </>

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API = "http://localhost:5000/api";
+// const API = "http://localhost:5000/api";
 
 export const usePlanStore = create((set) => ({
   plans: { BTC: [], ETH: [], USD: [] },
@@ -11,7 +11,7 @@ export const usePlanStore = create((set) => ({
   fetchPlans: async () => {
     set({ loading: true });
     try {
-      const res = await axios.get(`${API}/plans`);
+      const res = await axios.get(`/api/plans`);
       set({ plans: res.data, loading: false });
     } catch (error) {
       set({ error: error.message, loading: false });
@@ -20,7 +20,7 @@ export const usePlanStore = create((set) => ({
 
   createPlan: async (type, newPlan) => {
     try {
-      const res = await axios.post(`${API}/plans/${type}`, newPlan);
+      const res = await axios.post(`/api/plans/${type}`, newPlan);
       set((state) => ({
         plans: {
           ...state.plans,
@@ -34,23 +34,29 @@ export const usePlanStore = create((set) => ({
 
   updatePlan: async (type, planId, updatedPlan) => {
     try {
-      const res = await axios.put(`${API}/plans/${type}/${planId}`, updatedPlan);
-      set((state) => ({
-        plans: {
-          ...state.plans,
-          [type]: state.plans[type].map((plan) =>
-            plan._id === planId ? res.data : plan
-          ),
-        },
-      }));
+      const res = await axios.put(`/api/plans/${type}/${planId}`, updatedPlan);
+  
+      set((state) => {
+        const updatedPlans = state.plans[type]?.map((plan) =>
+          plan._id === planId ? res.data.plan : plan
+        ) || [];
+  
+        return {
+          plans: {
+            ...state.plans,
+            [type]: updatedPlans,
+          },
+        };
+      });
     } catch (error) {
-      console.error("Update plan failed:", error);
+      console.error("Update plan failed:", error.response?.data || error.message);
     }
   },
+  
 
   deletePlan: async (type, planId) => {
     try {
-      await axios.delete(`${API}/plans/${type}/${planId}`);
+      await axios.delete(`/api/plans/${type}/${planId}`);
       set((state) => ({
         plans: {
           ...state.plans,
@@ -58,7 +64,7 @@ export const usePlanStore = create((set) => ({
         },
       }));
     } catch (error) {
-      console.error("Delete plan failed:", error);
+      console.error("Deletel plan failed:", error);
     }
   },
 }));

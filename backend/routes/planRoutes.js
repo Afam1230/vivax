@@ -111,21 +111,26 @@ router.post("/:type", async (req, res) => {
   }
 });
 
-// PUT update a plan in a specific coin
+// ✏️ UPDATE a plan by ID under a coin type
 router.put("/:type/:id", async (req, res) => {
-  try {
-    const { type, id } = req.params;
-    const plans = await getOrCreateMiningPlans();
+  const { type, id } = req.params;
+  const updatedData = req.body;
 
-    const index = plans[type].findIndex((plan) => plan.id === id);
+  try {
+    const plans = await MiningPlan.findOne();
+    if (!plans || !plans[type]) {
+      return res.status(404).json({ error: "Plan type not found" });
+    }
+
+    const index = plans[type].findIndex((plan) => String(plan._id) === id);
     if (index === -1) {
       return res.status(404).json({ error: "Plan not found" });
     }
 
-    plans[type][index] = { ...plans[type][index], ...req.body };
+    plans[type][index] = { ...plans[type][index]._doc, ...updatedData };
     await plans.save();
 
-    res.json(plans[type][index]);
+    res.json({ message: "Plan updated", plan: plans[type][index] });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -137,13 +142,22 @@ router.delete("/:type/:id", async (req, res) => {
     const { type, id } = req.params;
     const plans = await getOrCreateMiningPlans();
 
-    plans[type] = plans[type].filter((plan) => plan.id !== id);
-    await plans.save();
+    if (!plans[type]) {
+      return res.status(404).json({ error: "Invalid coin type" });
+    }
 
-    res.json({ message: "Plan deleted" });
+    // Convert ObjectId to string for comparison
+    plans[type] = plans[type].filter(
+      (plan) => plan._id.toString() !== id
+    );
+
+    await plans.save();
+    res.json({ message: "Plan deleted successfully" });
+
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
+
 
 export default router;

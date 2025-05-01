@@ -1,22 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, IconButton } from "@chakra-ui/react";
 import { FaWhatsapp } from "react-icons/fa";
-
-
+import ManageOperations from "../pages/ManageOperations";
+import useOperationSettingsStore from "../store/useOperationSettingsStore";
 
 
 
 const WhatsAppButton = () => {
+  const { settings, fetchSettings } = useOperationSettingsStore();
+
+  useEffect(() => {
+    fetchSettings(); // or skip if already called elsewhere
+  }, []);
   return (
-    <Box 
-      position="fixed" 
-      bottom="20px" 
-      right="20px" 
+    <Box
+      position="fixed"
+      bottom="20px"
+      right="20px"
       zIndex="1000"
     >
       <IconButton
         as="a"
-        href = 'https://wa.me/2348175725656' // Replace with your WhatsApp number
+        href={settings.phone} // Replace with your WhatsApp number
         target="_blank"
         aria-label="WhatsApp"
         icon={<FaWhatsapp size="30px" />}

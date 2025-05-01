@@ -248,7 +248,7 @@ router.get('/operation-settings', async (req, res) => {
 
 // Update operation settings
 router.put('/operation-settings', async (req, res) => {
-  const { exchangeRates, walletAddresses, transactionCharge } = req.body;
+  const { exchangeRates, walletAddresses, transactionCharge, phone } = req.body;
   
   try {
     let settings = await OperationSettings.findOne();
@@ -258,6 +258,7 @@ router.put('/operation-settings', async (req, res) => {
     settings.exchangeRates = exchangeRates;
     settings.walletAddresses = walletAddresses;
     settings.transactionCharge = transactionCharge;
+    settings.phone = phone
     
     await settings.save();
     res.json({ message: 'Settings updated successfully' });

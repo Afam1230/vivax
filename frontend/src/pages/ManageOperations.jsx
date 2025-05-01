@@ -6,11 +6,13 @@ export default function ManageOperations() {
   const [exchangeRates, setExchangeRates] = useState({ BTC: 0, ETH: 0, USD: 0 });
   const [walletAddresses, setWalletAddresses] = useState({ BTC: '', ETH: '', USD: '' });
   const [transactionCharge, setTransactionCharge] = useState(0);
+  const [phone, setphone] = useState(0);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axios.get('/api/admin/operation-settings')
       .then(res => {
+        setphone(res.data.phone);
         setExchangeRates(res.data.exchangeRates);
         setWalletAddresses(res.data.walletAddresses);
         setTransactionCharge(res.data.transactionCharge);
@@ -21,13 +23,14 @@ export default function ManageOperations() {
   const handleSave = () => {
     setLoading(true);
     axios.put('/api/admin/operation-settings', {
+      phone,
       exchangeRates,
       walletAddresses,
       transactionCharge,
     })
-    .then(() => alert('Settings updated successfully'))
-    .catch(() => alert('Error updating settings'))
-    .finally(() => setLoading(false));
+      .then(() => alert('Settings updated successfully'))
+      .catch(() => alert('Error updating settings'))
+      .finally(() => setLoading(false));
   };
 
   return (
@@ -95,6 +98,14 @@ export default function ManageOperations() {
           value={transactionCharge}
           type="number"
           onChange={(e) => setTransactionCharge(e.target.value)}
+          width="200px"
+        />
+
+        <Text fontWeight="bold"> WhatsApp link</Text>
+        <Input
+          value={phone}
+          type= "url"
+          onChange={(e) => setphone(e.target.value)}
           width="200px"
         />
 

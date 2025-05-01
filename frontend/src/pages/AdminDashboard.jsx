@@ -16,18 +16,18 @@ const cardData = [
     color: "orange.400",
     route: "/admin/plans"
   },
-  {
-    title: "Successful Transactions",
-    icon: FaCheckCircle,
-    color: "green.400",
-    route: "/admin/transactions/successful"
-  },
-  {
-    title: "Pending Transactions",
-    icon: FaClock,
-    color: "red.400",
-    route: "/admin/transactions/pending"
-  },
+  // {
+  //   title: "Successful Transactions",
+  //   icon: FaCheckCircle,
+  //   color: "green.400",
+  //   route: "/admin/transactions/successful"
+  // },
+  // {
+  //   title: "Pending Transactions",
+  //   icon: FaClock,
+  //   color: "red.400",
+  //   route: "/admin/transactions/pending"
+  // },
   {
     title: "All Transactions",
     icon: FaClipboardList,

@@ -75,7 +75,7 @@ export function ActivePlansCard({ count }) {
 // components/TotalReturnsCard.js
 export function TotalReturnsCard({ returns = 0 }) {
   return (
-    <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="full" shadow="md">
+    <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="auto" maxW={'100vh'} shadow="md">
       <VStack spacing={2} align="start">
         <Text fontSize={["sm", "md"]} color="gray.400">Total Returns</Text>
         <Text fontSize={["2xl", "3xl"]} fontWeight="bold">

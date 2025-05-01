@@ -95,7 +95,7 @@ const Dashboard = () => {
           </Stack>
 
         </Box>
-        <Box p={[4, 6, 8]} bg="#0D1B2A" h={'auto'}>
+        <Box p={[4, 6, 8]} bg="#0D1B2A" h={'auto'} w={'auto'}>
           {/* Top Cards */}
           <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={6} mb={8}>
             <BalanceCard balance={totalUSD} />
