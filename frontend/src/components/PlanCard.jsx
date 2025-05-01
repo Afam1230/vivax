@@ -39,14 +39,6 @@ import {
           <Text color="green.300">Est. Reward: {plan.reward}</Text>
   
           <HStack justify="space-between" w="full" mt={2}>
-            <Button
-              colorScheme="purple"
-              size="sm"
-              onClick={() => onMine(plan._id)}
-            >
-              Mine {coin}
-            </Button>
-  
             {isAdmin && (
               <HStack>
                 <IconButton

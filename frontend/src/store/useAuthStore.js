@@ -3,7 +3,7 @@ import { persist } from "zustand/middleware";
 import axios from "axios";
 import { useEffect } from "react";
 
-const API = "http://localhost:5000/api/auth";
+// const API = "http://localhost:5000/api/auth";
 
 // Create the Zustand store for authentication
 export const useAuthStore = create(
@@ -14,7 +14,7 @@ export const useAuthStore = create(
 
       login: async (email, password) => {
         try {
-          const res = await axios.post(`${API}/login`, { email, password });
+          const res = await axios.post("/api/auth/login", { email, password });
       
           // ✅ Store token
           localStorage.setItem("token", res.data.token);
@@ -34,7 +34,7 @@ export const useAuthStore = create(
 
       register: async (name, email, password) => {
         try {
-          const res = await axios.post(`${API}/register`, { name, email, password });
+          const res = await axios.post("/api/auth/register", { name, email, password });
           set({ user: res.data.user, isAuthenticated: true });
         } catch (error) {
           console.error("Registration failed:", error?.response?.data?.message || error.message);
@@ -55,7 +55,7 @@ export const useAuthStore = create(
         }
 
         try {
-          const res = await axios.get(`${API}/user`, {
+          const res = await axios.get("/api/auth/user", {
             headers: { Authorization: `Bearer ${token}` },
           });
           set({ user: res.data, isAuthenticated: true });
