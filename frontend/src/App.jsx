@@ -20,6 +20,7 @@ import ManageUser from "./pages/ManageUser";
 import AllTransactions from "./pages/AllTransactions";
 import ManageOperations from "./pages/ManageOperations";
 import WithdrawPage from "./pages/WithdrawPage";
+import TransactionHistoryPage from "./pages/TransactionHistoryPage";
 
 
 function App() {
@@ -54,6 +55,9 @@ function App() {
 				<Route path="/payment/:planId" element={<PaymentPage />} />
 				<Route path="/deposit" element={<DepositPage />} />
 				<Route path="/withdraw" element={<WithdrawPage />} />
+				<Route path="/transactions" element={<TransactionHistoryPage />} />
+
+
 			</Routes>
 			{/* <Footer /> */}
 		</Box>

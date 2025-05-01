@@ -5,6 +5,7 @@ const transactionSchema = new mongoose.Schema({
   type: String, // "deposit", "withdrawal", "plan-purchase", "daily-return"
   coin: String, // "btc", "eth", "usdt"
   PurchaseCoin: String, // "btc", "eth", "usdt"
+  equivalentAmount: String, // "btc", "eth", "usdt"
   amount: Number,
   date: { type: Date, default: Date.now },
   details: String,

@@ -4,6 +4,7 @@ import { Link, Links } from 'react-router-dom';
 import { FaYoutube, FaTelegramPlane, FaFacebook, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { useState } from "react";
+import { Input } from "@chakra-ui/react";
 
 const Footer = () => {
     const toast = useToast();
@@ -27,7 +28,7 @@ const Footer = () => {
 
         setError(""); // Clear any previous errors
         console.log("Form Submitted:", { email });
-        toast({ title: "email submitted successfully!", status: "success", duration: 3000, isClosable: true });
+        toast({ title: "email submitted successfully!. We would keep you in touch with all latest crypto updates", status: "success", duration: 3000, isClosable: true });
 
         // 📨 Proceed with form submission logic (EmailJS, API, etc.)
     };
@@ -37,34 +38,31 @@ const Footer = () => {
 
 
     return (
-        <Box bg="orange.700" py={8} mt={100}   >
+        <Box py={8} mt={100}   >
             <Stack direction={{ base: 'column', md: 'row' }} justifyContent={'space-between'} paddingX={5} textAlign={'center'} spacing={{ base: 10, md: 0, lg: 0 }} >
                 <VStack color="white">
-                    <Heading as={"h3"} fontFamily="DM Serif Text">ASTRO GUIDE</Heading>
-                    <Text>GUIDING SOULS THROUGH</Text>
-                    <Text> ACIENT WISDOM AND MODERN</Text>
-                    <Text>UNDERSTANDING</Text>
+                    <Heading as={"h3"} fontFamily="DM Serif Text">CryptoVest</Heading>
+                    <Text>The Smart Way to Crypto Investing</Text>
+                    <Text> Where crypto dreams become reality</Text>
                 </VStack>
 
-                <VStack color="white">
+                {/* <VStack color="white">
                     <Heading as={"h3"} fontFamily="DM Serif Text">QUICK LINKS</Heading>
-                    <Link to={'/services'}> Services </Link>
                     <Link to={'/about'}> About </Link>
-                    <Link to={'blog'}> Blog </Link>
-                    <Link to={'contact'}> Contact </Link>
-                </VStack>
+                    <Link to={'/contact'}> Contact </Link>
+                </VStack> */}
 
                 <VStack color="white" spacing={4}>
                     <Heading fontFamily="DM Serif Text">Contact</Heading>
 
                     <HStack>
                         <FaEnvelope />
-                        <Text>Devarishidas@gmail.COM</Text>
+                        <Text>cryptovest@gmail.COM</Text>
                     </HStack>
 
                     <HStack>
                         <FaPhone />
-                        <Text>+(233) 54 194-0276</Text>
+                        <Text>+(xxx) xx xxx-xxxx</Text>
                     </HStack>
 
                     <HStack>
@@ -73,7 +71,7 @@ const Footer = () => {
                     </HStack>
 
                     {/* Social Links */}
-                    <HStack spacing={4} mt={3}>
+                    {/* <HStack spacing={4} mt={3}>
                         <a href="https://youtube.com/@astrodevaraj108?si=kyY-4IE-RvHo9uDi" target="_blank" rel="noopener noreferrer">
                             <IconButton icon={<FaYoutube />} aria-label="YouTube" colorScheme="red" />
                         </a>
@@ -89,22 +87,30 @@ const Footer = () => {
                         <a href="https://wa.me/2348175725656" target="_blank" rel="noopener noreferrer">
                             <IconButton icon={<FaWhatsapp />} aria-label="WhatsApp" colorScheme="green" />
                         </a>
-                    </HStack>
+                    </HStack> */}
                 </VStack>
 
                 <VStack>
                     <Heading fontFamily="DM Serif Text" color="white">NEWSLETTER</Heading>
-                    <Text color="white">SUBSCRIBE FOR SPIRITUAL</Text>
+                    <Text color="white">SUBSCRIBE FOR CRYPTO</Text>
                     <Text color="white">INSIGHTS AND UPDATES</Text>
                     <form onSubmit={handleSubmit}>
-                        <input placeholder="Your Email" name="email" color="white" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                        <Input
+                            placeholder="Your Email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                            bg="white"
+                            color="black"
+                        />
                         <Text py={1}></Text>
-                        <Button colorScheme="orange" type="submit">submit</Button>
+                        <Button colorScheme="green" type="submit">subscribe</Button>
                     </form>
                 </VStack>
             </Stack>
             <Divider paddingY={4} />
-            <Text color={'white'} p={6} textAlign={'center'} fontSize={{ base: "sm", md: "md" }}>© {new Date().getFullYear()} ASTRO DEVARAJ. All rights reserved.</Text>
+            <Text color={'white'} p={6} textAlign={'center'} fontSize={{ base: "sm", md: "md" }}>© {new Date().getFullYear()} CryptoVest. All rights reserved.</Text>
         </Box>
     );
 };

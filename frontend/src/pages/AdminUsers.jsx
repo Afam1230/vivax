@@ -177,10 +177,20 @@ export default function AdminUsers() {
                       <strong>Type:</strong> {tx.type}
                     </Text>
                     <Text>
-                    {tx.PurchaseCoin? (<strong>Payment-Coin:</strong>) : <strong>Deposit-Coin:</strong> } {tx.coin.toUpperCase()}
+                    {tx.PurchaseCoin? (<strong>Payment-Coin:</strong>) : <strong>Coin:</strong> } {tx.coin.toUpperCase()}
                     </Text>
+                    {tx.equivalentAmount && (
+                        <Text>
+                        <strong>Paid-amount:</strong> {tx.equivalentAmount}
+                      </Text>
+                    )}
+                    {tx.PurchaseCoin && (
+                      <Text>
+                        <strong>Purchased coin:</strong> {tx.PurchaseCoin}
+                      </Text>
+                    )}
                     <Text>
-                      <strong>Amount:</strong> {tx.amount}
+                    {tx.equivalentAmount? (<strong>Purchase-Amount:</strong>) : <strong>Amount:</strong> } {tx.amount}
                     </Text>
                     <Text>
                       <strong>Status:</strong> {tx.status}

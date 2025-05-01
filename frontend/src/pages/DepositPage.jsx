@@ -72,7 +72,7 @@ const DepositPage = () => {
     useEffect(() => {
         const amt = parseFloat(amount);
         const chargeRate = DEPOSIT_CHARGE / 100;
-    
+
         if (!amt || amt <= 0) {
             setCharge(0);
             setPayable(0);
@@ -80,11 +80,11 @@ const DepositPage = () => {
             setEthEquivalent(0);
             return;
         }
-    
+
         let chargeAmount = amt * chargeRate;
         let total = amt + chargeAmount;
         let usd = 0;
-    
+
         if (PurchaseCoin === "BTC") {
             setCharge(chargeAmount.toFixed(6));
             setPayable(total.toFixed(6));
@@ -104,10 +104,10 @@ const DepositPage = () => {
             setEthEquivalent((total / ETH_RATE).toFixed(6));
             usd = total;
         }
-    
+
         setUsdEquivalent(usd.toFixed(2));
     }, [amount, selectedCoin, PurchaseCoin, settings.transactionCharge]);
-    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -141,6 +141,17 @@ const DepositPage = () => {
                 formData.append("rewardPerDay", rewardPerDay);
                 formData.append("totalPeriod", totalPeriod);
             }
+
+            let equivalentAmount = 0;
+            if (selectedCoin === "BTC") {
+                equivalentAmount = btcEquivalent;
+            } else if (selectedCoin === "ETH") {
+                equivalentAmount = ethEquivalent;
+            } else {
+                equivalentAmount = usdEquivalent;
+            }
+
+            formData.append("equivalentAmount", equivalentAmount);
 
             await axios.post("/api/deposit", formData, {
                 headers: {
@@ -197,7 +208,7 @@ const DepositPage = () => {
                             icon={<FaWallet />}
                             value={selectedCoin}
                             onChange={(e) => setSelectedCoin(e.target.value)}
-                            placeholder="Select coin"
+                            placeholder="Select payment method"
                         >
                             <option value="BTC">Bitcoin (BTC)</option>
                             <option value="ETH">Ethereum (ETH)</option>
