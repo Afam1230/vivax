@@ -45,9 +45,9 @@ export const useDashboardStore = create((set) => ({
 
       // 4) Active investments data
       const activeInvestments = [
-        { title: "Bitcoin",  amount: balance.btc, change: 0, symbol: FaBitcoin },
-        { title: "Ethereum", amount: balance.eth, change: 0, symbol: FaEthereum },
-        { title: "USD",      amount: balance.usd, change: 0, symbol: FaDollarSign },
+        { title: "Bitcoin",  amount: earnings.BTC, change: 0, symbol: FaBitcoin },
+        { title: "Ethereum", amount: earnings.ETH, change: 0, symbol: FaEthereum },
+        { title: "USD",      amount: earnings.USD, change: 0, symbol: FaDollarSign },
       ];
 
       set({
