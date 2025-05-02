@@ -8,7 +8,7 @@ const CryptoRSSWidget = ({ coin = 'bitcoin', currency = 'usd' }) => {
   const [error, setError] = useState(null);
 
   const cacheKey = `${coin}-${currency}`;
-  const cacheExpirationTime = 3600000; // 1 hour in milliseconds
+  const cacheExpirationTime = 18000000; // 1 hour in milliseconds
 
   // Fetch data from cache if available and not expired
   const getCachedData = () => {
@@ -76,7 +76,7 @@ const CryptoRSSWidget = ({ coin = 'bitcoin', currency = 'usd' }) => {
   if (error) {
     return (
       <Box bg="gray.800" p={4} borderRadius="xl" boxShadow="lg" textAlign="center">
-        <Text color="red.400">{error}</Text>
+        <Text color="red.400">loading....</Text>
       </Box>
     );
   }

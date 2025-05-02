@@ -7,7 +7,7 @@ const MarketTrendsWidget = () => {
   const [loading, setLoading] = useState(true);
   
   const cacheKey = "marketTrends";
-  const cacheExpirationTime = 3600000; // 1 hour in milliseconds
+  const cacheExpirationTime = 18000000; // 1 hour in milliseconds
 
   // Get cached data if available and valid
   const getCachedData = () => {

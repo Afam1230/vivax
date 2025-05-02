@@ -59,9 +59,7 @@ const Footer = () => {
             <Text fontWeight="bold" fontSize="lg">Quick Links</Text>
             <Link color="gray.400" _hover={{ color: "purple.300" }}>Home</Link>
             <Link color="gray.400" _hover={{ color: "purple.300" }}>About Us</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Features</Link>
             <Link color="gray.400" _hover={{ color: "purple.300" }}>Pricing</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Blog</Link>
           </VStack>
           
           <VStack align="flex-start" spacing={3}>
