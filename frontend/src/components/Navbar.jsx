@@ -16,7 +16,7 @@ export default function Navbar() {
 
   const Links = ["/dashboard", "/pricing", "/deposit", "/withdraw", "/transactions"];
   const pathToTitleMap = {
-    "/": "Home",
+    "/": " ",
     "/dashboard": "Dashboard",
     "/pricing": "Pricing",
     "/deposit": "Deposit",

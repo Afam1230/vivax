@@ -10,7 +10,7 @@ const floatingBlobs = [
   },
   {
     top: "60%",
-    left: "80%",
+    left: "10%",
     size: 150,
     color: "#00ffc3",
     delay: 1.5,

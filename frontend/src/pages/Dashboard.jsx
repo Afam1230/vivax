@@ -22,6 +22,7 @@ import {
 import { getCryptoRates } from "../utils/getCryptoRates";
 import {useDashboardStore}  from "../store/useDashboardStore";
 import useOperationSettingsStore from "../store/useOperationSettingsStore";
+import Background from "../components/Background";
 
 const Dashboard = () => {
   const { user, fetchUser } = useAuthStore();
@@ -62,7 +63,8 @@ const Dashboard = () => {
     balance.usd * 1;
 
   return (
-    <Box p={{ base: 4, md: 10 }} position={'relative'} overflow="hidden" bg="#0D1B2A" minH="100vh" color="white">
+    
+    <Box p={{ base: 2, md: 2 }} position={'relative'} overflow="hidden" bg="#0D1B2A" minH="100vh" color="white">
       <Box
         position="absolute"
         inset={0}
@@ -80,7 +82,7 @@ const Dashboard = () => {
           backgroundSize: '40px 40px',
           animation: 'moveBackground 60s linear infinite',
         }}
-      />
+      />      
       <Box zIndex={1}>
         <Box>
           <Stack>

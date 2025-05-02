@@ -1,0 +1,41 @@
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1A202C, #010114);
+  z-index: 0; /* Important: stays behind content */
+}
+
+.elements div {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  border: 6px solid rgba(255, 255, 255, 1);
+}
+
+/* Keyframes */
+@keyframes animate {
+  0% {
+    transform: scale(0) translateY(-90px) rotate(360deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) translateY(-90px) rotate(-180deg);
+    border-radius: 50%;
+    opacity: 0;
+  }
+}
+
+/* Individual animations */
+.element-1 { top: 5%; left: 41%; animation: animate 10s linear infinite; }
+.element-2 { top: 69%; left: 49%; animation: animate 7s linear infinite; }
+.element-3 { top: 7%; left: 7%;  animation: animate 9s linear infinite; }
+.element-4 { top: 19%; left: 61%; animation: animate 10s linear infinite; }
+.element-5 { top: 68%; left: 11%; animation: animate 6s linear infinite; }
+.element-6 { top: 10%; left: 71%; animation: animate 12s linear infinite; }
+.element-7 { top: 59%; left: 81%; animation: animate 15s linear infinite; }
+.element-8 { top: 89%; left: 26%; animation: animate 9s linear infinite; }
+.element-9 { top: 91%; left: 24%; animation: animate 9s linear infinite; }
+.element-10 { top: 21%; left: 79%; animation: animate 5s linear infinite; }
