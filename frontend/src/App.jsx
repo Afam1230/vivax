@@ -22,6 +22,13 @@ import WithdrawPage from "./pages/WithdrawPage";
 import TransactionHistoryPage from "./pages/TransactionHistoryPage";
 import Index from "./pages/Index";
 import Footer from "./components1/Footer";
+import Faq from './pages/faq';
+import Contact from './pages/Contact';
+import TermsAndService from './pages/TermsAndService';
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+
+
+
 
 
 function App() {
@@ -29,10 +36,10 @@ function App() {
 		
 		<Box minH={"100vh"} bg={'white'} >
 			<ScrollToTop />
+			<Routes><Route path='/' element={<Index />} /></Routes>
 			<Navbar/>
 			<WhatsAppButton />
 			<Routes>
-				<Route path='/' element={<Index />} />
 				<Route path="/admin/manage-operations" element={<ManageOperations/>} />
 				<Route path="/admin/transactions" element={<AllTransactions />} />
 				<Route path='/admin/plans' element={<AdminPlansPage />} />
@@ -44,21 +51,23 @@ function App() {
 				<Route path="/login" element={<Login />} />
 				<Route path="/register" element={<Register />} />
 				<Route path="/pricing" element={<ProtectedRoute><PricingPage /></ProtectedRoute>} />
+				<Route path="/terms" element={<TermsAndService />} />
+				<Route path="/privacy" element={<PrivacyPolicy />} />
+
 				<Route
-					path="/dashboard"
-					element={
+					path="/dashboard"element={
 						<ProtectedRoute>
 							<Dashboard />
 						</ProtectedRoute>
-					}
-				/>
+					}/>
+				<Route path="/faq" element={<Faq />} />
+				<Route path="/contact" element={<Contact />} />
 				<Route path="/payment/:planId" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
 				<Route path="/deposit" element={<ProtectedRoute><DepositPage /></ProtectedRoute>} />
 				<Route path="/withdraw" element={<ProtectedRoute><WithdrawPage /></ProtectedRoute>} />
 				<Route path="/transactions" element={<ProtectedRoute><TransactionHistoryPage /></ProtectedRoute>} />
 			</Routes>
 			<Footer/>
-
 		</Box>
 	);
 }

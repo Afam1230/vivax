@@ -4,8 +4,11 @@ import {
   DrawerCloseButton, Text,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { GoHomeFill } from "react-icons/go";
 import { useAuthStore } from "../store/useAuthStore";
 import { useNavigate, useLocation } from "react-router-dom";
+import { MdDashboard } from "react-icons/md";
 
 export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -14,9 +17,9 @@ export default function Navbar() {
   const location = useLocation();
   const activePath = location.pathname;
 
-  const Links = ["/dashboard", "/pricing", "/deposit", "/withdraw", "/transactions"];
+  const Links = ["/", "/dashboard", "/pricing", "/deposit", "/withdraw", "/transactions"];
   const pathToTitleMap = {
-    "/": " ",
+    "/": <GoHomeFill size={30} />,
     "/dashboard": "Dashboard",
     "/pricing": "Pricing",
     "/deposit": "Deposit",
@@ -33,7 +36,7 @@ export default function Navbar() {
   const NavLinks = ({ vertical = false }) => (
     <Stack
       direction={vertical ? "column" : "row"}
-      spacing={vertical ? 3 : 6}
+      spacing={vertical ? 3 : 2}
       align={vertical ? "center" : "center"}
     >
       {!shouldHideLinks && Links.map((link, i) => (
@@ -73,12 +76,12 @@ export default function Navbar() {
       <Flex h={16} alignItems="center" justifyContent="space-between">
         {/* 🏷️ Dynamic Title */}
         <Text fontWeight="bold" fontSize="xl">
-          {pathToTitleMap[activePath] || "MyDashboard"}
+          {pathToTitleMap[activePath] || <MdDashboard size={30} /> }
         </Text>
 
         {/* Desktop Nav */}
         {!shouldHideLinks && (
-          <HStack spacing={8} alignItems="center" color={'white'} display={{ base: "none", md: "flex" }}>
+          <HStack spacing={1} alignItems="center" color={'white'} display={{ base: "none", md: "flex" }}>
             <NavLinks />
           </HStack>
         )}
@@ -87,10 +90,11 @@ export default function Navbar() {
         {!shouldHideLinks && (
           <IconButton
             size="md"
-            icon={<HamburgerIcon />}
+            icon={<RxHamburgerMenu size={30} />}
             aria-label="Open Menu"
             display={{ base: "flex", md: "none" }}
             onClick={onOpen}
+            colorScheme="black"
           />
         )}
       </Flex>
@@ -104,7 +108,7 @@ export default function Navbar() {
             backdropFilter="blur(20px)"
             color="white"
           >              <DrawerCloseButton />
-            <DrawerBody>
+            <DrawerBody onClick={onClose}>
               <VStack align="center" spacing={6} mt={10}>
                 <NavLinks vertical />
               </VStack>

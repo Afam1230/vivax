@@ -10,7 +10,6 @@ import Transactions from "../components1/Transaction";
 import Pricing from "../components1/Pricing";
 import BlogPosts from "../components1/BlogPosts";
 import Testimonials from "../components1/Testimonials";
-import Footer from "../components1/Footer";
 import ParticleBg from "../components1/ParticleBg";
 import FuturisticBackground from "../components/FuturisticBackground";
 
@@ -30,7 +29,6 @@ const Index = () => {
       <Testimonials />
       <FAQ />
       <Newsletter />
-      <Footer />
     </Box>
   );
 };

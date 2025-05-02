@@ -87,6 +87,8 @@ import {
         />
   
         <Flex
+        marginBottom={40}
+        mt={10}
           minH="100vh"
           direction={{ base: 'column', md: 'row' }}
           justify="center"

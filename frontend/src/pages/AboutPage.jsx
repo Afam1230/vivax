@@ -1,78 +1,83 @@
-import { Box, VStack, Heading, Text, Image, Container, HStack, Button } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-
-const MotionBox = motion(Box);
+import React from "react";
+import {
+  Box,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  SimpleGrid,
+  Stack,
+  Container,
+  Image,
+} from "@chakra-ui/react";
+import { FaChartLine, FaUsers, FaLock, FaRocket } from "react-icons/fa";
+import AnimatedBackground from "../components/AnimatedBackground"; // create this background component
+import heroc from "./heroc.png"
 
 const AboutPage = () => {
   return (
-    <Container maxW="100%"         bgGradient={"linear(to-br, white, orange.100)"}
-    py={10} mt={{base:10,lg:20,xl:30}}>
-      {/* Profile Section */}
-      <MotionBox 
-        textAlign="center" 
-        initial={{ opacity: 0, y: -80 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.8 }}
-      >
-        <Image 
-          src="https://scontent.flos1-3.fna.fbcdn.net/v/t39.30808-6/481899812_1036814558466142_93037116377118753_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=XyOKx9xd7AEQ7kNvgGYaDs2&_nc_oc=AdlmrcGJsq0wQMpzscpACcwHkknbf-2csJU6yGbcZOJMBoMb0IugUCNc52bgvc6qqBw&_nc_zt=23&_nc_ht=scontent.flos1-3.fna&_nc_gid=AghnqFX4mvmqiWh2Z94W8A&oh=00_AYE6cg2x4hLK765XI8pF7PBcvGXtLQA2d8vHNuIATVn9dg&oe=67E9320A" 
-          alt="Devarishi Das Asamoah" 
-          borderRadius="60" 
-          boxSize={{ base: "300px", md: "400px" }} 
-          mx="auto" 
-          width={'auto'}
-          mb={5} 
-        />
-        <Heading fontSize={{ base: "2xl", md: "3xl" }} fontWeight="bold" color="orange.700" fontFamily="DM Serif Text">
-          Devarishi Das Asamoah
-        </Heading>
-        <Text fontSize="lg" color="gray.600" mt={2}>Astrologer | Vedic Priest | Life Coach</Text>
-      </MotionBox>
+    <Box position="relative" overflow="hidden" bg="purple.900" color="white" minH="100vh">
+      <AnimatedBackground />
 
-      {/* The Journey */}
-      <MotionBox mt={10} px={1} bgGradient={"radial(white, white)"} boxShadow="md" borderRadius="lg" textAlign="center"         initial={{ opacity: 0, x: -80 }} 
-        animate={{ opacity: 1, x: 0 }} 
-        transition={{ duration: 0.8 }}>
-        <Heading fontFamily="DM Serif Text" fontSize="3xl" color="brown.700">The Journey</Heading>
-        <Text fontSize="xl" mt={3} color="gray.800">
-          From an early age, I was drawn to the celestial mysteries of the universe. My deep studies in 
-          <b> Jyotish Shastra (Vedic Astrology) </b> and <b> Vedic scriptures </b> led me to understand the 
-          profound connection between planetary influences and human destiny. Over the years, I have 
-          guided individuals through astrological readings, sacred rituals, and spiritual coaching to help 
-          them navigate life’s challenges.
-        </Text>
-      </MotionBox>
-
-      {/* Expertise Section */}
-      <MotionBox  mt={10} p={5} bg="white" boxShadow="md" borderRadius="lg"          initial={{ opacity: 0, y: 80 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 2 }}>
-        <Heading fontFamily="DM Serif Text" fontSize="3xl" color="brown.700" textAlign="center">My Expertise</Heading>
-        <VStack align="start" spacing={4} mt={5}>
-          <Text fontSize="xl" color="gray.700">🔹 <b>Vedic Astrology & Birth Chart Readings</b> – Decode your cosmic blueprint.</Text>
-          <Text fontSize="xl" color="gray.700">🔹 <b>Spiritual Counseling & Life Coaching</b> – Transform your mindset and embrace self-discovery.</Text>
-          <Text fontSize="xl" color="gray.700">🔹 <b>Vedic Rituals & Remedies</b> – Harmonize your energies through sacred pujas and mantra sadhana.</Text>
-          <Text fontSize="xl" color="gray.700">🔹 <b>Relationship & Career Guidance</b> – Personalized astrological insights for love, career, and finances.</Text>
+      <Container maxW="7xl" position="relative" zIndex="1" py={20}>
+        {/* Hero Section */}
+        <VStack spacing={6} textAlign="center" mb={16}>
+          <Heading fontSize={{ base: "3xl", md: "5xl" }} fontWeight="extrabold">
+            Welcome to <Text as="span" color="purple.300">CryptoLab</Text>
+          </Heading>
+          <Text fontSize="xl" maxW="3xl">
+            Where bold ideas meet blockchain innovation. We empower investors with cutting-edge tools, secure strategies, and unmatched crypto insights.
+          </Text>
         </VStack>
-      </MotionBox>
 
-      {/* Contact Section */}
-      <MotionBox mt={10} textAlign="center" >
-        <Heading fontFamily="DM Serif Text" fontSize="3xl" color="orange.700">Let's Connect</Heading>
-        <Text fontSize="xl" mt={3} color="gray.800">
-          Ready to unlock the deeper mysteries of your life? Book a consultation and begin your journey.
-        </Text>
-        <HStack justify="center" mt={5}>
-          <Link to="/book">
-            <Button colorScheme="orange" borderRadius="full" _hover={{ bg: "brown.700" }}>
-              Book a Consultation
-            </Button>
-          </Link>
-        </HStack>
-      </MotionBox>
-    </Container>
+        {/* About Content */}
+        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={12}>
+          <VStack align="start" spacing={5}>
+            <Heading size="lg">Who We Are</Heading>
+            <Text fontSize="md">
+              CryptoLab is a next-gen investment hub crafted for the modern crypto investor.
+              Our mission is to simplify, secure, and supercharge your crypto journey with
+              powerful analytics, expert insights, and intuitive tools — all built with precision
+              and elegance.
+            </Text>
+            <Text fontSize="md">
+              Whether you're a first-time buyer or a seasoned trader, CryptoLab is your trusted
+              partner in navigating the decentralized economy.
+            </Text>
+          </VStack>
+
+          {/* Placeholder image */}
+          <Box>
+            <Image
+              src={heroc}
+              alt="CryptoLab illustration"
+              borderRadius="xl"
+              boxShadow="xl"
+            />
+          </Box>
+        </SimpleGrid>
+
+        {/* Features Section */}
+        <Stack mt={20} spacing={12}>
+          <Heading textAlign="center">Why Choose Us?</Heading>
+          <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={10}>
+            <Feature icon={<FaChartLine />} title="Real-Time Analytics" text="Stay ahead with lightning-fast data and predictive insights." />
+            <Feature icon={<FaUsers />} title="Expert Community" text="Join a vibrant network of analysts, mentors, and crypto enthusiasts." />
+            <Feature icon={<FaLock />} title="Secure & Transparent" text="Built on trust. Powered by blockchain. Protected with encryption." />
+            <Feature icon={<FaRocket />} title="Built for Growth" text="Maximize your potential with tools designed to scale your portfolio." />
+          </SimpleGrid>
+        </Stack>
+      </Container>
+    </Box>
   );
 };
+
+const Feature = ({ icon, title, text }) => (
+  <VStack spacing={3} textAlign="center">
+    <Box fontSize="4xl" color="purple.300">{icon}</Box>
+    <Heading size="md">{title}</Heading>
+    <Text fontSize="sm">{text}</Text>
+  </VStack>
+);
 
 export default AboutPage;

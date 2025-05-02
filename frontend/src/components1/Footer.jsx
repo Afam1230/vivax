@@ -1,6 +1,8 @@
 
-import { Box, Container, Text, Flex, VStack, HStack, Link, SimpleGrid, Divider, Icon, Input, Button, useToast } from "@chakra-ui/react";
+import { Box, Container, Text, Flex, VStack, HStack, SimpleGrid, Divider, Icon, Input, Button, useToast } from "@chakra-ui/react";
 import { EmailIcon } from "@chakra-ui/icons";
+import { Link, Links } from 'react-router-dom';
+import FuturisticBackground from "../components/FuturisticBackground";
 
 const Footer = () => {
     const toast = useToast();
@@ -20,7 +22,8 @@ const Footer = () => {
       }, 1500);
     };
   return (
-    <Box bg="gray.900" color="white" borderTop="1px solid" borderColor="gray.800">
+    <Box bg="gray.900" color="white" borderTop="1px solid" position={'relative'} borderColor="gray.800">
+      <FuturisticBackground/>
       <Container maxW="container.xl" py={10}>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={8} mb={10}>
           <VStack align="flex-start" spacing={4}>
@@ -57,18 +60,17 @@ const Footer = () => {
           
           <VStack align="flex-start" spacing={3}>
             <Text fontWeight="bold" fontSize="lg">Quick Links</Text>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Home</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>About Us</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Pricing</Link>
+            <Link to={"/"} color="gray.400" _hover={{ color: "purple.300" }}> Home </Link>
+            <Link to={'/about'} color="gray.400" _hover={{ color: "purple.300" }}>  About Us</Link>
+            <Link to={"/plans"} color="gray.400" _hover={{ color: "purple.300" }}>  Pricing </Link>
           </VStack>
           
           <VStack align="flex-start" spacing={3}>
             <Text fontWeight="bold" fontSize="lg">Support</Text>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Help Center</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>FAQ</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Contact Us</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Terms of Service</Link>
-            <Link color="gray.400" _hover={{ color: "purple.300" }}>Privacy Policy</Link>
+            <Link to={"/faq"} color="gray.400" _hover={{ color: "purple.300" }}>FAQ</Link>
+            <Link to={"/contact"} color="gray.400" _hover={{ color: "purple.300" }}>Contact Us</Link>
+            <Link to={"/terms"} color="gray.400" _hover={{ color: "purple.300" }}>Terms of Service</Link>
+            <Link to={"/privacy"} color="gray.400" _hover={{ color: "purple.300" }}>Privacy Policy</Link>
           </VStack>
           
           <VStack align="flex-start" spacing={4}>

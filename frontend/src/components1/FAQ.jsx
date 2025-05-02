@@ -25,7 +25,7 @@ import {
               borderWidth={1}
               borderColor={isExpanded ? "purple.500" : "purple.900"}
             >
-              <Box flex="1" textAlign="left" fontWeight="medium">
+              <Box flex="1" textAlign="left" fontWeight="medium" position={'relative'}>
                 {question}
               </Box>
               <AccordionIcon />
