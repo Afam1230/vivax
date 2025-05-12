@@ -26,6 +26,7 @@ import Faq from './pages/faq';
 import Contact from './pages/Contact';
 import TermsAndService from './pages/TermsAndService';
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TestimonialPopup from "./components1/TestimonialPopup";
 
 
 

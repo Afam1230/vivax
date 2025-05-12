@@ -12,12 +12,15 @@ import BlogPosts from "../components1/BlogPosts";
 import Testimonials from "../components1/Testimonials";
 import ParticleBg from "../components1/ParticleBg";
 import FuturisticBackground from "../components/FuturisticBackground";
-
+import TestimonialPopup from "../components1/TestimonialPopup"
 const Index = () => {
   return (
     <Box bg="gray.900" minH="100vh">
-      <FuturisticBackground/>
-      <ParticleBg/>
+      <Box position="absolute" zIndex={99999} overflow="visible">
+        <TestimonialPopup />
+      </Box>
+      <FuturisticBackground />
+      <ParticleBg />
       <Navbar />
       <Hero />
       <Stats />

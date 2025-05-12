@@ -1,10 +1,12 @@
 // components/BalanceCard.js
-import { Box, Text, ButtonGroup, VStack, HStack, Button, Icon, Stack } from "@chakra-ui/react";
+import { Box, Text, ButtonGroup, VStack, HStack, Button, Icon, Stack,  IconButton  } from "@chakra-ui/react";
+import { useState } from 'react';
 import { FaWallet } from "react-icons/fa";
 import { FaChartLine } from "react-icons/fa";
 import { FaBriefcase } from "react-icons/fa";
 import { FaDollarSign } from "react-icons/fa";
 import { FaBitcoin, FaEthereum } from "react-icons/fa";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const BalanceItem = ({ label, amount, icon }) => (
   <HStack justify="space-between" w="full">
@@ -31,12 +33,27 @@ export function WalletBalanceCard({ balance }) {
 
 
 export function BalanceCard({ balance }) {
+  const [isBalanceVisible, setBalanceVisible] = useState(true);
+
+  const toggleBalanceVisibility = () => {
+    setBalanceVisible((prevState) => !prevState);
+  };
+
   return (
-    <Box backdropFilter="blur(0px)"  bg="#1B263B" p={5} borderRadius="xl" color="white">
+    <Box backdropFilter="blur(0px)" bg="#1B263B" p={5} borderRadius="xl" color="white">
       <Text fontSize="sm" color="gray.400">Total Balance</Text>
       <Stack spacing={2} justifyContent={'center'} direction={'row-reverse'}>
-      <Text fontSize="2xl" fontWeight="bold">${balance.toFixed(2)}</Text>
-      
+        <Text fontSize="2xl" fontWeight="bold">
+          {isBalanceVisible ? `$${balance.toFixed(2)}` : '••••••••'}
+        </Text>
+        <IconButton
+          icon={isBalanceVisible ? <FaEyeSlash /> : <FaEye />}
+          aria-label="Toggle balance visibility"
+          variant="link"
+          color="white"
+          onClick={toggleBalanceVisibility}
+          size="sm"
+        />
       </Stack>
     </Box>
   );
