@@ -150,9 +150,12 @@ const TransactionHistoryPage = () => {
                         {!tx.details.walletAddress ? (
                           <Box>
                             {/* user withdrew to bank */}
-                            <Text><strong>Bank Account Number:</strong> {tx.details.accountNumber}</Text>
-                            <Text><strong>Account Holder Name:</strong> {tx.details.accountHolder.toUpperCase()}</Text>
-                            <Text><strong>Bank Name:</strong> {tx.details.bankName.toUpperCase()}</Text>
+                            <Text><strong>Bank Account Number:</strong>{tx.details.accountNumber}</Text>
+                            <Text>
+                              <strong>Account Holder Name:</strong>{" "}
+                              {tx.details.accountHolder ? tx.details.accountHolder.toUpperCase() : "N/A"}
+                            </Text>
+                            <Text><strong>Bank Name:</strong> {tx.details.bankName? tx.details.bankName.toUpperCase(): "N/A"}</Text>
                             <Text><strong>Routing number:</strong> {tx.details.routingNumber}</Text>
                             <Text><strong>Wire Fee:</strong> {tx.details.wireFee}</Text>
                             <Text><strong>Wire Amount:</strong> {tx.details.wireAmount}</Text>
@@ -161,7 +164,7 @@ const TransactionHistoryPage = () => {
                         ) : (
                           <Box>
                             {/* user withdrew to crypto wallet */}
-                            <Text><strong>Wallet Address:</strong> {tx.details.walletAddress.toUpperCase()}</Text>
+                            <Text><strong>Wallet Address:</strong> {tx.details.walletAddress}</Text>
                             <Text><strong>Wire Fee:</strong> {tx.details.wireFee}</Text>
                             <Text><strong>Wire Amount:</strong> {tx.details.wireAmount}</Text>
 

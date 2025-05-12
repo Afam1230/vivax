@@ -130,7 +130,7 @@ const Contact = () => {
               >
                 Send Message
               </Button>
-              <Box pt={10}>
+              {/* <Box pt={10}>
                 <Text textAlign="center" fontWeight="bold" mb={4} fontSize="lg" color="gray.200">
                   Or reach out directly:
                 </Text>
@@ -188,7 +188,7 @@ const Contact = () => {
                     variant="ghost"
                   />
                 </HStack>
-              </Box>
+              </Box> */}
             </VStack>
           </form>
         </MotionBox>

@@ -34,12 +34,12 @@ const cardData = [
     color: "teal.500",
     route: "/admin/transactions"
   },
-  {
-    title: "Manage Users",
-    icon: FaEdit,
-    color: "pink.400",
-    route: "/admin/manage-users"
-  },
+  // {
+  //   title: "Manage Users",
+  //   icon: FaEdit,
+  //   color: "pink.400",
+  //   route: "/admin/manage-users"
+  // },
   {
     title: "Manage operation",
     icon: FaScrewdriver,

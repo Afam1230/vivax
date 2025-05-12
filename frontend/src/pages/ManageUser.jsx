@@ -77,7 +77,7 @@ export default function ManageUser() {
       .catch(() => alert("Failed to delete user"))
       .finally(() => setSaving(false));
   };
-
+ 
 
 
   if (!user) return <Spinner size="xl" mt={10} />;

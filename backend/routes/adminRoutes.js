@@ -115,7 +115,6 @@ router.get('/transactions', async (req, res) => {
 
 
 // POST /api/admin/confirm-transaction
-// POST /api/admin/confirm-transaction
 router.post('/confirm-transaction', async (req, res) => {
   const { userId, txId, status } = req.body;
 
@@ -248,6 +247,26 @@ router.put('/transactions/:id/reject', async (req, res) => {
   } catch (err) {
     console.error('Error rejecting transaction:', err);
     res.status(500).json({ message: 'Error rejecting transaction' });
+  }
+});
+
+
+
+// DELETE /api/admin/users/:userId
+router.delete('/users/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error('Delete error:', err);
+    res.status(500).json({ message: "Failed to delete user" });
   }
 });
 
