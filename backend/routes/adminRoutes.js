@@ -7,111 +7,111 @@ const router = express.Router();
 
 // in your Express router
 router.get("/run-daily-rewards", async (req, res) => {
-    try {
-      await distributeDailyRewards();
-      res.status(200).send("Daily rewards distributed!");
-    } catch (err) {
-      res.status(500).send("Failed to distribute rewards.");
-    }
-  });
+  try {
+    await distributeDailyRewards();
+    res.status(200).send("Daily rewards distributed!");
+  } catch (err) {
+    res.status(500).send("Failed to distribute rewards.");
+  }
+});
 
 // GET /api/admin/stats
 router.get('/stats', async (req, res) => {
-    const totalUsers = await User.countDocuments();
-    const allTransactions = await User.aggregate([
-      { $unwind: "$transactions" },
-      { $replaceRoot: { newRoot: "$transactions" } },
-    ]);
-    const successful = allTransactions.filter(t => t.status === "successful").length;
-    const pending = allTransactions.filter(t => t.status === "pending").length;
-  
-    res.json({
-      totalUsers,
-      successful,
-      pending,
-      allTransactions: allTransactions.length
-    });
+  const totalUsers = await User.countDocuments();
+  const allTransactions = await User.aggregate([
+    { $unwind: "$transactions" },
+    { $replaceRoot: { newRoot: "$transactions" } },
+  ]);
+  const successful = allTransactions.filter(t => t.status === "successful").length;
+  const pending = allTransactions.filter(t => t.status === "pending").length;
+
+  res.json({
+    totalUsers,
+    successful,
+    pending,
+    allTransactions: allTransactions.length
   });
+});
 
 // GET /api/admin/users
 router.get('/users', async (req, res) => {
-    try {
-      const users = await User.find({}, 'name email balance earnings'); // limit fields
-      res.json(users);
-    } catch (err) {
-      res.status(500).json({ message: 'Failed to fetch users.' });
-    }
-  });
+  try {
+    const users = await User.find({}, 'name email balance earnings'); // limit fields
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch users.' });
+  }
+});
 
 // GET /api/admin/users/:id
 router.get('/users/:id', async (req, res) => {
-    try {
-      const user = await User.findById(req.params.id);
-      if (!user) return res.status(404).json({ message: 'User not found' });
-      res.json(user);
-    } catch (err) {
-      res.status(500).json({ message: 'Error fetching user' });
-    }
-  });
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching user' });
+  }
+});
 
 // PUT /api/admin/users/:id
 router.put('/users/:id', async (req, res) => {
-    const { balance, earnings, plans } = req.body;
-  
-    try {
-        const user = await User.findOne({ _id: req.params.id });
-        if (!user) return res.status(404).json({ message: 'User not found' });
-  
-      // Update balances and earnings
-      if (balance) user.balance = balance;
-      if (earnings) user.earnings = earnings;
-  
-      // Update rewardPerDay in plans (BTC, ETH, USD)
-      if (plans) {
-        ['BTC', 'ETH', 'USD'].forEach((coin) => {
-          if (plans[coin]) {
-            plans[coin].forEach(updatedPlan => {
-                console.log('updatedplan:', updatedPlan)
-                const plan = user.plans[coin].find(p => p.id === updatedPlan.id);
-                if (plan) {
-                plan.rewardPerDay = updatedPlan.rewardPerDay;
-              }
-            });
-          }
-        });
-      }
-      
-      await user.save();
-      res.json({ message: 'User updated successfully' });
-    } catch (err) {
-      res.status(500).json({ message: 'Error updating user' });
+  const { balance, earnings, plans } = req.body;
+
+  try {
+    const user = await User.findOne({ _id: req.params.id });
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    // Update balances and earnings
+    if (balance) user.balance = balance;
+    if (earnings) user.earnings = earnings;
+
+    // Update rewardPerDay in plans (BTC, ETH, USD)
+    if (plans) {
+      ['BTC', 'ETH', 'USD'].forEach((coin) => {
+        if (plans[coin]) {
+          plans[coin].forEach(updatedPlan => {
+            console.log('updatedplan:', updatedPlan)
+            const plan = user.plans[coin].find(p => p.id === updatedPlan.id);
+            if (plan) {
+              plan.rewardPerDay = updatedPlan.rewardPerDay;
+            }
+          });
+        }
+      });
     }
-  });
+
+    await user.save();
+    res.json({ message: 'User updated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Error updating user' });
+  }
+});
 
 // GET /api/admin/transactions
 router.get('/transactions', async (req, res) => {
-    try {
-      const users = await User.find({});
-      const transactions = [];
-  
-      users.forEach(user => {
-        user.transactions.forEach(tx => {
-          transactions.push({
-            ...tx.toObject(),
-            userId: user._id,
-            userName: user.name,
-            userEmail: user.email,
-          });
+  try {
+    const users = await User.find({});
+    const transactions = [];
+
+    users.forEach(user => {
+      user.transactions.forEach(tx => {
+        transactions.push({
+          ...tx.toObject(),
+          userId: user._id,
+          userName: user.name,
+          userEmail: user.email,
         });
       });
-  
-      // Sort newest first
-      transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
-      res.json(transactions);
-    } catch (err) {
-      res.status(500).json({ message: 'Error fetching transactions' });
-    }
-  });
+    });
+
+    // Sort newest first
+    transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    res.json(transactions);
+  } catch (err) {
+    res.status(500).json({ message: 'Error fetching transactions' });
+  }
+});
 
 
 // POST /api/admin/confirm-transaction
@@ -129,7 +129,7 @@ router.post('/confirm-transaction', async (req, res) => {
     // Only update balance if confirming as "successful"
     if (status === "successful") {
       const coin = tx.coin.toLowerCase();
-      const PurchaseCoin = tx.PurchaseCoin //uppercase for purchasecoin
+      const coinPurchased = tx.details.coinPurchased //uppercase for coinPurchased
       const amt = parseFloat(tx.amount);
 
       switch (tx.type) {
@@ -143,8 +143,23 @@ router.post('/confirm-transaction', async (req, res) => {
           break;
 
         case "deposit":
-          const PurchaseCoinl = tx.PurchaseCoin.toLowerCase() //lower case for balance
+          const PurchaseCoinl = tx.details.coinPurchased.toLowerCase() //lower case for finding in balance and adding to balance
           user.balance[PurchaseCoinl] = (user.balance[PurchaseCoinl] || 0) + amt;
+          // Add plan to user's list of active plans (assuming a `plans` field)
+          if (tx.planData) {
+            const planType = tx.planData.cryptoType; // e.g., "BTC", "ETH", "USD"
+
+            // Ensure the key exists and is an array
+            if (!user.plans[planType]) {
+              user.plans[planType] = [];
+            }
+
+            user.plans[planType].push({
+              ...tx.planData,
+              purchaseDate: new Date(),
+              remainingDays: tx.planData.totalPeriod, // or totalDays if you prefer
+            });
+          }
           break;
 
         case "plan-purchase":
@@ -155,13 +170,20 @@ router.post('/confirm-transaction', async (req, res) => {
 
           // Add plan to user's list of active plans (assuming a `plans` field)
           if (tx.planData) {
-            user.plans = user.plans || [];
-            user.plans.push({
+            const planType = tx.planData.cryptoType; // e.g., "BTC", "ETH", "USD"
+
+            // Ensure the key exists and is an array
+            if (!user.plans[planType]) {
+              user.plans[planType] = [];
+            }
+
+            user.plans[planType].push({
               ...tx.planData,
               purchaseDate: new Date(),
-              remainingDays: tx.planData.totalDays,
+              remainingDays: tx.planData.totalPeriod, // or totalDays if you prefer
             });
           }
+
           break;
 
         default:
@@ -178,7 +200,7 @@ router.post('/confirm-transaction', async (req, res) => {
   }
 });
 
-  
+
 
 // GET /api/admin/users/:id/transactions
 router.get('/users/:id/transactions', async (req, res) => {
@@ -249,7 +271,7 @@ router.get('/operation-settings', async (req, res) => {
 // Update operation settings
 router.put('/operation-settings', async (req, res) => {
   const { exchangeRates, walletAddresses, transactionCharge, phone } = req.body;
-  
+
   try {
     let settings = await OperationSettings.findOne();
     if (!settings) {
@@ -259,7 +281,7 @@ router.put('/operation-settings', async (req, res) => {
     settings.walletAddresses = walletAddresses;
     settings.transactionCharge = transactionCharge;
     settings.phone = phone
-    
+
     await settings.save();
     res.json({ message: 'Settings updated successfully' });
   } catch (err) {
@@ -272,8 +294,8 @@ router.put('/operation-settings', async (req, res) => {
 
 
 
-  
-  
-  
+
+
+
 
 export default router;

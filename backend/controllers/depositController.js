@@ -24,7 +24,7 @@ export const upload = multer({ storage });
 // Create Deposit Controller
 export const createDeposit = async (req, res) => {
   try {
-    const { userId, coin, amount, planTitle, PurchaseCoin, equivalentAmount, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod  } = req.body;
+    const { userId, coin, amount, planTitle, PurchaseCoin, equivalentAmount, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod, cryptoType  } = req.body;
     const proofImage = req.file;
 
     if (!coin || !amount || !proofImage) {
@@ -43,15 +43,18 @@ export const createDeposit = async (req, res) => {
       _id: new mongoose.Types.ObjectId(),  // Generate a new UUID or ObjectId for the transaction
       type: "deposit",  // This is a deposit transaction
       coin,
-      PurchaseCoin,
-      equivalentAmount,
       amount,
       date: new Date(),
       proofImage: uploadedProof,  // Store the URL of the uploaded proof image from Cloudinary
       status: "pending",  // Default status is 'pending'
-      details: `Deposit for ${amount} ${coin}`,  // Description of the deposit
+      details: {
+        coinPurchased: PurchaseCoin,
+        AmountPaid: equivalentAmount,
+        paymentGateway: coin,
+        statement: `Deposit for ${amount} ${PurchaseCoin}, paid ${equivalentAmount} ${coin}`
+      },
       Deposit: true,  // Mark this as a deposit
-      planData: planTitle ? {id, label, price, rate, reward, rewardPerDay, totalPeriod, date: new Date(), purchaseDate: new Date()} : null,  // Include plan data if the deposit is for a plan
+      planData: planTitle ? {id, label, price, rate, reward, rewardPerDay, totalPeriod, cryptoType, date: new Date(), purchaseDate: new Date()} : null,  // Include plan data if the deposit is for a plan
     };
 
     // Save the transaction under the user's transactions array

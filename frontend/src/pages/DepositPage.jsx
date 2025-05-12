@@ -48,7 +48,7 @@ const DepositPage = () => {
     const ETH_RATE = settings.exchangeRates.ETH
 
     const {
-        planTitle, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod
+        planTitle, price, currency, id, label, rate, reward, rewardPerDay, totalPeriod, cryptoType
     } = location.state || {};
 
     const [selectedCoin, setSelectedCoin] = useState(currency || "");
@@ -140,6 +140,8 @@ const DepositPage = () => {
                 formData.append("reward", reward);
                 formData.append("rewardPerDay", rewardPerDay);
                 formData.append("totalPeriod", totalPeriod);
+                formData.append("cryptoType", cryptoType);
+                
             }
 
             let equivalentAmount = 0;

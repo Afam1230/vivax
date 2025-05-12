@@ -8,7 +8,7 @@ const transactionSchema = new mongoose.Schema({
   equivalentAmount: String, // "btc", "eth", "usdt"
   amount: Number,
   date: { type: Date, default: Date.now },
-  details: String,
+  details:{ type: mongoose.Schema.Types.Mixed},
   proofImage: { type: String, default: null }, // URL for proof of transfer
   status: { type: String, enum: ["pending", "successful", "unsuccessful"], default: "pending" },
   Deposit: { type: Boolean, default: true },
