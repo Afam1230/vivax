@@ -39,21 +39,21 @@ const WithdrawPage = () => {
     fetchSettings();
   }, []);
 
-  useEffect(() => {
-    const amt = parseFloat(amount) || 0;
-    let feeValue = amt * WITHDRAW_FEE_PERCENT / 100;
+useEffect(() => {
+  const amt = parseFloat(amount) || 0;
+  let feeValue = amt * WITHDRAW_FEE_PERCENT / 100;
 
-    if (withdrawMethod === "crypto") {
-      setFee(feeValue.toFixed(8));
-      setPayable((amt - feeValue).toFixed(8));
-    } else if (withdrawMethod === "bank") {
-      // Calculate fee and payable amount in USD if bank wire is selected
-      const amtInUSD = getUsdEquivalent(coin, amt); // Convert crypto amount to USD
-      feeValue = amtInUSD * WITHDRAW_FEE_PERCENT / 100;
-      setFee(feeValue.toFixed(2)); // Fee in USD
-      setPayable((amtInUSD - feeValue).toFixed(2)); // Payable in USD
-    }
-  }, [amount, withdrawMethod]);
+  if (withdrawMethod === "crypto") {
+    setFee(feeValue.toFixed(8));
+    setPayable((amt - feeValue).toFixed(8));
+  } else if (withdrawMethod === "bank") {
+    const amtInUSD = getUsdEquivalent(coin, amt);
+    feeValue = amtInUSD * WITHDRAW_FEE_PERCENT / 100;
+    setFee(feeValue.toFixed(2));
+    setPayable((amtInUSD - feeValue).toFixed(2));
+  }
+}, [amount, withdrawMethod, coin]); // ✅ added `coin` here
+
 
   const getUsdEquivalent = (coin, amt) => {
     if (coin === "BTC") return amt * BTC_RATE;

@@ -131,7 +131,7 @@ const PaymentPage = () => {
   };
 
   return (
-    <Box bg="blue.900" p={6} color={'white'} rounded="md" width="400px" mx="auto" mt="10">
+    <Box bg="white.900" p={6} color={'black'} rounded="md" width="auto" mx="auto" mt="10">
       <Text fontSize="xl" fontWeight="bold" mb={4}>Buy Plan</Text>
 
       <Text mb={1}>Plan Title</Text>
@@ -153,7 +153,7 @@ const PaymentPage = () => {
         <option value="deposit">Deposit</option>
       </Select>
 
-      <Button colorScheme="yellow" w="full" onClick={handleBuyNow}>Buy Now</Button>
+      <Button colorScheme="blue" w="full" onClick={handleBuyNow}>Buy Now</Button>
 
       {/* Confirmation Modal */}
       <Modal isOpen={isOpen} onClose={onClose}>

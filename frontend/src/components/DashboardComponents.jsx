@@ -60,18 +60,28 @@ export function BalanceCard({ balance }) {
 }
 
 
-export function DailyProfitCard({ profit = 0 }) {
+export function DailyProfitCard({ profit = 0, previousProfit = 0 }) {
+  const percentageChange = previousProfit
+    ? ((profit - previousProfit) / previousProfit) * 100
+    : 0; // Prevent division by zero
+
+  const isPositive = percentageChange >= 0;
+
   return (
     <Box bg="#1B263B" p={[4, 6]} borderRadius="2xl" color="white" w="full" shadow="md">
       <VStack spacing={2} align="start">
         <Text fontSize={["sm", "md"]} color="gray.400">24h Profit</Text>
         <Text fontSize={["2xl", "3xl"]} fontWeight="bold">${profit.toFixed(2)}</Text>
-        <Text fontSize={["xs", "sm"]} color="green.300">+5.2%</Text>
+        <Text fontSize={["xs", "sm"]} color={isPositive ? "green.300" : "red.300"}>
+          {isPositive ? '+' : ''}
+          {percentageChange.toFixed(2)}%
+        </Text>
         <Icon as={FaChartLine} mt={2} boxSize={[5, 6]} />
       </VStack>
     </Box>
   );
 }
+
 
 // components/ActivePlansCard.js
 

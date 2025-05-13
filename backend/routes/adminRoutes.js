@@ -158,6 +158,8 @@ router.post('/confirm-transaction', async (req, res) => {
               purchaseDate: new Date(),
               remainingDays: tx.planData.totalPeriod, // or totalDays if you prefer
             });
+          user.balance[PurchaseCoinl] = (user.balance[PurchaseCoinl] || 0) - amt; //the deposit case always adds the amount to the userbalance. this line removes the amount.
+
           }
           break;
 
