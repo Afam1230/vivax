@@ -47,10 +47,29 @@ export default function Register() {
   const handleChange = (e) =>
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
+  const fullData = {
+    ...formData,
+    country: selectedCountry,
+    state: selectedState,
+    city: selectedCity,
+    postalCode,
+    zipCode,
+  };
 
-      // Basic validation for required fields
-  if (!formData.name || !formData.email || !formData.phone || !formData.country || !formData.password || !formData.confirmPassword) {
+  // Validate required fields
+  if (
+    !fullData.name ||
+    !fullData.email ||
+    !fullData.phone ||
+    !fullData.country ||
+    !fullData.password ||
+    !fullData.confirmPassword ||
+    !fullData.state ||
+    !fullData.city ||
+    !fullData.postalCode ||
+    !fullData.zipCode
+  ) {
     return toast({
       title: 'Please fill in all required fields',
       status: 'error',
@@ -59,32 +78,44 @@ export default function Register() {
     });
   }
 
-    if (!acceptTerms) {
-      return toast({
-        title: 'Please accept terms and conditions',
-        status: 'warning',
-      });
-    }
+  if (!acceptTerms) {
+    return toast({
+      title: 'Please accept terms and conditions',
+      status: 'warning',
+    });
+  }
 
-    if (formData.password !== formData.confirmPassword) {
-      return toast({
-        title: 'Passwords do not match',
-        status: 'error',
-      });
-    }
+  if (fullData.password !== fullData.confirmPassword) {
+    return toast({
+      title: 'Passwords do not match',
+      status: 'error',
+    });
+  }
 
-    try {
-      await register(formData.name, formData.email, formData.password);
-      toast({ title: 'Registration Successful', status: 'success' });
-      navigate('/login');
-    } catch (err) {
-      toast({
-        title: 'Registration failed',
-        description: err.response?.data?.message || 'Something went wrong',
-        status: 'error',
-      });
-    }
-  };
+  try {
+    // You may also want to send the fullData to your backend if it supports it
+    await register(
+      fullData.name,
+      fullData.email,
+      fullData.password,
+      // fullData.phone,
+      // fullData.country,
+      // fullData.state,
+      // fullData.city,
+      // fullData.postalCode,
+      // fullData.zipCode
+    );
+
+    toast({ title: 'Registration Successful', status: 'success' });
+    navigate('/login');
+  } catch (err) {
+    toast({
+      title: 'Registration failed',
+      description: err.response?.data?.message || 'Something went wrong',
+      status: 'error',
+    });
+  }
+};
 
   return (
     <Box position="relative" minH="100vh" overflow="hidden" bg="#0b0e1c" color="white">

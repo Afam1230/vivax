@@ -6,7 +6,7 @@ import OperationSettings from '../models/OperationSettings.js'; // Assuming you 
 const router = express.Router();
 
 // in your Express router
-router.get("/run-daily-rewards", async (req, res) => {
+router.post("/run-daily-rewards", async (req, res) => {
   try {
     await distributeDailyRewards();
     res.status(200).send("Daily rewards distributed!");

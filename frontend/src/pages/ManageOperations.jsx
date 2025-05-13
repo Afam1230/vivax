@@ -1,8 +1,12 @@
 import { Box, Heading, Input, Button, VStack, HStack, Text, Spinner } from '@chakra-ui/react';
 import { useState, useEffect } from 'react';
+import { useToast } from '@chakra-ui/react';
+
 import axios from 'axios';
 
 export default function ManageOperations() {
+  // make sure this line is present at the top of your component
+  const toast = useToast();
   const [exchangeRates, setExchangeRates] = useState({ BTC: 0, ETH: 0, USD: 0 });
   const [walletAddresses, setWalletAddresses] = useState({ BTC: '', ETH: '', USD: '' });
   const [transactionCharge, setTransactionCharge] = useState(0);
@@ -101,10 +105,10 @@ export default function ManageOperations() {
           width="200px"
         />
 
-        <Text fontWeight="bold"> WhatsApp link</Text>
+        <Text fontWeight="bold"> support button link</Text>
         <Input
           value={phone}
-          type= "url"
+          type="url"
           onChange={(e) => setphone(e.target.value)}
           width="200px"
         />
@@ -117,6 +121,48 @@ export default function ManageOperations() {
         >
           Save Changes
         </Button>
+<Button
+  mt={4}
+  colorScheme="green"
+  onClick={async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/run-daily-rewards', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!res.ok) {
+        throw new Error('Request failed');
+      }
+
+      toast({
+        title: 'Success',
+        description: 'Daily rewards distributed successfully.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to distribute daily rewards.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }}
+  isLoading={loading}
+>
+  Distribute Daily Rewards
+</Button>
+
+
       </VStack>
     </Box>
   );

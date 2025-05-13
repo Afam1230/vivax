@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, IconButton } from "@chakra-ui/react";
 import { FaWhatsapp } from "react-icons/fa";
+import { RiCustomerService2Line } from "react-icons/ri";
 import ManageOperations from "../pages/ManageOperations";
 import useOperationSettingsStore from "../store/useOperationSettingsStore";
 
@@ -24,8 +25,8 @@ const WhatsAppButton = () => {
         href={settings.phone} // Replace with your WhatsApp number
         target="_blank"
         aria-label="WhatsApp"
-        icon={<FaWhatsapp size="30px" />}
-        colorScheme="green"
+        icon={<RiCustomerService2Line size="30px" />}
+        colorScheme="blue"
         size="lg"
         borderRadius="full"
         boxShadow="lg"
